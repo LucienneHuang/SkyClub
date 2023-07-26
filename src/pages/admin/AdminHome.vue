@@ -1,0 +1,3 @@
+<template>
+  <h2>管理員首頁</h2>
+</template>
