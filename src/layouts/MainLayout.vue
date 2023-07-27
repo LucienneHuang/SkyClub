@@ -58,12 +58,29 @@
       <div class="deco"></div>
     </q-header>
     <!-- 手機螢幕才會有的側邊欄 -->
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered behavior="mobile">
+    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered behavior="mobile" :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-white'">
       <!-- 之後藥補的側邊攔內容 -->
+      <q-scroll-area class="fit">
+          <q-list>
+            <template v-for="(menuItem, index) in menuList" :key="menuItem.to">
+              <q-item  clickable :active="menuItem.label === 'Outbox'" v-ripple :to="menuItem.to">
+                <q-item-section avatar>
+                  <q-icon :name="menuItem.icon" />
+                </q-item-section>
+                <q-item-section>
+                  {{ menuItem.label }}
+                </q-item-section>
+              </q-item>
+              <q-separator :key="'sep' + index"  v-if="menuItem.separator" />
+            </template>
+
+          </q-list>
+        </q-scroll-area>
     </q-drawer>
 
     <q-page-container>
       <router-view />
+
     </q-page-container>
 
     <q-footer class="bg-grey-8 text-white">
@@ -148,19 +165,40 @@
 }
 </style>
 
-<script>
+<script setup>
 import { ref } from 'vue'
+const leftDrawerOpen = ref(false)
 
-export default {
-  setup () {
-    const leftDrawerOpen = ref(false)
-
-    return {
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
+function toggleLeftDrawer () {
+  leftDrawerOpen.value = !leftDrawerOpen.value
 }
+
+const menuList = [
+  {
+    to: '/',
+    label: '首頁',
+    icon: 'home'
+  },
+  {
+    to: '/latestnews',
+    label: '最新消息',
+    icon: 'announcement'
+  },
+  {
+    to: '/realms',
+    label: '區域',
+    icon: 'location_on'
+  },
+  {
+    to: '/trade',
+    label: '交易',
+    icon: 'local_mall'
+  },
+  {
+    to: '/contact',
+    label: '聯絡',
+    icon: 'call'
+  }
+]
+
 </script>

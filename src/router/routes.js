@@ -82,9 +82,9 @@ const routes = [
         }
       },
       {
-        path: 'orders',
-        name: 'OrdersManagement',
-        component: () => import('pages/admin/OrdersManagement.vue'),
+        path: 'sales',
+        name: 'SalesManagement',
+        component: () => import('pages/admin/SalesManagement.vue'),
         meta: {
           title: 'Sky | 全部訂單管理'
         }
@@ -95,6 +95,44 @@ const routes = [
         component: () => import('pages/admin/ContactManagement.vue'),
         meta: {
           title: 'Sky | 聯絡內容查看'
+        }
+      }
+    ]
+  },
+  {
+    path: '/member',
+    component: () => import('layouts/MemberLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'MemberHome',
+        component: () => import('pages/member/MemberHome.vue'),
+        meta: {
+          title: 'Sky | 會員首頁'
+        }
+      },
+      {
+        path: '/products',
+        name: 'ProductsManagement',
+        component: () => import('pages/member/ProductsManagement.vue'),
+        meta: {
+          title: 'Sky | 個人商品管理'
+        }
+      },
+      {
+        path: '/sales',
+        name: 'SalesManagement',
+        component: () => import('pages/member/SalesManagement.vue'),
+        meta: {
+          title: 'Sky | 出售訂單管理'
+        }
+      },
+      {
+        path: '/orders',
+        name: 'OrdersManagement',
+        component: () => import('pages/member/OrdersManagement.vue'),
+        meta: {
+          title: 'Sky | 購買訂單查詢'
         }
       }
     ]

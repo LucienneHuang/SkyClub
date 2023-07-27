@@ -85,14 +85,6 @@
       text-shadow: black 0 0 0.2em;
     }
   }
-
-}
-
-@media(min-width:768px){
-
-}
-
-  @media(min-width:1200px){
 }
 </style>
 <script setup>

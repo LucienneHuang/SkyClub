@@ -73,7 +73,7 @@
   }
   .login{
     width: 20rem;
-    height:20rem;
+    height:18rem;
     background: transparent;
     backdrop-filter: blur(15px);
     .login-btn{
@@ -90,13 +90,6 @@
 
 }
 
-@media(min-width:768px){
-
-}
-
-  @media(min-width:1200px){
-
-}
 </style>
 <script setup>
 import { ref } from 'vue'
