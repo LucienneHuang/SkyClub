@@ -69,7 +69,8 @@
   background: url('../../assets/login_bg.jpg') no-repeat center/cover;
   .row{
     width:100%;
-    height: 100%;
+    /* 即為 100vh - toolbar預設的高度 50px */
+    height: calc(100% - 50px);
   }
   .login{
     width: 20rem;
