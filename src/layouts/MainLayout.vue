@@ -99,7 +99,7 @@
 <style lang="scss" scoped>
 
 .q-header{
-  width: 100vw;
+  width: 100%;
   height: 20rem;
   background-image: url('../assets/front.png');
   background-repeat: no-repeat;
