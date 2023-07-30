@@ -38,26 +38,31 @@
     <!-- 本體 -->
     <div class="row flex-center">
       <div class="login q-card q-pa-xs">
-        <div class="q-card-section q-px-lg">
-          <div class="title text-center text-h4 q-py-md">登入會員</div>
-          <q-input class="q-mb-xs" v-model="emailText" label="Email" hint="請輸入信箱" hide-hint filled dense clearable hide-bottom-space clear-icon="backspace">
-            <template #prepend>
-              <q-icon name="mail"></q-icon>
-            </template>
-          </q-input>
-          <q-input class="q-mb-xs" type="password" label="Password" hint="請輸入密碼" hide-hint filled dense hide-bottom-space>
-            <template #prepend>
-              <q-icon name="vpn_key"></q-icon>
-            </template>
-          </q-input>
-        </div>
-        <q-card-actions class="q-mt-md q-px-lg" vertical>
-          <q-btn flat label="login" class="login-btn" color="white" style="background: #A6D8D4;font-family: 'Playfair Display', serif;"></q-btn>
-          <q-card-actions align="center">
-            <q-btn label="快速登入" flat></q-btn>
-            <q-btn label="註冊會員" to="/register" flat></q-btn>
+        <!-- 登入表單 -->
+        <q-form @submit.prevent="login">
+          <div class="q-card-section q-px-lg">
+            <div class="title text-center text-h4 q-py-md">登入會員</div>
+            <!-- 信箱 -->
+            <q-input class="q-mb-xs" v-model="loginForm.email" :rules="[rules.required,rules.email]" type="email" label="Email" hint="請輸入信箱" hide-hint filled dense clearable hide-bottom-space clear-icon="backspace">
+              <template #prepend>
+                <q-icon name="mail"></q-icon>
+              </template>
+            </q-input>
+            <!-- 密碼 -->
+            <q-input class="q-mb-xs" v-model="loginForm.password" :rules="[rules.required,rules.min,rules.max]" type="password" label="Password" hint="請輸入密碼" hide-hint filled dense hide-bottom-space>
+              <template #prepend>
+                <q-icon name="vpn_key"></q-icon>
+              </template>
+            </q-input>
+          </div>
+          <q-card-actions class="q-mt-md q-px-lg" vertical>
+            <q-btn flat label="login" type="submit" class="login-btn" color="white" style="background: #A6D8D4;font-family: 'Playfair Display', serif;"></q-btn>
+            <q-card-actions align="center">
+              <q-btn label="快速登入" flat></q-btn>
+              <q-btn label="註冊會員" to="/register" flat></q-btn>
+            </q-card-actions>
           </q-card-actions>
-        </q-card-actions>
+        </q-form>
       </div>
     </div>
   </div>
@@ -93,6 +98,41 @@
 
 </style>
 <script setup>
-import { ref } from 'vue'
-const emailText = ref('')
+import { reactive } from 'vue'
+import validator from 'validator'
+import { api } from '../../boot/axios.js'
+import { useRouter } from 'vue-router'
+import sweetalert from 'sweetalert2'
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
+const router = useRouter()
+
+const loginForm = reactive({
+  email: '',
+  password: ''
+})
+
+const rules = {
+  required: (value) => !!value || '欄位必填',
+  email: (value) => validator.isEmail(value) || '信箱格式錯誤',
+  min: (value) => value.length >= 4 || '長度必須大於 4 個字',
+  max: (value) => value.length <= 20 || '長度必須小於 20 個字'
+}
+const login = async () => {
+  try {
+    await api.post('/users/login', loginForm)
+    await sweetalert.fire({
+      icon: 'success',
+      title: '成功',
+      text: '登入成功'
+    })
+    router.push('/')
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: error.response.data.message
+    })
+  }
+}
 </script>

@@ -39,7 +39,7 @@
     <div class="row flex-center">
       <div class="rg q-card q-pa-xs">
         <!-- 註冊表單 -->
-        <q-form v-model="valid" @submit.prevent="register" ref="form">
+        <q-form @submit.prevent="register" ref="form">
           <div class="q-card-section q-px-lg">
             <div class="title text-center text-h4 q-py-md">註冊會員</div>
             <!-- 信箱 -->
@@ -112,7 +112,6 @@ const $q = useQuasar()
 
 const router = useRouter()
 
-const valid = ref(false)
 const registerForm = reactive({
   email: '',
   password: '',
