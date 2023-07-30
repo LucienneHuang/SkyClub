@@ -27,6 +27,12 @@
             <q-item clickable to="/login">
               <q-item-section>登入</q-item-section>
             </q-item>
+            <q-item clickable>
+              <q-item-section>登出</q-item-section>
+            </q-item>
+            <q-item clickable>
+              <q-item-section>購物車</q-item-section>
+            </q-item>
             <q-separator inset />
             <q-item clickable to="/">
               <q-item-section>回首頁</q-item-section>
@@ -100,13 +106,15 @@
 <script setup>
 import { reactive } from 'vue'
 import validator from 'validator'
-import { api } from '../../boot/axios.js'
+import { api } from 'src/boot/axios.js'
 import { useRouter } from 'vue-router'
 import sweetalert from 'sweetalert2'
 import { useQuasar } from 'quasar'
+import { useUserStore } from 'src/stores/user.js'
 
 const $q = useQuasar()
 const router = useRouter()
+const user = useUserStore()
 
 const loginForm = reactive({
   email: '',
@@ -121,11 +129,19 @@ const rules = {
 }
 const login = async () => {
   try {
-    await api.post('/users/login', loginForm)
+    const { data } = await api.post('/users/login', loginForm)
     await sweetalert.fire({
       icon: 'success',
       title: '成功',
       text: '登入成功'
+    })
+    user.login({
+      // 對照後端
+      // data 放在 result 裡面所以要寫成 data.result.xx
+      token: data.result.token,
+      email: data.result.email,
+      cart: data.result.cart,
+      role: data.result.role
     })
     router.push('/')
   } catch (error) {
