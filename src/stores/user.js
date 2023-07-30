@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 // import { LocalStorage } from 'quasar'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import UserRole from 'src/enums/UserRole'
+// composition api 寫法
 
+// state 就是 ref or reactive
+// actions 就是一般的 function
+// getter 就是 computed
 export const useUserStore = defineStore('user', () => {
-  // composition api 寫法
-
   // token 預設為空
   const token = ref('')
   // 信箱預設為空
@@ -22,11 +24,25 @@ export const useUserStore = defineStore('user', () => {
     cart.value = data.cart
     role.value = data.role
   }
+
+  const isLogin = computed(() => {
+    return token.value.length > 0
+  })
+  const isAdmin = computed(() => {
+    return role.value === UserRole.ADMIN
+  })
   return {
     token,
     email,
     cart,
     role,
-    login
+    login,
+    isLogin,
+    isAdmin
+  }
+}, {
+  persist: {
+    key: 'Sky',
+    paths: ['token']
   }
 })
