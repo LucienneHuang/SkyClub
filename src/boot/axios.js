@@ -8,6 +8,7 @@ import axios from 'axios'
 // "export default () => {}" function below (which runs individually
 // for each client)
 const api = axios.create({ baseURL: import.meta.env.VITE_API })
+// 用這個傳 jwt 的請求
 const apiAuth = axios.create({ baseURL: import.meta.env.VITE_API })
 
 export default boot(({ app }) => {
