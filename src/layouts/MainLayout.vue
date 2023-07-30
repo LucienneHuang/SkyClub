@@ -46,6 +46,12 @@
             <q-item clickable to="/login">
               <q-item-section>登入</q-item-section>
             </q-item>
+            <q-item clickable>
+              <q-item-section>登出</q-item-section>
+            </q-item>
+            <q-item clickable>
+              <q-item-section>購物車</q-item-section>
+            </q-item>
             <q-separator inset />
             <q-item clickable to="/">
               <q-item-section>回首頁</q-item-section>
