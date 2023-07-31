@@ -1,46 +1,63 @@
+// login: true / false 需要登入 / 不需要登入
+// admin: true / false 需要管理員 / 不需要管理員
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
+        // 首頁不需要登入和管理員權限就能看
         path: '',
         name: 'home',
-        component: () => import('pages/front/HomePage.vue'),
+        component: () => import(/* webpackChunkName: "home" */'pages/front/HomePage.vue'),
         meta: {
-          title: 'Sky'
+          title: 'Sky',
+          login: false,
+          admin: false
         }
       },
       {
+        // 最新消息不需要登入和管理員權限就能看
         path: '/latestnews',
         name: 'lastestnews',
-        component: () => import('pages/front/LatestNews.vue'),
+        component: () => import(/* webpackChunkName: "lastestnews" */'pages/front/LatestNews.vue'),
         meta: {
-          title: 'Sky | 最新消息'
+          title: 'Sky | 最新消息',
+          login: false,
+          admin: false
         }
       },
       {
+        // 區域不需要登入和管理員權限就能看
         path: '/realms',
         name: 'realms',
-        component: () => import('pages/front/SkyRealms.vue'),
+        component: () => import(/* webpackChunkName: "realms" */'pages/front/SkyRealms.vue'),
         meta: {
-          title: 'Sky | 區域'
+          title: 'Sky | 區域',
+          login: false,
+          admin: false
         }
       },
       {
+        // 交易需要登入才能看 不需要管理員權限
         path: '/trade',
         name: 'trade',
-        component: () => import('pages/front/SkyTrade.vue'),
+        component: () => import(/* webpackChunkName: "trade" */'pages/front/SkyTrade.vue'),
         meta: {
-          title: 'Sky | 交易'
+          title: 'Sky | 交易',
+          login: true,
+          admin: false
         }
       },
       {
+        // 聯絡我們不需要登入和管理員權限就能看
         path: '/contact',
         name: 'contact',
-        component: () => import('pages/front/ContactPage.vue'),
+        component: () => import(/* webpackChunkName: "contact" */'pages/front/ContactPage.vue'),
         meta: {
-          title: 'Sky | 聯絡我們'
+          title: 'Sky | 聯絡我們',
+          login: false,
+          admin: false
         }
       }
     ]
@@ -52,49 +69,61 @@ const routes = [
       {
         path: '',
         name: 'AdminHome',
-        component: () => import('pages/admin/AdminHome.vue'),
+        component: () => import(/* webpackChunkName: "AdminHome" */'pages/admin/AdminHome.vue'),
         meta: {
-          title: 'Sky | 管理員首頁'
+          title: 'Sky | 管理員首頁',
+          login: true,
+          admin: true
         }
       },
       {
         path: 'members',
         name: 'MemberManagement',
-        component: () => import('pages/admin/MemberManagement.vue'),
+        component: () => import(/* webpackChunkName: "AdminMemberManagement" */'pages/admin/MemberManagement.vue'),
         meta: {
-          title: 'Sky | 會員資料管理'
+          title: 'Sky | 會員資料管理',
+          login: true,
+          admin: true
         }
       },
       {
         path: 'realms',
         name: 'RealmsManagement',
-        component: () => import('pages/admin/RealmsManagement.vue'),
+        component: () => import(/* webpackChunkName: "AdminRealmsManagement" */'pages/admin/RealmsManagement.vue'),
         meta: {
-          title: 'Sky | 區域介紹管理'
+          title: 'Sky | 區域介紹管理',
+          login: true,
+          admin: true
         }
       },
       {
         path: 'products',
         name: 'ProductsManagement',
-        component: () => import('pages/admin/ProductsManagement.vue'),
+        component: () => import(/* webpackChunkName: "AdminProductsManagement" */'pages/admin/ProductsManagement.vue'),
         meta: {
-          title: 'Sky | 全部商品管理'
+          title: 'Sky | 全部商品管理',
+          login: true,
+          admin: true
         }
       },
       {
         path: 'sales',
         name: 'SalesManagement',
-        component: () => import('pages/admin/SalesManagement.vue'),
+        component: () => import(/* webpackChunkName: "AdminSalesManagement" */'pages/admin/SalesManagement.vue'),
         meta: {
-          title: 'Sky | 全部訂單管理'
+          title: 'Sky | 全部訂單管理',
+          login: true,
+          admin: true
         }
       },
       {
         path: 'contact',
         name: 'ContactManagement',
-        component: () => import('pages/admin/ContactManagement.vue'),
+        component: () => import(/* webpackChunkName: "AdminContactManagement" */'pages/admin/ContactManagement.vue'),
         meta: {
-          title: 'Sky | 聯絡內容查看'
+          title: 'Sky | 聯絡內容查看',
+          login: true,
+          admin: true
         }
       }
     ]
@@ -106,33 +135,41 @@ const routes = [
       {
         path: '',
         name: 'MemberHome',
-        component: () => import('pages/member/MemberHome.vue'),
+        component: () => import(/* webpackChunkName: "MemberHome" */'pages/member/MemberHome.vue'),
         meta: {
-          title: 'Sky | 會員首頁'
+          title: 'Sky | 會員首頁',
+          login: true,
+          admin: false
         }
       },
       {
         path: '/products',
         name: 'ProductsManagement',
-        component: () => import('pages/member/ProductsManagement.vue'),
+        component: () => import(/* webpackChunkName: "MemberProductsManagement" */'pages/member/ProductsManagement.vue'),
         meta: {
-          title: 'Sky | 個人商品管理'
+          title: 'Sky | 個人商品管理',
+          login: true,
+          admin: false
         }
       },
       {
         path: '/sales',
         name: 'SalesManagement',
-        component: () => import('pages/member/SalesManagement.vue'),
+        component: () => import(/* webpackChunkName: "MemberSalesManagement" */'pages/member/SalesManagement.vue'),
         meta: {
-          title: 'Sky | 出售訂單管理'
+          title: 'Sky | 出售訂單管理',
+          login: true,
+          admin: false
         }
       },
       {
         path: '/orders',
         name: 'OrdersManagement',
-        component: () => import('pages/member/OrdersManagement.vue'),
+        component: () => import(/* webpackChunkName: "MemberOrdersManagement" */'pages/member/OrdersManagement.vue'),
         meta: {
-          title: 'Sky | 購買訂單查詢'
+          title: 'Sky | 購買訂單查詢',
+          login: true,
+          admin: false
         }
       }
     ]
@@ -140,17 +177,21 @@ const routes = [
   {
     path: '/register',
     name: 'register',
-    component: () => import('pages/front/RegisterPage.vue'),
+    component: () => import(/* webpackChunkName: "register" */'pages/front/RegisterPage.vue'),
     meta: {
-      title: 'Sky | 註冊'
+      title: 'Sky | 註冊',
+      login: false,
+      admin: false
     }
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('pages/front/LoginPage.vue'),
+    component: () => import(/* webpackChunkName: "login" */'pages/front/LoginPage.vue'),
     meta: {
-      title: 'Sky | 登入'
+      title: 'Sky | 登入',
+      login: false,
+      admin: false
     }
   },
 
@@ -158,7 +199,7 @@ const routes = [
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/ErrorNotFound.vue'),
+    component: () => import(/* webpackChunkName: "error" */'pages/ErrorNotFound.vue'),
     meta: {
       title: 'Sky | Error Not Found'
     }
