@@ -140,11 +140,14 @@ const login = async () => {
       // data 放在 result 裡面所以要寫成 data.result.xx
       token: data.result.token,
       email: data.result.email,
+      nickname: data.result.nickname,
+      avatar: data.result.avatar,
       cart: data.result.cart,
       role: data.result.role
     })
     router.push('/')
   } catch (error) {
+    console.log(error)
     $q.notify({
       type: 'negative',
       message: error.response.data.message
