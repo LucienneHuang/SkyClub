@@ -30,7 +30,7 @@ apiAuth.interceptors.request.use(config => {
 
   // 這段的意思是在送出請求之前，我在設定的 headers 的驗證 加上我們的 token
   // token 要從 store 裡面取
-  config.headers.authorization = 'Bearer' + user.token
+  config.headers.authorization = 'Bearer ' + user.token
   return config
 })
 
