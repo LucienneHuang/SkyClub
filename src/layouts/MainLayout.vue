@@ -1,8 +1,8 @@
 <template>
-  <q-layout view="hhh Lpr fff">
+  <q-layout @scroll="navbaranimation" view="hhh Lpr fff">
     <q-header class="text-white " height-hint="98">
       <!-- 上層的 bar -->
-      <q-toolbar class="row q-mt-md">
+      <q-toolbar id="navbar" class="row q-py-md">
         <q-btn class="menuBtn" dense flat round icon="menu" @click="toggleLeftDrawer" />
         <q-toolbar-title class="col-md-2">
           <!-- 左側 logo -->
@@ -25,25 +25,30 @@
         <!-- 右側 -->
         <!-- 之後再刻 遊客/會員/管理員 -->
         <q-btn class="q-ml-auto" flat round dense>
-        <q-avatar>
-          <img src="https://source.boringavatars.com/beam/250/Maria%20Mitchell?colors=264653,2a9d8f,e9c46a,f4a261,e76f51">
-        </q-avatar>
-        <q-menu square class="bg-primary text-center">
-          <q-list dense>
-            <q-item clickable>
-              <q-item-section >{{ user.nickname }}</q-item-section>
-            </q-item>
-            <q-separator inset />
-            <q-item  v-for="menuItem in menuList" :key="menuItem.to" clickable :to="menuItem.to">
-                <q-item-section>{{ menuItem.label }}</q-item-section>
-            </q-item>
-            <q-separator inset />
-            <q-item clickable>
-              <q-item-section herf="#">回首頁</q-item-section>
-            </q-item>
-          </q-list>
-        </q-menu>
-      </q-btn>
+          <q-avatar>
+            <img :src="user.avatar">
+          </q-avatar>
+          <q-menu square class="bg-primary text-center">
+            <q-list dense>
+              <q-item clickable>
+                <q-item-section >{{ user.nickname }}</q-item-section>
+              </q-item>
+              <q-separator inset />
+              <template v-for="menuItem in menuList" :key="menuItem.to">
+                <q-item v-if="menuItem.show" clickable :to="menuItem.to">
+                  <q-item-section>{{ menuItem.label }}</q-item-section>
+                </q-item>
+              </template>
+              <q-item clickable v-if="isLogin" @click="logout">
+                <q-item-section >登出</q-item-section>
+              </q-item>
+              <q-separator inset />
+              <q-item clickable href="#">
+                <q-item-section>回首頁</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-btn>
       </q-toolbar>
       <!-- 波浪背景 -->
       <div class="deco"></div>
@@ -88,15 +93,20 @@
 </template>
 
 <style lang="scss" scoped>
-
+.solid-nav {
+    background-color: #6d67a1;
+    transition: background-color 0.2s linear;
+  }
 .q-header{
   width: 100%;
   height: 20rem;
   background-image: url('../assets/front.png');
   background-repeat: no-repeat;
   background-size:  cover;
+  z-index: 0;
   .q-toolbar{
     position: fixed;
+    z-index: 100;
   }
   .q-tab__label{
     font-size: 18px;
@@ -160,6 +170,12 @@
 import { computed, ref } from 'vue'
 import { useUserStore } from 'src/stores/user'
 import { storeToRefs } from 'pinia'
+import { apiAuth } from 'src/boot/axios'
+import sweetalert from 'sweetalert2'
+import { useQuasar } from 'quasar'
+// import $ from 'jquery'
+
+const $q = useQuasar()
 
 const user = useUserStore()
 // btw 下面這樣寫會失去響應性
@@ -205,35 +221,54 @@ const menuList = computed(() => {
     {
       to: '/admin',
       label: '管理後台',
-      show: isLogin && isAdmin
+      show: isLogin.value && isAdmin.value
     },
     {
       to: '/member',
       label: '會員後台',
-      show: isLogin
+      show: isLogin.value && !isAdmin.value
     },
     {
       to: '/register',
       label: '註冊',
-      show: !isLogin
+      show: !isLogin.value
     },
     {
       to: '/login',
       label: '登入',
-      show: !isLogin
-    },
-    {
-      to: '/logout',
-      label: '登出',
-      show: isLogin
-    },
-    {
+      show: !isLogin.value
+    }, {
       to: '/cart',
       label: '購物車',
-      show: isLogin
+      show: isLogin.value && !isAdmin.value
     }
-
   ]
 })
 
+const logout = async () => {
+  try {
+    await apiAuth.delete('/users/logout')
+    user.logout()
+    await sweetalert.fire({
+      icon: 'success',
+      title: '成功',
+      text: '登出成功'
+    })
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: error.response.data.message
+    })
+  }
+}
+
+const navbaranimation = () => {
+  const navbar = document.querySelector('#navbar')
+  console.log(window.scrollY)
+  if (window.scrollY > 40) {
+    navbar.classList.add('solid-nav')
+  } else {
+    navbar.classList.remove('solid-nav')
+  }
+}
 </script>
