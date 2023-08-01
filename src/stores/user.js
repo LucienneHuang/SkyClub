@@ -56,6 +56,15 @@ export const useUserStore = defineStore('user', () => {
   const isAdmin = computed(() => {
     return role.value === UserRole.ADMIN
   })
+
+  const logout = () => {
+    token.value = ''
+    email.value = ''
+    nickname.value = '遊客'
+    avatar.value = 'https://source.boringavatars.com/beam/250/guest?colors=264653,2a9d8f,e9c46a,f4a261,e76f51'
+    cart.value = 0
+    role.value = UserRole.USER
+  }
   return {
     token,
     email,
@@ -66,7 +75,8 @@ export const useUserStore = defineStore('user', () => {
     login,
     isLogin,
     isAdmin,
-    getProfile
+    getProfile,
+    logout
   }
 }, {
   persist: {
