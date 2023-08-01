@@ -14,7 +14,7 @@
         <q-avatar size="8rem" class="q-mb-lg">
           <img :src="user.avatar">
         </q-avatar>
-        <div class="text-weight-bold text-h4 text-white">{{ user.nickname }}</div>
+        <div class="text-weight-bold text-h4 text-white name"><a href="#/admin">{{ user.nickname }}</a></div>
         <q-separator inset />
       </div>
 
@@ -25,12 +25,12 @@
                 <q-separator inset />
               </q-item-section>
             </q-item>
-            <q-item clickable v-ripple>
+            <q-item to="/admin/members" clickable v-ripple>
               <q-item-section >
                 會員資料管理
               </q-item-section>
             </q-item>
-            <q-item clickable v-ripple>
+            <q-item to="/admin/latestnews" clickable v-ripple>
               <q-item-section>
                 最新消息管理
               </q-item-section>
@@ -75,7 +75,18 @@
   </q-layout>
 </template>
 <style lang="scss" scoped>
-
+.name a{
+  text-decoration: none;
+  color: white;
+}
+.q-item__section:not(:first-child){
+    font-weight: 700;
+    font-size: 1.2rem;
+    background: white;
+    text-align: center;
+    border-radius:3rem;
+    height: 2.8rem;
+  }
 @media(min-width:768px){
   .menuBtn{
     display: none;
@@ -86,14 +97,7 @@
       display: none;
     }
   }
-  .q-item__section:not(:first-child){
-    font-weight: 700;
-    font-size: 1.2rem;
-    background: white;
-    text-align: center;
-    border-radius:3rem;
-    height: 2.8rem;
-  }
+
 }
 </style>
 <script setup>
