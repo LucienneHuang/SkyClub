@@ -87,6 +87,16 @@ const routes = [
         }
       },
       {
+        path: 'latestnews',
+        name: 'LatestNewsManagement',
+        component: () => import(/* webpackChunkName: "LatestNewsManagement" */'pages/admin/LatestNewsManagement.vue'),
+        meta: {
+          title: 'Sky | 最新消息管理',
+          login: true,
+          admin: true
+        }
+      },
+      {
         path: 'realms',
         name: 'RealmsManagement',
         component: () => import(/* webpackChunkName: "AdminRealmsManagement" */'pages/admin/RealmsManagement.vue'),
