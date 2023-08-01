@@ -58,6 +58,11 @@ export default route(function (/* { store, ssrContext } */) {
       // 如果要去的地方要管理員權限，且使用者不是管理員
       // 丟到首頁
       next('/')
+    } else if (to.meta.login && !to.meta.admin && user.isAdmin) {
+      // 如果要去的地方要登入且非管理員，且使用者是管理員
+      // 丟到首頁
+      // 這樣就不會進到 member 介面
+      next('/')
     } else {
       // else 該去哪就去哪，不導向
       next()

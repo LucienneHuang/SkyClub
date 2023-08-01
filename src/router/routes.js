@@ -45,7 +45,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "trade" */'pages/front/SkyTrade.vue'),
         meta: {
           title: 'Sky | 交易',
-          login: true,
+          login: false,
           admin: false
         }
       },
