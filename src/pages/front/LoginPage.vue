@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container q-pt-md">
     <!-- 最上層隱形工具列 -->
     <q-toolbar class="text-white q-px-lg" style="height: 50px;">
       <!-- 頭貼按鈕 -->
@@ -9,29 +9,14 @@
           <img src="https://source.boringavatars.com/beam/250/Maria%20Mitchell?colors=264653,2a9d8f,e9c46a,f4a261,e76f51">
         </q-avatar>
         <!-- 按頭貼後出現的下拉式 menu -->
-        <q-menu square class="bg-primary">
+        <q-menu square class="bg-primary text-center">
           <q-list dense>
             <q-item clickable>
-              <q-item-section>USER</q-item-section>
+              <q-item-section>遊客</q-item-section>
             </q-item>
             <q-separator inset />
-            <q-item clickable to="/admin">
-              <q-item-section>管理後台</q-item-section>
-            </q-item>
-            <q-item clickable to="/member">
-              <q-item-section>會員後台</q-item-section>
-            </q-item>
-            <q-item clickable to="/register">
-              <q-item-section>註冊</q-item-section>
-            </q-item>
-            <q-item clickable to="/login">
-              <q-item-section>登入</q-item-section>
-            </q-item>
-            <q-item clickable>
-              <q-item-section>登出</q-item-section>
-            </q-item>
-            <q-item clickable>
-              <q-item-section>購物車</q-item-section>
+            <q-item v-for="navItem in navList" clickable :to="navItem.to" :key="navItem.to">
+              <q-item-section>{{ navItem.label }}</q-item-section>
             </q-item>
             <q-separator inset />
             <q-item clickable to="/">
@@ -147,11 +132,38 @@ const login = async () => {
     })
     router.push('/')
   } catch (error) {
-    console.log(error)
     $q.notify({
       type: 'negative',
       message: error.response.data.message
     })
   }
 }
+
+const navList = [
+  {
+    to: '/',
+    label: '首頁',
+    icon: 'home'
+  },
+  {
+    to: '/latestnews',
+    label: '最新消息',
+    icon: 'announcement'
+  },
+  {
+    to: '/realms',
+    label: '區域',
+    icon: 'location_on'
+  },
+  {
+    to: '/trade',
+    label: '交易',
+    icon: 'local_mall'
+  },
+  {
+    to: '/contact',
+    label: '聯絡',
+    icon: 'call'
+  }
+]
 </script>

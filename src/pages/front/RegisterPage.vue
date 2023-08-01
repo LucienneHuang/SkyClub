@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container q-pt-md">
     <!-- 上層的隱形 toolbar -->
     <q-toolbar class="text-white q-px-lg" style="height: 50px;">
       <!-- 最右側的 btn -->
@@ -16,23 +16,8 @@
               <q-item-section >USER</q-item-section>
             </q-item>
             <q-separator inset />
-            <q-item clickable to="/admin">
-              <q-item-section>管理後台</q-item-section>
-            </q-item>
-            <q-item clickable to="/member">
-              <q-item-section>會員後台</q-item-section>
-            </q-item>
-            <q-item clickable to="/register">
-              <q-item-section>註冊</q-item-section>
-            </q-item>
-            <q-item clickable to="/login">
-              <q-item-section>登入</q-item-section>
-            </q-item>
-            <q-item clickable>
-              <q-item-section>登出</q-item-section>
-            </q-item>
-            <q-item clickable>
-              <q-item-section>購物車</q-item-section>
+            <q-item v-for="navItem in navList" clickable :to="navItem.to" :key="navItem.to">
+              <q-item-section>{{ navItem.label }}</q-item-section>
             </q-item>
             <q-separator inset />
             <q-item clickable to="/">
@@ -160,4 +145,31 @@ const register = async () => {
     })
   }
 }
+const navList = [
+  {
+    to: '/',
+    label: '首頁',
+    icon: 'home'
+  },
+  {
+    to: '/latestnews',
+    label: '最新消息',
+    icon: 'announcement'
+  },
+  {
+    to: '/realms',
+    label: '區域',
+    icon: 'location_on'
+  },
+  {
+    to: '/trade',
+    label: '交易',
+    icon: 'local_mall'
+  },
+  {
+    to: '/contact',
+    label: '聯絡',
+    icon: 'call'
+  }
+]
 </script>
