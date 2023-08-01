@@ -36,7 +36,7 @@ export const useUserStore = defineStore('user', () => {
     // 如果 === 0 代表他沒有存任何的 token，就不需要執行
     if (token.value.length === 0) return
     try {
-      // 去後端的 /users/me 取資料
+      // 去後端的 /users/profile 取資料
       const { data } = await apiAuth.get('/users/profile')
       email.value = data.result.email
       nickname.value = data.result.nickname
@@ -46,8 +46,7 @@ export const useUserStore = defineStore('user', () => {
     } catch (error) {
       // 如果 token !== 0，但又發生錯誤，可能是他的 token 過期了
       // 把他重設就好惹
-      console.log(error)
-      // token.value = ''
+      token.value = ''
     }
   }
 
