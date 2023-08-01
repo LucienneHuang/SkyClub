@@ -31,30 +31,15 @@
         <q-menu square class="bg-primary text-center">
           <q-list dense>
             <q-item clickable>
-              <q-item-section >USER</q-item-section>
+              <q-item-section >{{ user.nickname }}</q-item-section>
             </q-item>
             <q-separator inset />
-            <q-item clickable to="/admin">
-              <q-item-section>管理後台</q-item-section>
-            </q-item>
-            <q-item clickable to="/member">
-              <q-item-section>會員後台</q-item-section>
-            </q-item>
-            <q-item clickable to="/register">
-              <q-item-section>註冊</q-item-section>
-            </q-item>
-            <q-item clickable to="/login">
-              <q-item-section>登入</q-item-section>
-            </q-item>
-            <q-item clickable>
-              <q-item-section>登出</q-item-section>
-            </q-item>
-            <q-item clickable>
-              <q-item-section>購物車</q-item-section>
+            <q-item  v-for="menuItem in menuList" :key="menuItem.to" clickable :to="menuItem.to">
+                <q-item-section>{{ menuItem.label }}</q-item-section>
             </q-item>
             <q-separator inset />
-            <q-item clickable to="/">
-              <q-item-section>回首頁</q-item-section>
+            <q-item clickable>
+              <q-item-section herf="#">回首頁</q-item-section>
             </q-item>
           </q-list>
         </q-menu>
@@ -68,16 +53,16 @@
       <!-- 之後藥補的側邊攔內容 -->
       <q-scroll-area class="fit">
           <q-list>
-            <template v-for="(menuItem, index) in menuList" :key="menuItem.to">
-              <q-item  clickable :active="menuItem.label === 'Outbox'" v-ripple :to="menuItem.to">
+            <template v-for="(navItem, index) in navList" :key="navItem.to">
+              <q-item  clickable :active="navItem.label === 'Outbox'" v-ripple :to="navItem.to">
                 <q-item-section avatar>
-                  <q-icon :name="menuItem.icon" />
+                  <q-icon :name="navItem.icon" />
                 </q-item-section>
                 <q-item-section>
-                  {{ menuItem.label }}
+                  {{ navItem.label }}
                 </q-item-section>
               </q-item>
-              <q-separator :key="'sep' + index"  v-if="menuItem.separator" />
+              <q-separator :key="'sep' + index"  v-if="navItem.separator" />
             </template>
 
           </q-list>
@@ -172,14 +157,23 @@
 </style>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useUserStore } from 'src/stores/user'
+import { storeToRefs } from 'pinia'
+
+const user = useUserStore()
+// btw 下面這樣寫會失去響應性
+// const { isLogin } = user
+// 所以要寫成這樣才能恢復響應性，沒有解構出來則不會有這個問題
+const { isLogin, isAdmin } = storeToRefs(user)
+
 const leftDrawerOpen = ref(false)
 
 function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 
-const menuList = [
+const navList = [
   {
     to: '/',
     label: '首頁',
@@ -206,5 +200,40 @@ const menuList = [
     icon: 'call'
   }
 ]
+const menuList = computed(() => {
+  return [
+    {
+      to: '/admin',
+      label: '管理後台',
+      show: isLogin && isAdmin
+    },
+    {
+      to: '/member',
+      label: '會員後台',
+      show: isLogin
+    },
+    {
+      to: '/register',
+      label: '註冊',
+      show: !isLogin
+    },
+    {
+      to: '/login',
+      label: '登入',
+      show: !isLogin
+    },
+    {
+      to: '/logout',
+      label: '登出',
+      show: isLogin
+    },
+    {
+      to: '/cart',
+      label: '購物車',
+      show: isLogin
+    }
+
+  ]
+})
 
 </script>
