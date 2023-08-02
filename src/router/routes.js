@@ -153,9 +153,9 @@ const routes = [
         }
       },
       {
-        path: '/products',
-        name: 'ProductsManagement',
-        component: () => import(/* webpackChunkName: "MemberProductsManagement" */'pages/member/ProductsManagement.vue'),
+        path: 'products',
+        name: 'MemberProductsManagement',
+        component: () => import(/* webpackChunkName: "MemberProductsManagement" */'pages/member/MemberProductsManagement.vue'),
         meta: {
           title: 'Sky | 個人商品管理',
           login: true,
@@ -163,9 +163,9 @@ const routes = [
         }
       },
       {
-        path: '/sales',
-        name: 'SalesManagement',
-        component: () => import(/* webpackChunkName: "MemberSalesManagement" */'pages/member/SalesManagement.vue'),
+        path: 'sales',
+        name: 'MemberSalesManagement',
+        component: () => import(/* webpackChunkName: "MemberSalesManagement" */'pages/member/MemberSalesManagement.vue'),
         meta: {
           title: 'Sky | 出售訂單管理',
           login: true,
@@ -173,9 +173,9 @@ const routes = [
         }
       },
       {
-        path: '/orders',
-        name: 'OrdersManagement',
-        component: () => import(/* webpackChunkName: "MemberOrdersManagement" */'pages/member/OrdersManagement.vue'),
+        path: 'orders',
+        name: 'MemberOrdersManagement',
+        component: () => import(/* webpackChunkName: "MemberOrdersManagement" */'pages/member/MemberOrdersManagement.vue'),
         meta: {
           title: 'Sky | 購買訂單查詢',
           login: true,
