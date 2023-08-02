@@ -31,7 +31,7 @@
       <div class="rg q-card q-pa-xs">
         <!-- 註冊表單 -->
         <q-form @submit.prevent="register" ref="form">
-          <div class="q-card-section q-px-lg">
+          <q-card-section class="q-card-section q-px-lg">
             <div class="title text-center text-h4 q-py-md">註冊會員</div>
             <!-- 信箱 -->
             <q-input class="q-mb-xs" v-model="registerForm.email" :rules="[rules.required,rules.email]" type="email" label="Email" hint="請輸入信箱" hide-hint filled dense clearable hide-bottom-space clear-icon="backspace">
@@ -51,7 +51,7 @@
                 <q-icon name="vpn_key"></q-icon>
               </template>
             </q-input>
-          </div>
+          </q-card-section>
           <q-card-actions class="q-mt-md q-px-lg" vertical>
             <q-btn flat label="register" type="submit" class="rg-btn" color="white" style="background: #A6D8D4;font-family: 'Playfair Display', serif;"></q-btn>
             <q-card-actions align="center">
@@ -76,7 +76,7 @@
   }
   .rg{
     width: 20rem;
-    height: 24rem;
+    height: 26rem;
     background: transparent;
     backdrop-filter: blur(15px);
     .rg-btn{
