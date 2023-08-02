@@ -31,7 +31,7 @@
       <div class="login q-card q-pa-xs">
         <!-- 登入表單 -->
         <q-form @submit.prevent="login">
-          <div class="q-card-section q-px-lg">
+          <q-card-section class=" q-px-lg">
             <div class="title text-center text-h4 q-py-md">登入會員</div>
             <!-- 信箱 -->
             <q-input class="q-mb-xs" v-model="loginForm.email" :rules="[rules.required,rules.email]" type="email" label="Email" hint="請輸入信箱" hide-hint filled dense clearable hide-bottom-space clear-icon="backspace">
@@ -45,7 +45,7 @@
                 <q-icon name="vpn_key"></q-icon>
               </template>
             </q-input>
-          </div>
+          </q-card-section>
           <q-card-actions class="q-mt-md q-px-lg" vertical>
             <q-btn flat label="login" type="submit" class="login-btn" color="white" style="background: #A6D8D4;font-family: 'Playfair Display', serif;"></q-btn>
             <q-card-actions align="center">
@@ -70,7 +70,7 @@
   }
   .login{
     width: 20rem;
-    height:18rem;
+    height:22rem;
     background: transparent;
     backdrop-filter: blur(15px);
     .login-btn{
