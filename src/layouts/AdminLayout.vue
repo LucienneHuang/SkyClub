@@ -8,10 +8,10 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer class="bg-primary" show-if-above v-model="leftDrawerOpen" side="left">
+    <q-drawer :breakpoint="991" width="300" class="bg-primary" show-if-above v-model="leftDrawerOpen" side="left">
       <!-- 頭貼名字區 -->
       <div class="absolute-top flex column items-center q-my-xl">
-        <q-avatar size="8rem" class="q-mb-lg">
+        <q-avatar size="8rem" class="q-mb-lg shadow-9">
           <img :src="user.avatar">
         </q-avatar>
         <div class="text-weight-bold text-h4 text-white name"><a href="#/admin">{{ user.nickname }}</a></div>
@@ -35,27 +35,27 @@
                 最新消息管理
               </q-item-section>
             </q-item>
-            <q-item clickable v-ripple>
+            <q-item to="/admin/realms" clickable v-ripple>
               <q-item-section>
                 區域介紹管理
               </q-item-section>
             </q-item>
-            <q-item clickable v-ripple>
+            <q-item to="/admin/products" clickable v-ripple>
               <q-item-section>
                 全部商品管理
               </q-item-section>
             </q-item>
-            <q-item clickable v-ripple>
+            <q-item to="/admin/sales" clickable v-ripple>
               <q-item-section>
                 全部訂單管理
               </q-item-section>
             </q-item>
-            <q-item clickable v-ripple>
+            <q-item to="/admin/contact" clickable v-ripple>
               <q-item-section>
                 聯絡內容查看
               </q-item-section>
             </q-item>
-            <q-item clickable v-ripple>
+            <q-item to="/" clickable v-ripple>
               <q-item-section>
                 回首頁
               </q-item-section>
@@ -87,7 +87,8 @@
     border-radius:3rem;
     height: 2.8rem;
   }
-@media(min-width:768px){
+
+@media(min-width:992px){
   .menuBtn{
     display: none;
   }
