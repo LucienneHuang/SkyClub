@@ -1,4 +1,5 @@
 <template>
+  <div class="star"></div>
   <div class="container q-pt-md">
     <!-- 最上層隱形工具列 -->
     <q-toolbar class="text-white q-px-lg" style="height: 50px;">
@@ -58,11 +59,19 @@
     </div>
   </div>
 </template>
-<style scoped>
+<style lang="scss" scoped>
+.star{
+    width: 100%;
+    height: 100%;
+    background: url('src/assets/star.gif');
+    position: absolute;
+
+  }
 .container {
   width: 100vw;
   height: 100vh;
   background: url('../../assets/login_bg.jpg') no-repeat center/cover;
+
   .row{
     width:100%;
     /* 即為 100vh - toolbar預設的高度 50px */
