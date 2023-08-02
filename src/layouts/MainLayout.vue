@@ -119,7 +119,7 @@
     height: 8rem;
     position: relative;
     top: 12rem;
-    background: url('../assets/deco.png') repeat-x center/cover;
+    background: url('../assets/deco_white.png') repeat-x center/cover;
     &::before{
       content: "";
       width: 100%;
@@ -127,7 +127,7 @@
       display: block;
       position: relative;
       top: -.5rem;
-      background: url('../assets/deco.png') repeat-x center/cover;
+      background: url('../assets/deco_white.png') repeat-x center/cover;
       opacity: 0.5;
     }
   }
