@@ -73,12 +73,9 @@
           </q-list>
         </q-scroll-area>
     </q-drawer>
-
     <q-page-container>
       <router-view />
-
     </q-page-container>
-
     <q-footer class="bg-grey-8 text-white">
       <q-toolbar>
         <q-toolbar-title>
@@ -93,8 +90,9 @@
 </template>
 
 <style lang="scss" scoped>
+// navbar 改背景顏色的 class
 .solid-nav {
-    background-color: #6d67a1;
+    background-color: $accent;
     transition: background-color 0.2s linear;
   }
 .q-header{
@@ -106,10 +104,7 @@
   z-index: 0;
   .q-toolbar{
     position: fixed;
-    z-index: 100;
-  }
-  .q-tab__label{
-    font-size: 18px;
+    z-index: 2147483647;
   }
   .q-tab{
   display: none;
@@ -131,6 +126,9 @@
       opacity: 0.5;
     }
   }
+}
+:deep(.q-tab__label){
+  font-size: 1.2rem;
 }
 @media(min-width:768px){
 .q-header{
@@ -188,7 +186,7 @@ const leftDrawerOpen = ref(false)
 function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
-
+// navbar 的字 & 路徑 & icon
 const navList = [
   {
     to: '/',
@@ -216,6 +214,7 @@ const navList = [
     icon: 'call'
   }
 ]
+// 最右邊頭貼 menu 的文字 & 路徑 & 是否顯示
 const menuList = computed(() => {
   return [
     {
@@ -245,9 +244,11 @@ const menuList = computed(() => {
   ]
 })
 
+// 登出設定
 const logout = async () => {
   try {
     await apiAuth.delete('/users/logout')
+    // 把 user pinia 的資料清除
     user.logout()
     await sweetalert.fire({
       icon: 'success',
@@ -257,7 +258,7 @@ const logout = async () => {
   } catch (error) {
     $q.notify({
       type: 'negative',
-      message: error.response.data.message
+      message: '登出失敗'
     })
   }
 }
