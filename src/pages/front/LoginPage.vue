@@ -7,7 +7,7 @@
       <q-btn class="q-ml-auto" flat round dense>
         <!-- 頭貼設定 -->
         <q-avatar>
-          <img src="https://source.boringavatars.com/beam/250/Maria%20Mitchell?colors=264653,2a9d8f,e9c46a,f4a261,e76f51">
+          <img :src="user.avatar">
         </q-avatar>
         <!-- 按頭貼後出現的下拉式 menu -->
         <q-menu square class="bg-primary text-center">

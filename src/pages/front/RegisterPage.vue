@@ -7,7 +7,7 @@
         <!-- 設定該 btn 的圖 -->
         <q-avatar>
           <!-- 之後再改，先暫訂一張圖 -->
-          <img src="https://source.boringavatars.com/beam/250/Maria%20Mitchell?colors=264653,2a9d8f,e9c46a,f4a261,e76f51">
+          <img :src="user.avatar">
         </q-avatar>
         <!-- 點擊 btn 後出現的 menu，之後還會改 -->
         <q-menu square class="bg-primary text-center">
@@ -98,6 +98,9 @@ import { api } from '../../boot/axios.js'
 import { useRouter } from 'vue-router'
 import sweetalert from 'sweetalert2'
 import { useQuasar } from 'quasar'
+import { useUserStore } from 'src/stores/user.js'
+
+const user = useUserStore()
 
 const $q = useQuasar()
 
