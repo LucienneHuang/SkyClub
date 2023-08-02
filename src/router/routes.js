@@ -108,7 +108,7 @@ const routes = [
       },
       {
         path: 'products',
-        name: 'ProductsManagement',
+        name: 'AdminProductsManagement',
         component: () => import(/* webpackChunkName: "AdminProductsManagement" */'pages/admin/ProductsManagement.vue'),
         meta: {
           title: 'Sky | 全部商品管理',
@@ -118,7 +118,7 @@ const routes = [
       },
       {
         path: 'sales',
-        name: 'SalesManagement',
+        name: 'AdminSalesManagement',
         component: () => import(/* webpackChunkName: "AdminSalesManagement" */'pages/admin/SalesManagement.vue'),
         meta: {
           title: 'Sky | 全部訂單管理',
