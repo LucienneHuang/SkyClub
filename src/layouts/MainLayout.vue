@@ -101,7 +101,7 @@
   background-image: url('../assets/front.png');
   background-repeat: no-repeat;
   background-size:  cover;
-  z-index: 0;
+  z-index: 1;
   .q-toolbar{
     position: fixed;
     z-index: 2147483647;
