@@ -16,7 +16,7 @@ export const useUserStore = defineStore('user', () => {
   // 暱稱預設為遊客
   const nickname = ref('遊客')
   // 預設遊客頭貼
-  const avatar = ref('https://source.boringavatars.com/beam/250/guest?colors=264653,2a9d8f,e9c46a,f4a261,e76f51')
+  const avatar = ref('https://source.boringavatars.com/beam/250/unknown_user?colors=264653,2a9d8f,e9c46a,f4a261,e76f51')
   // 購物車存的是數量，所以是 0
   const cart = ref(0)
   // 判斷管理員還是一般的使用者
@@ -61,7 +61,7 @@ export const useUserStore = defineStore('user', () => {
     token.value = ''
     email.value = ''
     nickname.value = '遊客'
-    avatar.value = 'https://source.boringavatars.com/beam/250/guest?colors=264653,2a9d8f,e9c46a,f4a261,e76f51'
+    avatar.value = 'https://source.boringavatars.com/beam/250/unknown_user?colors=264653,2a9d8f,e9c46a,f4a261,e76f51'
     cart.value = 0
     role.value = UserRole.USER
   }
