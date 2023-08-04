@@ -24,24 +24,9 @@
                 <q-separator inset />
               </q-item-section>
             </q-item>
-            <q-item to="/member/products" clickable v-ripple>
+            <q-item v-for="navItem in navList" :to="navItem.to" :key="navItem.to" clickable v-ripple>
               <q-item-section >
-                個人商品管理
-              </q-item-section>
-            </q-item>
-            <q-item to="/member/sales" clickable v-ripple>
-              <q-item-section>
-                出售訂單管理
-              </q-item-section>
-            </q-item>
-            <q-item to="/member/orders" clickable v-ripple>
-              <q-item-section>
-                購買訂單查詢
-              </q-item-section>
-            </q-item>
-            <q-item to="/" clickable v-ripple>
-              <q-item-section>
-                回首頁
+                {{ navItem.name }}
               </q-item-section>
             </q-item>
             <q-item>
@@ -101,5 +86,23 @@ const leftDrawerOpen = ref(false)
 function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
+
+const navList = [
+  {
+    to: '/member/products',
+    name: '個人商品管理'
+  },
+  {
+    to: '/member/sales',
+    name: '出售訂單管理'
+  },
+  {
+    to: '/member/orders',
+    name: '購買訂單查詢'
+  }, {
+    to: '/',
+    name: '回首頁'
+  }
+]
 
 </script>
