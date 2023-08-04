@@ -1,5 +1,5 @@
 <template>
-  <div id="title" class="q-ml-xl q-my-lg q-pl-lg q-py-sm text-h3 text-weight-bold non-selectable">個人檔案</div>
+  <div id="title" class="q-ml-xl q-my-lg q-pl-lg q-py-sm text-h4 text-weight-bold non-selectable">個人檔案</div>
   <div id="container" class="flex justify-center">
     <q-card class="q-ma-md">
       <q-card-section id="top" align="right" class="bg-secondary text-white">
@@ -37,6 +37,11 @@
     #top{
       height: 5rem;
     }
+  }
+}
+@media(min-width:992px){
+  #title{
+  font-size: 3rem;
   }
 }
 </style>
