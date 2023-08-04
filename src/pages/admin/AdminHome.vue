@@ -13,7 +13,7 @@
         </q-avatar>
       </q-card-section>
       <!-- 身分/稱呼/信箱 -->
-      <q-card-section align="center">
+      <q-card-section align="center" class="non-selectable">
         <div class="text-h2 text-weight-bold q-mb-md">管理員</div>
         <div class="text-h3 text-weight-bold q-mb-md">{{ user.nickname }}</div>
         <div class="text-h5">{{ user.email }}</div>
