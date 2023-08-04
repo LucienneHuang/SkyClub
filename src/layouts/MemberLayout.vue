@@ -24,7 +24,7 @@
                 <q-separator inset />
               </q-item-section>
             </q-item>
-            <q-item v-for="navItem in navList" :to="navItem.to" :key="navItem.to" clickable v-ripple>
+            <q-item v-for="navItem in navList" :key="navItem.to" :to="navItem.to" class="non-selectable" clickable v-ripple>
               <q-item-section >
                 {{ navItem.name }}
               </q-item-section>

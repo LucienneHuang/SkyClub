@@ -25,39 +25,9 @@
                 <q-separator inset />
               </q-item-section>
             </q-item>
-            <q-item to="/admin/members" clickable v-ripple>
+            <q-item v-for="navItem in navList" :key="navItem.to" :to="navItem.to" class="non-selectable" clickable v-ripple>
               <q-item-section >
-                會員資料管理
-              </q-item-section>
-            </q-item>
-            <q-item to="/admin/latestnews" clickable v-ripple>
-              <q-item-section>
-                最新消息管理
-              </q-item-section>
-            </q-item>
-            <q-item to="/admin/realms" clickable v-ripple>
-              <q-item-section>
-                區域介紹管理
-              </q-item-section>
-            </q-item>
-            <q-item to="/admin/products" clickable v-ripple>
-              <q-item-section>
-                全部商品管理
-              </q-item-section>
-            </q-item>
-            <q-item to="/admin/sales" clickable v-ripple>
-              <q-item-section>
-                全部訂單管理
-              </q-item-section>
-            </q-item>
-            <q-item to="/admin/contact" clickable v-ripple>
-              <q-item-section>
-                聯絡內容查看
-              </q-item-section>
-            </q-item>
-            <q-item to="/" clickable v-ripple>
-              <q-item-section>
-                回首頁
+                {{ navItem.name }}
               </q-item-section>
             </q-item>
             <q-item>
@@ -111,5 +81,35 @@ const leftDrawerOpen = ref(false)
 function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
+const navList = [
+  {
+    to: '/admin/members',
+    name: '會員資料管理'
+  },
+  {
+    to: '/admin/latestnews',
+    name: '最新消息管理'
+  },
+  {
+    to: '/admin/realms',
+    name: '區域介紹管理'
+  },
+  {
+    to: '/admin/products',
+    name: '全部商品管理'
+  },
+  {
+    to: '/admin/sales',
+    name: '全部訂單管理'
+  },
+  {
+    to: '/admin/contact',
+    name: '聯絡內容查看'
+  },
+  {
+    to: '/',
+    name: '回首頁'
+  }
+]
 
 </script>
