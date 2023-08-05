@@ -58,12 +58,12 @@
     height: 2.8rem;
   }
 
-@media(min-width:992px){
+@media(min-width:975px){
   .menuBtn{
     display: none;
   }
-  .q-toolbar{
-    background: white;
+  .q-layout__section--marginal,.q-toolbar{
+    background: transparent;
     .q-toolbar__title{
       display: none;
     }

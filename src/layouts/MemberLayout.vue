@@ -63,12 +63,13 @@
   color: $secondary;
 }
 
-@media(min-width:992px){
+@media(min-width:975px){
   .menuBtn{
     display: none;
   }
-  .q-toolbar{
-    background: white;
+  // 把 toolbar 弄透明
+  .q-layout__section--marginal,.q-toolbar{
+    background: transparent;
     .q-toolbar__title{
       display: none;
     }
