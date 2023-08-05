@@ -12,6 +12,7 @@
     "build": "quasar build"
   },
   "dependencies": {
+    "@boindil/vue-file-agent-next": "^1.0.5",
     "@quasar/extras": "^1.16.4",
     "axios": "^1.2.1",
     "pinia": "^2.0.11",
