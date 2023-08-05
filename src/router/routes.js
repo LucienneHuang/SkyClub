@@ -161,6 +161,15 @@ const routes = [
           login: true,
           admin: false
         }
+      }, {
+        path: 'addproduct',
+        name: 'MemberAddProduct',
+        component: () => import(/* webpackChunkName: "MemberAddProduct" */'pages/member/MemberAddProduct.vue'),
+        meta: {
+          title: 'Sky | 新增商品',
+          login: true,
+          admin: false
+        }
       },
       {
         path: 'sales',
