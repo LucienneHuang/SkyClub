@@ -21,10 +21,13 @@ export const useUserStore = defineStore('user', () => {
   const cart = ref(0)
   // 判斷管理員還是一般的使用者
   const role = ref(UserRole.USER)
+  const user = ref('')
 
   // 寫登入的 FUNCTION
   const login = (data) => {
+    user.value = data._id
     token.value = data.token
+    user.value = data._id
     email.value = data.email
     nickname.value = data.nickname
     avatar.value = data.avatar
@@ -38,6 +41,7 @@ export const useUserStore = defineStore('user', () => {
     try {
       // 去後端的 /users/profile 取資料
       const { data } = await apiAuth.get('/users/profile')
+      user.value = data.result._id
       email.value = data.result.email
       nickname.value = data.result.nickname
       avatar.value = data.result.avatar
@@ -58,6 +62,7 @@ export const useUserStore = defineStore('user', () => {
   })
 
   const logout = () => {
+    user.value = ''
     token.value = ''
     email.value = ''
     nickname.value = '遊客'
@@ -76,7 +81,8 @@ export const useUserStore = defineStore('user', () => {
     isLogin,
     isAdmin,
     getProfile,
-    logout
+    logout,
+    user
   }
 }, {
   persist: {
