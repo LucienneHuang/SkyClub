@@ -108,9 +108,10 @@ import { apiAuth } from '../../boot/axios.js'
 import sweetalert from 'sweetalert2'
 import { useQuasar } from 'quasar'
 import { useUserStore } from 'src/stores/user.js'
+import { useRouter } from 'vue-router'
 const user = useUserStore()
 const $q = useQuasar()
-
+const router = useRouter()
 const addMoreImages = ref(false)
 const moreImageBtn = () => {
   addMoreImages.value = !addMoreImages.value
@@ -165,7 +166,7 @@ const onReset = () => {
   addProductForm.sell = false
   addMoreImages.value = false
 }
-const addProuct = async (va) => {
+const addProuct = async () => {
   // 檢查是否有新增主要圖片
   if (addProductForm.image.length === 0) {
     return $q.notify({
@@ -196,7 +197,7 @@ const addProuct = async (va) => {
       title: '成功',
       text: '新增成功'
     })
-    onReset()
+    router.push('/member/products')
   } catch (error) {
     $q.notify({
       type: 'negative',
