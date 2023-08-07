@@ -95,16 +95,25 @@
 <script setup>
 import { reactive } from 'vue'
 import validator from 'validator'
-import { api } from 'src/boot/axios.js'
 import { useRouter } from 'vue-router'
 import sweetalert from 'sweetalert2'
 import { useQuasar } from 'quasar'
+import { api } from 'src/boot/axios.js'
+import { useUserStore } from 'src/stores/user.js'
+const user = useUserStore()
 const $q = useQuasar()
 const router = useRouter()
+let nickname = ''
+if (user.nickname !== '遊客') {
+  nickname = user.nickname
+} else {
+  nickname = ''
+}
 const contactForm = reactive({
-  name: '',
-  email: '',
-  message: ''
+  name: nickname,
+  email: user.email,
+  message: '',
+  date: ''
 })
 const rules = {
   required: (value) => !!value || '欄位必填',
@@ -112,6 +121,8 @@ const rules = {
 }
 
 const sendContact = async () => {
+  const trueDate = new Date().toJSON().slice(0, 10)
+  contactForm.date = trueDate
   try {
     await api.post('/contactUs', contactForm)
     await sweetalert.fire({
@@ -121,7 +132,6 @@ const sendContact = async () => {
     })
     router.push('/')
   } catch (error) {
-    console.log(error)
     $q.notify({
       type: 'negative',
       message: '發生錯誤'
