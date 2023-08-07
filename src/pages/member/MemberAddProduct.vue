@@ -46,7 +46,7 @@
         </q-card-section>
         <q-card-actions class="q-mt-sm">
           <q-btn type="submit" unelevated rounded style="width: 6rem;" size="1rem" color="secondary" label="送出" />
-          <q-btn type="reset" unelevated rounded style="width: 6rem;" size="1rem" outline color="secondary" label="取消" />
+          <q-btn type="reset" unelevated rounded style="width: 6rem;" size="1rem" outline color="secondary" label="清除" />
         </q-card-actions>
       </q-card>
     </q-form>
@@ -139,7 +139,6 @@ const addProductForm = reactive({
   description: '',
   category: '',
   sell: false
-
 })
 const rawFile = ref([])
 const rawFiles = ref([])
