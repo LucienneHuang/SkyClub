@@ -24,10 +24,12 @@
             <div class="text-h7 q-mt-md q-mr-lg">內文</div>
             <q-input color="primary" type="textarea" readonly v-model="moreInfoForm.message"/>
           </q-card-section>
+          <!-- 確認 -->
           <q-card-section horizontal>
             <div class="text-h7 q-mt-md q-mr-lg">確認</div>
             <q-checkbox class="q-mt-sm" color="primary" v-model="moreInfoForm.done"/>
           </q-card-section>
+          <!-- 送出/取消 -->
           <q-card-actions class="q-mt-sm">
             <q-btn type="submit" unelevated rounded style="width: 6rem;" size="1rem" color="primary" label="送出"  v-close-popup />
             <q-btn unelevated rounded style="width: 6rem;" size="1rem" outline color="primary" label="取消" @click="dialog=false" />
@@ -54,6 +56,15 @@
         <template #body-cell-avatar="props">
           <q-td :props="props">
             <q-img :src="props.value" spinner-color="white" style="height: 100px; width: 100px" />
+          </q-td>
+        </template>
+        <!-- 權限 -->
+        <template #body-cell-role="props">
+          <q-td :props="props" v-if="props.row.role===1">
+            管理員
+          </q-td>
+          <q-td :props="props" v-else>
+            會員
           </q-td>
         </template>
       </q-table>
