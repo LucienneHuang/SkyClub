@@ -3,9 +3,9 @@
     <div id="head" class="q-my-md">
       <q-breadcrumbs>
         <q-breadcrumbs-el label="Home" to="/" />
-        <q-breadcrumbs-el label="聯絡" class="" />
+        <q-breadcrumbs-el label="聯絡" />
       </q-breadcrumbs>
-      <div id="title" class=" text-h4 text-weight-bold non-selectable q-mt-md q-pl-md">聯絡我們</div>
+      <div id="title" class="text-weight-bold non-selectable q-mt-md q-pl-md">聯絡我們</div>
     </div>
     <div id="section" class="flex justify-center q-ma-xl">
       <div id="background" class="q-ma-xl">
@@ -46,6 +46,7 @@
   }
   #title{
     border-left: .8rem solid $accent;
+    font-size: 2rem;
   }
   .q-card{
     padding: 1rem;
@@ -61,20 +62,16 @@
   #container{
     #head{
       margin-left: 8rem;
+      #title{
+        font-size: 2.5rem;
+      }
+      .q-breadcrumbs{
+        font-size: 1.2rem;
+      }
     }
     #background{
       width: 48rem;
       height: 33rem;
-      background: $primary;
-      border-radius: 2rem;
-        #backgroundtext{
-        position: relative;
-        top: 3rem;
-        left: 7rem;
-        }
-    }
-    #title{
-      border-left: .8rem solid $accent;
     }
     #section{
       margin: 6rem 6rem 12rem;
@@ -90,6 +87,12 @@
 }
 
 @media(min-width:1200px){
+  #title{
+    font-size: 3rem;
+  }
+  .q-breadcrumbs{
+    font-size: 1.3rem;
+  }
 }
 </style>
 <script setup>
