@@ -156,9 +156,8 @@
 import { ref, reactive } from 'vue'
 import { useQuasar } from 'quasar'
 import sweetalert from 'sweetalert2'
-import { useUserStore } from 'src/stores/user.js'
 import { apiAuth } from '../../boot/axios.js'
-const user = useUserStore()
+
 const $q = useQuasar()
 const filter = ref('')
 
@@ -251,13 +250,10 @@ const rules = {
   categoryRequired: (value) => ['季票', '禮包', '周邊', '其他'].includes(value) || '沒有該分類'
 }
 const editProductForm = reactive({
-  user: user.user,
   name: '',
   price: 0,
   currency: '',
   MaxNumber: 0,
-  image: [],
-  images: [],
   description: '',
   category: '',
   sell: false
