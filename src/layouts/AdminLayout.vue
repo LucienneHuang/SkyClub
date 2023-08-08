@@ -87,12 +87,8 @@ const navList = [
     name: '會員資料管理'
   },
   {
-    to: '/admin/latestnews',
-    name: '最新消息管理'
-  },
-  {
-    to: '/admin/realms',
-    name: '區域介紹管理'
+    to: '/admin/articles',
+    name: '所有文章管理'
   },
   {
     to: '/admin/products',
