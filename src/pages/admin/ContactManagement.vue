@@ -65,7 +65,6 @@
       </q-table>
     </q-responsive>
   </div>
-
 </template>
 <style lang="scss" scoped>
 #title{
