@@ -58,7 +58,6 @@
   }
 #container{
   width: 100%;
-  // height: calc(100vh - 164px);
   .q-card{
     border: 4px solid $secondary;
     width: 25rem;
@@ -79,10 +78,10 @@
       width: 40rem;
       :deep(.q-field__control){
       width: 30rem;
+      }
       .vue-file-agent.file-input-wrapper{
         width: 25rem;
       }
-    }
     }
   }
 }
@@ -190,7 +189,6 @@ const addProuct = async () => {
       })
     }
     await apiAuth.post('/products', fd)
-    // fd.append('currency',addProductForm.)
     await sweetalert.fire({
       icon: 'success',
       title: '成功',
