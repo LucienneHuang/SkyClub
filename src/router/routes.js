@@ -87,21 +87,21 @@ const routes = [
         }
       },
       {
-        path: 'latestnews',
-        name: 'LatestNewsManagement',
-        component: () => import(/* webpackChunkName: "LatestNewsManagement" */'pages/admin/LatestNewsManagement.vue'),
+        path: 'articles',
+        name: 'ArticlesManagement',
+        component: () => import(/* webpackChunkName: "ArticlesManagement" */'pages/admin/ArticlesManagement.vue'),
         meta: {
-          title: 'Sky | 最新消息管理',
+          title: 'Sky | 所有文章管理',
           login: true,
           admin: true
         }
       },
       {
-        path: 'realms',
-        name: 'RealmsManagement',
-        component: () => import(/* webpackChunkName: "AdminRealmsManagement" */'pages/admin/RealmsManagement.vue'),
+        path: 'addarticle',
+        name: 'AddArticle',
+        component: () => import(/* webpackChunkName: "AddArticle" */'pages/admin/AddArticle.vue'),
         meta: {
-          title: 'Sky | 區域介紹管理',
+          title: 'Sky | 新增文章',
           login: true,
           admin: true
         }
