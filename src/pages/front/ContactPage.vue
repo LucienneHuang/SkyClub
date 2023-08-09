@@ -58,7 +58,7 @@
   }
 
 }
-@media(min-width:992px){
+@media(min-width:975px){
   #container{
     #head{
       margin-left: 8rem;

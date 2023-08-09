@@ -11,7 +11,6 @@
         <q-card-section align="center" class="q-mt-xl">
           <template v-if="edit">
             <VueFileAgent :maxSize="'1MB'" :deletable="true" :accept="'image/jpg,image/jpeg,image/png'" :helpText="'只接受 jpg, jpeg 或 png 檔'" v-model="editProfileForm.avatar" v-model:rawModelValue="rawFile" :errorText="{type: '檔案類型不合法。只接受 jpg, jpeg 或 png 檔。',size: '檔案大小不得大於1MB',}" ></VueFileAgent>
-
           </template>
           <template v-else>
             <q-avatar size="13rem" class="q-mb-lg shadow-9">
@@ -25,7 +24,7 @@
           <template v-if="edit">
             <q-input class="q-mx-xl" color="secondary" type="text" label="請輸入暱稱" :rules="[rules.required]" v-model="editProfileForm.nickname" clearable/>
             <q-input class="q-mx-xl" color="secondary" type="email" label="請輸入信箱" :rules="[rules.required,rules.email]" v-model="editProfileForm.email" clearable />
-            <q-btn class="q-my-md" type="submit" unelevated rounded style="width: 6rem;" size="1rem" color="secondary" label="送出" />
+            <q-btn class="q-my-md" type="submit" unelevated rounded style="width: 6rem;" size="1rem" color="secondary" label="送出" :loading="loading" />
           </template>
           <template v-else>
             <div class="text-h3 text-weight-bold q-mb-md">{{ user.nickname }}</div>
@@ -83,8 +82,10 @@ const rules = {
   required: (value) => !!value || '欄位必填',
   email: (value) => validator.isEmail(value) || '信箱格式錯誤'
 }
+const loading = ref(false)
 const sendEditProfile = async () => {
   try {
+    loading.value = true
     const fd = new FormData()
     fd.append('nickname', editProfileForm.nickname)
     fd.append('email', editProfileForm.email)
@@ -95,6 +96,7 @@ const sendEditProfile = async () => {
     }
 
     await apiAuth.patch('/users/' + user.user, fd)
+    loading.value = false
     await sweetalert.fire({
       icon: 'success',
       title: '成功',

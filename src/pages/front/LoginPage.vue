@@ -132,7 +132,7 @@ const login = async () => {
     user.login({
       // 對照後端
       // data 放在 result 裡面所以要寫成 data.result.xx
-      user: data.result._id,
+      user: data.result.user,
       token: data.result.token,
       email: data.result.email,
       nickname: data.result.nickname,

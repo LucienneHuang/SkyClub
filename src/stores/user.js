@@ -25,9 +25,8 @@ export const useUserStore = defineStore('user', () => {
 
   // 寫登入的 FUNCTION
   const login = (data) => {
-    user.value = data._id
+    user.value = data.user
     token.value = data.token
-    user.value = data._id
     email.value = data.email
     nickname.value = data.nickname
     avatar.value = data.avatar

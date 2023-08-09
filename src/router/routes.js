@@ -28,6 +28,17 @@ const routes = [
         }
       },
       {
+        // 最新消息不需要登入和管理員權限就能看
+        path: '/latestnews/:title',
+        name: 'lastestnewsId',
+        component: () => import(/* webpackChunkName: "lastestnewsId" */'pages/front/ArticleView.vue'),
+        meta: {
+          title: 'Sky | 文章',
+          login: false,
+          admin: false
+        }
+      },
+      {
         // 區域不需要登入和管理員權限就能看
         path: '/realms',
         name: 'realms',

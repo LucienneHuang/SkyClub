@@ -163,6 +163,14 @@ const filter = ref('')
 
 const columns = [
   {
+    name: 'user',
+    required: true,
+    label: '賣家 id',
+    align: 'center',
+    field: 'user',
+    sortable: true
+  },
+  {
     name: 'image',
     required: true,
     label: '圖片',
@@ -176,14 +184,6 @@ const columns = [
     label: '名稱',
     align: 'center',
     field: 'name',
-    sortable: true
-  },
-  {
-    name: 'user',
-    required: true,
-    label: '賣家 id',
-    align: 'center',
-    field: 'user',
     sortable: true
   },
   {

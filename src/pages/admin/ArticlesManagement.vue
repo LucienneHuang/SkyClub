@@ -5,7 +5,10 @@
       <q-form @submit.prevent="editArticle">
         <q-card class="flex column justify-center items-center q-pa-lg q-ma-xl">
           <q-card-section horizontal>
-            <VueFileAgent :maxSize="'1MB'" :deletable="true" :accept="'image/jpg,image/jpeg,image/png'" :helpText="'只接受 jpg, jpeg 或 png 檔'" v-model="editArticleForm.image" v-model:rawModelValue="rawFile" :errorText="{type: '檔案類型不合法。只接受 jpg, jpeg 或 png 檔。',size: '檔案大小不得大於1MB',}" ></VueFileAgent>
+            <VueFileAgent v-if="updateImage" :maxSize="'1MB'" :deletable="true" :accept="'image/jpg,image/jpeg,image/png'" :helpText="'只接受 jpg, jpeg 或 png 檔'" v-model="editArticleForm.image" v-model:rawModelValue="rawFile" :errorText="{type: '檔案類型不合法。只接受 jpg, jpeg 或 png 檔。',size: '檔案大小不得大於1MB',}" ></VueFileAgent>
+            <q-btn v-else @click="updateImageBtn">
+              <q-img :src="editArticleForm.oldImg" style="width: 160px; height: 160px; border-radius: 0;"/>
+            </q-btn>
           </q-card-section>
           <!-- 標題 -->
           <q-card-section horizontal>
@@ -379,6 +382,9 @@ const rules = {
 
 // 設定 updateImage 的值
 const updateImage = ref(false)
+const updateImageBtn = () => {
+  updateImage.value = !updateImage.value
+}
 // dialog 開關
 const dialog = ref(false)
 const dialogDelete = ref(false)
