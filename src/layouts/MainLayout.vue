@@ -75,6 +75,13 @@
     </q-drawer>
     <q-page-container>
       <router-view />
+      <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
+            <q-btn flat>
+              <q-avatar square  size="70px">
+                <img src="https://stickershop.line-scdn.net/stickershop/v1/sticker/297078240/android/sticker.png?v=1">
+              </q-avatar>
+            </q-btn>
+      </q-page-scroller>
     </q-page-container>
     <q-footer class="bg-grey-8 text-white">
       <q-toolbar>
@@ -265,7 +272,7 @@ const logout = async () => {
 
 const navbaranimation = () => {
   const navbar = document.querySelector('#navbar')
-  console.log(window.scrollY)
+  // console.log(window.scrollY)
   if (window.scrollY > 40) {
     navbar.classList.add('solid-nav')
   } else {
