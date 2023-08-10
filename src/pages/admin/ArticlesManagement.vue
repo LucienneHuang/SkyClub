@@ -13,12 +13,17 @@
           <!-- 標題 -->
           <q-card-section horizontal>
             <div class="text-h7 q-mt-md q-mr-lg">標題</div>
-            <q-input color="primary" type="text"  v-model="editArticleForm.title" />
+            <q-input label="請輸入標題" color="primary" type="text"  v-model="editArticleForm.title" />
+          </q-card-section>
+          <!-- 引文 -->
+          <q-card-section horizontal>
+            <div class="text-h7 q-mt-md q-mr-lg">引文</div>
+            <q-input label="(選填)" color="primary" type="text"  v-model="editArticleForm.quote" />
           </q-card-section>
           <!-- 分類 -->
           <q-card-section horizontal id="select">
-        <!-- 選擇分類 -->
-          <div class="text-h7 q-mt-md q-mr-lg">分類</div>
+          <!-- 選擇分類 -->
+            <div class="text-h7 q-mt-md q-mr-lg">分類</div>
             <q-select :options="categoryOptions" label="文章分類" :rules="[rules.required,rules.categoryRequired]" v-model="editArticleForm.category"/>
             <div class="text-h7 q-mt-md q-mr-lg">區域</div>
             <q-select :options="realmsOptions" label="區域分類" :rules="[rules.required,rules.realmsRequired]" v-model="editArticleForm.realms"/>
@@ -26,17 +31,17 @@
           <!-- 原文 -->
           <q-card-section horizontal>
             <div class="text-h7 q-mt-md q-mr-lg">原文</div>
-            <q-input color="primary" type="text"  v-model="editArticleForm.original"/>
+            <q-input label="請輸入原文網址" color="primary" type="text"  v-model="editArticleForm.original"/>
           </q-card-section >
           <!-- 翻譯 -->
           <q-card-section horizontal>
             <div class="text-h7 q-mt-md q-mr-lg">翻譯</div>
-            <q-input color="primary" type="text"  v-model="editArticleForm.translation"/>
+            <q-input label="請輸入翻譯來源" color="primary" type="text"  v-model="editArticleForm.translation"/>
           </q-card-section >
           <!-- 日期 -->
           <q-card-section horizontal>
           <div class="text-h7 q-mt-md q-mr-lg">日期</div>
-            <q-input v-model="editArticleForm.date" mask="date" :rules="['date']">
+            <q-input label="請輸入文章日期" v-model="editArticleForm.date" mask="date" :rules="['date']">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -52,88 +57,87 @@
           </q-card-section>
           <!-- 文章內容 -->
           <q-card-section horizontal>
-          <div class="text-h7 q-mt-md q-mr-lg">內文</div>
-          <q-editor v-if="editorShow" :rules="[rules.required]" v-model="editArticleForm.description"  class="q-my-md"
-      :dense="$q.screen.lt.md"
-      :toolbar="[
-        [
-          {
-            label: $q.lang.editor.align,
-            icon: $q.iconSet.editor.align,
-            fixedLabel: true,
-            list: 'only-icons',
-            options: ['left', 'center', 'right', 'justify']
-          }
-        ],
-        ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
-        ['token', 'hr', 'link', 'custom_btn'],
-        [
-          {
-            label: $q.lang.editor.formatting,
-            icon: $q.iconSet.editor.formatting,
-            list: 'no-icons',
-            options: [
-              'p',
-              'h1',
-              'h2',
-              'h3',
-              'h4',
-              'h5',
-              'h6',
-              'code'
-            ]
-          },
-          {
-            label: $q.lang.editor.fontSize,
-            icon: $q.iconSet.editor.fontSize,
-            fixedLabel: true,
-            fixedIcon: true,
-            list: 'no-icons',
-            options: [
-              'size-1',
-              'size-2',
-              'size-3',
-              'size-4',
-              'size-5',
-              'size-6',
-              'size-7'
-            ]
-          },
-          {
-            label: $q.lang.editor.defaultFont,
-            icon: $q.iconSet.editor.font,
-            fixedIcon: true,
-            list: 'no-icons',
-            options: [
-              'default_font',
-              'arial',
-              'arial_black',
-              'comic_sans',
-              'courier_new',
-              'impact',
-              'lucida_grande',
-              'times_new_roman',
-              'verdana'
-            ]
-          },
-          'removeFormat'
-        ],
-        ['quote', 'unordered', 'ordered'],
+            <div class="text-h7 q-mt-md q-mr-lg">內文</div>
+            <q-editor :rules="[rules.required]" v-model="editArticleForm.description"  class="q-my-md"
+        :dense="$q.screen.lt.md"
+        :toolbar="[
+          [
+            {
+              label: $q.lang.editor.align,
+              icon: $q.iconSet.editor.align,
+              fixedLabel: true,
+              list: 'only-icons',
+              options: ['left', 'center', 'right', 'justify']
+            }
+          ],
+          ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
+          ['token', 'hr', 'link', 'custom_btn'],
+          [
+            {
+              label: $q.lang.editor.formatting,
+              icon: $q.iconSet.editor.formatting,
+              list: 'no-icons',
+              options: [
+                'p',
+                'h1',
+                'h2',
+                'h3',
+                'h4',
+                'h5',
+                'h6',
+                'code'
+              ]
+            },
+            {
+              label: $q.lang.editor.fontSize,
+              icon: $q.iconSet.editor.fontSize,
+              fixedLabel: true,
+              fixedIcon: true,
+              list: 'no-icons',
+              options: [
+                'size-1',
+                'size-2',
+                'size-3',
+                'size-4',
+                'size-5',
+                'size-6',
+                'size-7'
+              ]
+            },
+            {
+              label: $q.lang.editor.defaultFont,
+              icon: $q.iconSet.editor.font,
+              fixedIcon: true,
+              list: 'no-icons',
+              options: [
+                'default_font',
+                'arial',
+                'arial_black',
+                'comic_sans',
+                'courier_new',
+                'impact',
+                'lucida_grande',
+                'times_new_roman',
+                'verdana'
+              ]
+            },
+            'removeFormat'
+          ],
+          ['quote', 'unordered', 'ordered'],
 
-        ['undo', 'redo'],
-        ['viewsource']
-      ]"
-      :fonts="{
-        arial: 'Arial',
-        arial_black: 'Arial Black',
-        comic_sans: 'Comic Sans MS',
-        courier_new: 'Courier New',
-        impact: 'Impact',
-        lucida_grande: 'Lucida Grande',
-        times_new_roman: 'Times New Roman',
-        verdana: 'Verdana'
-      }"/>
-        <q-input v-else type="textarea" :rules="[rules.required]" v-model="editArticleForm.description"/>
+          ['undo', 'redo'],
+          ['viewsource']
+        ]"
+        :fonts="{
+          arial: 'Arial',
+          arial_black: 'Arial Black',
+          comic_sans: 'Comic Sans MS',
+          courier_new: 'Courier New',
+          impact: 'Impact',
+          lucida_grande: 'Lucida Grande',
+          times_new_roman: 'Times New Roman',
+          verdana: 'Verdana'
+        }"/>
         </q-card-section>
           <q-card-section horizontal>
             <div class="text-h7 q-mt-md q-mr-lg">顯示</div>
@@ -237,6 +241,7 @@
     }
     .q-editor{
       border: 1px solid $primary;
+      width: 15rem;
     }
   }
 }
@@ -317,7 +322,7 @@ const columns = [
   {
     name: 'image',
     required: true,
-    label: '主圖',
+    label: '首圖',
     align: 'center',
     field: 'image',
     sortable: false
@@ -401,6 +406,7 @@ const editArticleForm = reactive({
   description: '',
   category: '',
   realms: '',
+  quote: '',
   display: false
 })
 // 取得點選的編輯文章的資料
@@ -414,6 +420,7 @@ const tableEditItem = (item) => {
   editArticleForm.image = item.image
   editArticleForm.category = item.category
   editArticleForm.realms = item.realms
+  editArticleForm.quote = item.quote
   editArticleForm.display = item.display
   editArticleForm.oldImg = item.image
   articleId.value = item._id
@@ -430,9 +437,15 @@ const editArticle = async () => {
     fd.append('description', editArticleForm.description)
     fd.append('category', editArticleForm.category)
     fd.append('realms', editArticleForm.realms)
+    fd.append('quote', editArticleForm.quote)
     fd.append('display', editArticleForm.display)
-    // 如果editArticleForm.image的長度為0，或者editArticleForm.image不是陣列
-    if (editArticleForm.image.length === 0) {
+    // 如果editArticleForm.image 的長度為 0
+    // 表示有點擊圖片按鈕要重新上傳圖片，但是又沒有真的上傳，所以 image 還是回傳舊的圖片的值
+    // 而不為 0 有兩種可能
+    // 一種是真的有上傳新的圖片（此時 editArticleForm.image 不為 0 且為 Array）
+    // 一種是沒有點擊圖片重新上傳（此時 editArticleForm.image 不為 0 且為 String）
+    // 所以在這裡檢查 editArticleForm.image.length 是否為 0 或者如果不為 0 ，他的 type 是否是 string
+    if (editArticleForm.image.length === 0 || typeof editArticleForm.image === 'string') {
       fd.append('image', editArticleForm.oldImg)
     } else {
       fd.append('image', editArticleForm.image[0].file)
@@ -481,19 +494,16 @@ const deleteArticle = async () => {
 const ratioTop = ref('')
 const ratioBottom = ref('')
 // 是否顯示 editor
-const editorShow = ref(false)
 const rwd = () => {
   if (window.innerWidth > 975) {
     ratioTop.value = 12
     ratioBottom.value = 5
-    editorShow.value = true
   } else if (window.innerWidth > 1200) {
     ratioTop.value = 5
     ratioBottom.value = 5
   } else {
     ratioTop.value = 2
     ratioBottom.value = 2
-    editorShow.value = false
   }
 }
 rwd()
