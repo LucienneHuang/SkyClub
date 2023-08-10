@@ -5,7 +5,7 @@
         <q-card-section class="ratio flex column justify-center items-center">
           <div class="q-my-sm text-h5 text-weight-bold">{{ title }}</div>
           <div class="q-my-sm text-h6">{{ date }}</div>
-          <q-btn :to="'/latestnews/'+ title" class="q-my-sm" color="accent" label="MORE" />
+          <q-btn :to="{path:'/latestnews/'+ title, query : { articleId:_id} }" class="q-my-sm" color="accent" label="MORE" />
         </q-card-section>
     </q-card-section>
   </q-card>
