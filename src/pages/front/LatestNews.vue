@@ -23,9 +23,8 @@
       v-model="currentPage"
       :max="pagesOfPagination"
       boundary-links
-      direction-links
-    />
-  </div>
+      direction-links/>
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>
