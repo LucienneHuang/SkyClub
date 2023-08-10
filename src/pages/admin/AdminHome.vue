@@ -11,7 +11,6 @@
         <q-card-section align="center" class="q-mt-xl">
           <template v-if="edit">
             <VueFileAgent :maxSize="'1MB'" :deletable="true" :accept="'image/jpg,image/jpeg,image/png'" :helpText="'只接受 jpg, jpeg 或 png 檔'" v-model="editProfileForm.avatar" v-model:rawModelValue="rawFile" :errorText="{type: '檔案類型不合法。只接受 jpg, jpeg 或 png 檔。',size: '檔案大小不得大於1MB',}" ></VueFileAgent>
-
           </template>
           <template v-else>
             <q-avatar size="13rem" class="q-mb-lg shadow-9">
