@@ -26,7 +26,86 @@
           </q-card-section>
           <q-card-section horizontal>
             <div class="text-h7 q-mt-md q-mr-lg">內文</div>
-            <q-input color="primary" type="textarea" v-model="editProductForm.description" :rules="[rules.required]"/>
+            <q-editor :rules="[rules.required]" v-model="editProductForm.description"  class="q-my-md"
+      :dense="$q.screen.lt.md"
+      :toolbar="[
+        [
+          {
+            label: $q.lang.editor.align,
+            icon: $q.iconSet.editor.align,
+            fixedLabel: true,
+            list: 'only-icons',
+            options: ['left', 'center', 'right', 'justify']
+          }
+        ],
+        ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
+        ['token', 'hr', 'link', 'custom_btn'],
+        [
+          {
+            label: $q.lang.editor.formatting,
+            icon: $q.iconSet.editor.formatting,
+            list: 'no-icons',
+            options: [
+              'p',
+              'h1',
+              'h2',
+              'h3',
+              'h4',
+              'h5',
+              'h6',
+              'code'
+            ]
+          },
+          {
+            label: $q.lang.editor.fontSize,
+            icon: $q.iconSet.editor.fontSize,
+            fixedLabel: true,
+            fixedIcon: true,
+            list: 'no-icons',
+            options: [
+              'size-1',
+              'size-2',
+              'size-3',
+              'size-4',
+              'size-5',
+              'size-6',
+              'size-7'
+            ]
+          },
+          {
+            label: $q.lang.editor.defaultFont,
+            icon: $q.iconSet.editor.font,
+            fixedIcon: true,
+            list: 'no-icons',
+            options: [
+              'default_font',
+              'arial',
+              'arial_black',
+              'comic_sans',
+              'courier_new',
+              'impact',
+              'lucida_grande',
+              'times_new_roman',
+              'verdana'
+            ]
+          },
+          'removeFormat'
+        ],
+        ['quote', 'unordered', 'ordered'],
+
+        ['undo', 'redo'],
+        ['viewsource']
+      ]"
+      :fonts="{
+        arial: 'Arial',
+        arial_black: 'Arial Black',
+        comic_sans: 'Comic Sans MS',
+        courier_new: 'Courier New',
+        impact: 'Impact',
+        lucida_grande: 'Lucida Grande',
+        times_new_roman: 'Times New Roman',
+        verdana: 'Verdana'
+      }"/>
           </q-card-section>
           <q-card-section horizontal>
             <!-- 選擇單位 -->
@@ -113,6 +192,10 @@
     :deep(.q-field__control){
       width: 12rem;
     }
+    .q-editor{
+      border: 1px solid $primary;
+      width: 12rem;
+    }
   }
 }
 
@@ -130,6 +213,9 @@
       :deep(.q-field__control){
         width: 30rem;
       }
+      .q-editor{
+        width: 30rem;
+      }
     }
   }
 }
@@ -145,6 +231,9 @@
       font-size: 1rem;
       width: 50rem;
       :deep(.q-field__control){
+        width: 40rem;
+      }
+      .q-editor{
         width: 40rem;
       }
     }
@@ -173,7 +262,7 @@ const columns = [
   {
     name: 'image',
     required: true,
-    label: '圖片',
+    label: '首圖',
     align: 'center',
     field: 'image',
     sortable: false
