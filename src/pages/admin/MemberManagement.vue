@@ -55,7 +55,9 @@
         <!-- 頭貼 -->
         <template #body-cell-avatar="props">
           <q-td :props="props">
-            <q-img :src="props.value" spinner-color="white" style="height: 100px; width: 100px" />
+            <q-avatar size="100px">
+              <img :src="props.value">
+            </q-avatar>
           </q-td>
         </template>
         <!-- 權限 -->
