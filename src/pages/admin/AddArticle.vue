@@ -9,7 +9,11 @@
           <!-- 文章標題 -->
         <q-card-section horizontal>
           <div class="text-h7 q-mt-md q-mr-lg">標題</div>
-          <q-input type="text" :rules="[rules.required]" v-model="addArticleForm.title"/>
+          <q-input type="text" label="請輸入文章標題" :rules="[rules.required]" v-model="addArticleForm.title"/>
+        </q-card-section>
+        <q-card-section horizontal>
+          <div class="text-h7 q-mt-md q-mr-lg">引文</div>
+          <q-input type="text" label="（選填）" v-model="addArticleForm.quote"/>
         </q-card-section>
         <q-card-section horizontal id="select">
         <!-- 選擇分類 -->
@@ -21,16 +25,16 @@
         <!-- 原文網址 -->
         <q-card-section horizontal>
           <div class="text-h7 q-mt-md q-mr-lg">原文</div>
-          <q-input type="text" :rules="[rules.required]" v-model="addArticleForm.original"/>
+          <q-input type="text" label="請輸入原文網址" :rules="[rules.required]" v-model="addArticleForm.original"/>
         </q-card-section>
         <!-- 翻譯來源 -->
         <q-card-section horizontal>
           <div class="text-h7 q-mt-md q-mr-lg">翻譯</div>
-          <q-input type="text" :rules="[rules.required]" v-model="addArticleForm.translation"/>
+          <q-input type="text" label="請輸入翻譯來源" :rules="[rules.required]" v-model="addArticleForm.translation"/>
         </q-card-section>
         <q-card-section horizontal>
           <div class="text-h7 q-mt-md q-mr-lg">日期</div>
-          <q-input v-model="addArticleForm.date" mask="date" :rules="['date']">
+          <q-input label="請輸入文章日期" v-model="addArticleForm.date" mask="date" :rules="['date']">
             <template v-slot:append>
               <q-icon name="event" class="cursor-pointer">
                 <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -47,7 +51,7 @@
         <!-- 文章內容 -->
         <q-card-section horizontal>
           <div class="text-h7 q-mt-md q-mr-lg">內文</div>
-          <q-editor v-if="editorShow" :rules="[rules.required]" v-model="addArticleForm.description"  class="q-my-md"
+          <q-editor :rules="[rules.required]" v-model="addArticleForm.description"  class="q-my-md"
       :dense="$q.screen.lt.md"
       :toolbar="[
         [
@@ -127,7 +131,6 @@
         times_new_roman: 'Times New Roman',
         verdana: 'Verdana'
       }"/>
-        <q-input v-else type="textarea" :rules="[rules.required]" v-model="addArticleForm.description"/>
         </q-card-section>
         <!-- 是否顯示 -->
         <q-card-section horizontal>
@@ -159,6 +162,7 @@
     }
     .q-editor{
       border: 1px solid $primary;
+      width: 15rem;
     }
     #select:deep(.q-field__control){
         width: 6rem;
@@ -230,6 +234,7 @@ const addArticleForm = reactive({
   description: '',
   category: '',
   realms: '',
+  quote: '',
   display: false
 })
 const categoryOptions = ['最新消息', '區域介紹']
@@ -250,19 +255,12 @@ const onReset = () => {
   addArticleForm.description = ''
   addArticleForm.category = ''
   addArticleForm.realms = ''
+  addArticleForm.quote = ''
   addArticleForm.display = false
   rawFile.value = []
   rawFiles.value = []
 }
-// 是否顯示 editor
-const editorShow = ref(false)
-const rwd = () => {
-  if (window.innerWidth > 975) {
-    editorShow.value = true
-  } else {
-    editorShow.value = false
-  }
-}
+
 const loading = ref(false)
 
 const addArticle = async () => {
@@ -283,6 +281,7 @@ const addArticle = async () => {
     fd.append('description', addArticleForm.description)
     fd.append('category', addArticleForm.category)
     fd.append('realms', addArticleForm.realms)
+    fd.append('quote', addArticleForm.quote)
     fd.append('display', addArticleForm.display)
     await apiAuth.post('/articles', fd)
     loading.value = false
@@ -299,8 +298,5 @@ const addArticle = async () => {
     })
   }
 }
-rwd()
-window.addEventListener('resize', () => {
-  rwd()
-})
+
 </script>
