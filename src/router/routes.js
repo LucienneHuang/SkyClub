@@ -50,6 +50,17 @@ const routes = [
         }
       },
       {
+        // 最新消息不需要登入和管理員權限就能看
+        path: '/realms/:title',
+        name: 'realmsId',
+        component: () => import(/* webpackChunkName: "realmsId" */'pages/front/ArticleView.vue'),
+        meta: {
+          title: 'Sky | 文章',
+          login: false,
+          admin: false
+        }
+      },
+      {
         // 交易需要登入才能看 不需要管理員權限
         path: '/trade',
         name: 'trade',
