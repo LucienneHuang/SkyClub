@@ -181,7 +181,7 @@ const columns = [
   {
     name: 'detail',
     required: true,
-    label: '詳細',
+    label: '查看',
     align: 'center',
     field: 'detail',
     sortable: true
