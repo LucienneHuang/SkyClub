@@ -66,6 +66,7 @@
 import { ref, reactive } from 'vue'
 import validator from 'validator'
 import sweetalert from 'sweetalert2'
+import 'animate.css'
 import { useUserStore } from 'src/stores/user.js'
 import { apiAuth } from '../../boot/axios.js'
 
@@ -96,8 +97,16 @@ const sendEditProfile = async () => {
     await apiAuth.patch('/users/' + user.user, fd)
     await sweetalert.fire({
       icon: 'success',
-      title: '成功',
-      text: '更新成功'
+      title: '更新成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#F198AF',
+      confirmButtonColor: '#F198AF',
+      width: '20rem'
     })
     window.location.reload('/memeber/')
   } catch (error) {
