@@ -11,7 +11,7 @@ const routes = [
         name: 'home',
         component: () => import(/* webpackChunkName: "home" */'pages/front/HomePage.vue'),
         meta: {
-          title: 'Sky',
+          title: '光遇 Club',
           login: false,
           admin: false
         }
@@ -22,7 +22,7 @@ const routes = [
         name: 'lastestnews',
         component: () => import(/* webpackChunkName: "lastestnews" */'pages/front/LatestNews.vue'),
         meta: {
-          title: 'Sky | 最新消息',
+          title: '光遇 Club | 最新消息',
           login: false,
           admin: false
         }
@@ -33,7 +33,7 @@ const routes = [
         name: 'lastestnewsId',
         component: () => import(/* webpackChunkName: "lastestnewsId" */'pages/front/ArticleView.vue'),
         meta: {
-          title: 'Sky | 文章',
+          title: '光遇 Club | 文章',
           login: false,
           admin: false
         }
@@ -44,7 +44,7 @@ const routes = [
         name: 'realms',
         component: () => import(/* webpackChunkName: "realms" */'pages/front/SkyRealms.vue'),
         meta: {
-          title: 'Sky | 區域',
+          title: '光遇 Club | 區域',
           login: false,
           admin: false
         }
@@ -55,7 +55,7 @@ const routes = [
         name: 'realmsId',
         component: () => import(/* webpackChunkName: "realmsId" */'pages/front/ArticleView.vue'),
         meta: {
-          title: 'Sky | 文章',
+          title: '光遇 Club | 文章',
           login: false,
           admin: false
         }
@@ -66,9 +66,8 @@ const routes = [
         name: 'trade',
         component: () => import(/* webpackChunkName: "trade" */'pages/front/SkyTrade.vue'),
         meta: {
-          title: 'Sky | 交易',
-          login: false,
-          admin: false
+          title: '光遇 Club | 交易',
+          login: true
         }
       },
       {
@@ -77,7 +76,7 @@ const routes = [
         name: 'contact',
         component: () => import(/* webpackChunkName: "contact" */'pages/front/ContactPage.vue'),
         meta: {
-          title: 'Sky | 聯絡我們',
+          title: '光遇 Club | 聯絡我們',
           login: false,
           admin: false
         }
@@ -93,7 +92,7 @@ const routes = [
         name: 'AdminHome',
         component: () => import(/* webpackChunkName: "AdminHome" */'pages/admin/AdminHome.vue'),
         meta: {
-          title: 'Sky | 管理員首頁',
+          title: '光遇 Club | 管理員首頁',
           login: true,
           admin: true
         }
@@ -103,7 +102,7 @@ const routes = [
         name: 'MemberManagement',
         component: () => import(/* webpackChunkName: "AdminMemberManagement" */'pages/admin/MemberManagement.vue'),
         meta: {
-          title: 'Sky | 會員資料管理',
+          title: '光遇 Club | 會員資料管理',
           login: true,
           admin: true
         }
@@ -113,7 +112,7 @@ const routes = [
         name: 'ArticlesManagement',
         component: () => import(/* webpackChunkName: "ArticlesManagement" */'pages/admin/ArticlesManagement.vue'),
         meta: {
-          title: 'Sky | 所有文章管理',
+          title: '光遇 Club | 所有文章管理',
           login: true,
           admin: true
         }
@@ -123,7 +122,7 @@ const routes = [
         name: 'AddArticle',
         component: () => import(/* webpackChunkName: "AddArticle" */'pages/admin/AddArticle.vue'),
         meta: {
-          title: 'Sky | 新增文章',
+          title: '光遇 Club | 新增文章',
           login: true,
           admin: true
         }
@@ -133,7 +132,7 @@ const routes = [
         name: 'AdminProductsManagement',
         component: () => import(/* webpackChunkName: "AdminProductsManagement" */'pages/admin/ProductsManagement.vue'),
         meta: {
-          title: 'Sky | 全部商品管理',
+          title: '光遇 Club | 全部商品管理',
           login: true,
           admin: true
         }
@@ -143,7 +142,7 @@ const routes = [
         name: 'AdminSalesManagement',
         component: () => import(/* webpackChunkName: "AdminSalesManagement" */'pages/admin/SalesManagement.vue'),
         meta: {
-          title: 'Sky | 全部訂單管理',
+          title: '光遇 Club | 全部訂單管理',
           login: true,
           admin: true
         }
@@ -153,7 +152,7 @@ const routes = [
         name: 'ContactManagement',
         component: () => import(/* webpackChunkName: "AdminContactManagement" */'pages/admin/ContactManagement.vue'),
         meta: {
-          title: 'Sky | 聯絡內容查看',
+          title: '光遇 Club | 聯絡內容查看',
           login: true,
           admin: true
         }
@@ -169,7 +168,7 @@ const routes = [
         name: 'MemberHome',
         component: () => import(/* webpackChunkName: "MemberHome" */'pages/member/MemberHome.vue'),
         meta: {
-          title: 'Sky | 會員首頁',
+          title: '光遇 Club | 會員首頁',
           login: true,
           admin: false
         }
@@ -179,7 +178,7 @@ const routes = [
         name: 'MemberProductsManagement',
         component: () => import(/* webpackChunkName: "MemberProductsManagement" */'pages/member/MemberProductsManagement.vue'),
         meta: {
-          title: 'Sky | 個人商品管理',
+          title: '光遇 Club | 個人商品管理',
           login: true,
           admin: false
         }
@@ -188,7 +187,7 @@ const routes = [
         name: 'MemberAddProduct',
         component: () => import(/* webpackChunkName: "MemberAddProduct" */'pages/member/MemberAddProduct.vue'),
         meta: {
-          title: 'Sky | 新增商品',
+          title: '光遇 Club | 新增商品',
           login: true,
           admin: false
         }
@@ -198,7 +197,7 @@ const routes = [
         name: 'MemberSalesManagement',
         component: () => import(/* webpackChunkName: "MemberSalesManagement" */'pages/member/MemberSalesManagement.vue'),
         meta: {
-          title: 'Sky | 出售訂單管理',
+          title: '光遇 Club | 出售訂單管理',
           login: true,
           admin: false
         }
@@ -208,7 +207,7 @@ const routes = [
         name: 'MemberOrdersManagement',
         component: () => import(/* webpackChunkName: "MemberOrdersManagement" */'pages/member/MemberOrdersManagement.vue'),
         meta: {
-          title: 'Sky | 購買訂單查詢',
+          title: '光遇 Club | 購買訂單查詢',
           login: true,
           admin: false
         }
@@ -220,7 +219,7 @@ const routes = [
     name: 'register',
     component: () => import(/* webpackChunkName: "register" */'pages/front/RegisterPage.vue'),
     meta: {
-      title: 'Sky | 註冊',
+      title: '光遇 Club | 註冊',
       login: false,
       admin: false
     }
@@ -230,7 +229,7 @@ const routes = [
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */'pages/front/LoginPage.vue'),
     meta: {
-      title: 'Sky | 登入',
+      title: '光遇 Club | 登入',
       login: false,
       admin: false
     }
@@ -242,7 +241,7 @@ const routes = [
     path: '/:catchAll(.*)*',
     component: () => import(/* webpackChunkName: "error" */'pages/ErrorNotFound.vue'),
     meta: {
-      title: 'Sky | Error Not Found'
+      title: '光遇 Club | Error Not Found'
     }
   }
 ]
