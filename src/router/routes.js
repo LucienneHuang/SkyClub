@@ -66,8 +66,7 @@ const routes = [
         name: 'trade',
         component: () => import(/* webpackChunkName: "trade" */'pages/front/SkyTrade.vue'),
         meta: {
-          title: '光遇 Club | 交易',
-          login: true
+          title: '光遇 Club | 交易'
         }
       },
       {
