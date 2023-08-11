@@ -156,6 +156,7 @@
 import { ref, reactive } from 'vue'
 import { useQuasar } from 'quasar'
 import sweetalert from 'sweetalert2'
+import 'animate.css'
 import { apiAuth } from '../../boot/axios.js'
 
 const $q = useQuasar()
@@ -288,8 +289,16 @@ const editProduct = async () => {
     await apiAuth.patch('/products/' + productId.value, fd)
     await sweetalert.fire({
       icon: 'success',
-      title: '成功',
-      text: '更新成功'
+      title: '更新成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#A6D8D4',
+      confirmButtonColor: '#A6D8D4',
+      width: '20rem'
     })
     tableLoadItems()
   } catch (error) {
