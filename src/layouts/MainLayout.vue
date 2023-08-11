@@ -4,16 +4,13 @@
       <!-- 上層的 bar -->
       <q-toolbar id="navbar" class="row q-py-md">
         <q-btn class="menuBtn" dense flat round icon="menu" @click="toggleLeftDrawer" />
-        <q-toolbar-title class="col-md-2">
           <!-- 左側 logo -->
-          <a href="#">
-            <q-avatar size="3rem">
-              <img src="../assets/sky-logo-white.png">
-            </q-avatar>
-            <q-avatar size="4rem" class="overlapping" style="z-index: -1;right: 55px; " color="primary">
-            </q-avatar>
-          </a>
-        </q-toolbar-title>
+        <a href="#" class="logo flex items-center">
+          <q-avatar size="4rem">
+            <img src="../assets/logo.png">
+          </q-avatar>
+          <q-toolbar-title class="col-md-2 text-weight-bold text-h4">光遇 Club</q-toolbar-title>
+        </a>
         <!-- 中間索引列 -->
         <q-tabs align="center" active-color="primary" class="col-md-8 q-mt-md">
           <q-route-tab to="/" label="首頁" />
@@ -99,8 +96,8 @@
 <style lang="scss" scoped>
 // navbar 改背景顏色的 class
 .solid-nav {
-    background-color: $accent;
-    transition: background-color 0.2s linear;
+    background-color: #5c51b3;
+    transition: background-color 0.5s linear;
   }
 .q-header{
   width: 100%;
@@ -112,6 +109,11 @@
   .q-toolbar{
     position: fixed;
     z-index: 2147483647;
+    .logo{
+      text-decoration: none;
+      color: white;
+    }
+
   }
   .q-tab{
   display: none;
