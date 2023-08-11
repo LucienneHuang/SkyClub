@@ -3,7 +3,7 @@
     <div id="head" class="q-my-md">
       <q-breadcrumbs>
         <q-breadcrumbs-el label="Home" to="/" />
-        <q-breadcrumbs-el label="最新消息" />
+        <q-breadcrumbs-el label="區域介紹" />
       </q-breadcrumbs>
       <div id="title" class="text-weight-bold non-selectable q-mt-md q-pl-md">區域介紹</div>
     </div>
