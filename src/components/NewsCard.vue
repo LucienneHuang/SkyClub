@@ -44,7 +44,13 @@
     transform:scale(1.2,1.2);
     transition: 2s;
   }
-
+}
+@media(min-width:769px){
+  .q-card{
+    .all{
+    width: 30rem;
+    }
+  }
 }
 @media(min-width:975px){
   .q-card{
@@ -52,7 +58,7 @@
     margin-right: auto;
     border-radius: 0;
     .all{
-      width: 50rem;
+      width: 44rem;
       height: 14rem;
       flex-direction: row;
       .ratio{
@@ -69,11 +75,17 @@
 @media(min-width:1200px){
   .q-card{
     .all{
+      width: 55rem;
+      height: 20rem;
+    }
+  }
+}
+
+@media(min-width:1450px){
+  .q-card{
+    .all{
       width: 70rem;
       height: 20rem;
-      .ratio{
-        width: 50%;
-      }
     }
   }
 }
