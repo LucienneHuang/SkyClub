@@ -1,7 +1,8 @@
 <template>
-  <div class="container q-pt-md">
+  <div class="container">
     <!-- 上層的隱形 toolbar -->
-    <q-toolbar class="text-white q-px-lg" style="height: 50px;">
+    <div class="bg_effect">
+      <q-toolbar class="text-white q-px-lg q-pt-md" style="height: 50px;">
       <!-- 最右側的 btn -->
       <q-btn class="q-ml-auto" flat round dense>
         <!-- 設定該 btn 的圖 -->
@@ -26,70 +27,121 @@
           </q-list>
         </q-menu>
       </q-btn>
-    </q-toolbar>
-    <div class="row flex-center">
-      <div class="rg q-card q-pa-xs">
-        <!-- 註冊表單 -->
-        <q-form @submit.prevent="register" ref="form">
-          <q-card-section class="q-card-section q-px-lg">
-            <div class="title text-center text-h4 q-py-md">註冊會員</div>
-            <!-- 信箱 -->
-            <q-input class="q-mb-xs" v-model="registerForm.email" :rules="[rules.required,rules.email]" type="email" label="Email" hint="請輸入信箱" hide-hint filled dense clearable hide-bottom-space clear-icon="backspace">
-              <template #prepend>
-                <q-icon name="mail"></q-icon>
-              </template>
-            </q-input>
-            <!-- 密碼 -->
-            <q-input class="q-mb-xs" v-model="registerForm.password" :rules="[rules.required,rules.min,rules.max,rules.confirm]" ref="elPassword" type="password" label="Password" hint="請輸入密碼" hide-hint filled dense hide-bottom-space maxlength="20">
-              <template #prepend>
-                <q-icon name="vpn_key"></q-icon>
-              </template>
-            </q-input>
-            <!-- 確認密碼 -->
-            <q-input class="q-mb-xs" v-model="registerForm.confirmPassword" :rules="[rules.required,rules.min,rules.max,rules.confirm]" ref="elPasswordConfirm" type="password" label="Confirm Password" hint="確認密碼" hide-hint filled dense hide-bottom-space maxlength="20">
-              <template #prepend>
-                <q-icon name="vpn_key"></q-icon>
-              </template>
-            </q-input>
-          </q-card-section>
-          <q-card-actions class="q-mt-md q-px-lg" vertical>
-            <q-btn flat label="register" type="submit" class="rg-btn" color="white" style="background: #A6D8D4;font-family: 'Playfair Display', serif;"></q-btn>
-            <q-card-actions align="center">
-              <q-btn label="快速註冊" flat></q-btn>
-              <q-btn label="登入會員" to="/login" flat></q-btn>
-            </q-card-actions>
-          </q-card-actions>
+      </q-toolbar>
+      <div class="row flex-center">
+        <q-form @submit.prevent="register">
+          <q-card>
+            <q-card-section horizontal>
+              <!-- 左放圖片 -->
+              <q-card-section class="left"></q-card-section>
+              <!-- 右放表單 -->
+              <q-card-section class="right flex column justify-center">
+                <q-card-section>
+                  <div class="title text-center text-h4 q-py-md">註冊會員</div>
+                  <!-- 信箱 -->
+                  <q-input v-model="registerForm.email" :rules="[rules.required,rules.email]" dark class="q-mb-xs" type="email" label="Email" hint="請輸入信箱" hide-hint filled dense clearable hide-bottom-space clear-icon="backspace">
+                    <template #prepend>
+                      <q-icon name="mail"></q-icon>
+                    </template>
+                  </q-input>
+                </q-card-section>
+                <q-card-section>
+                  <!-- 密碼 -->
+                  <q-input v-model="registerForm.password" :rules="[rules.required,rules.min,rules.max,rules.confirm]" dark class="q-mb-xs" ref="elPassword" type="password" label="Password" hint="請輸入密碼" hide-hint filled dense hide-bottom-space maxlength="20">
+                    <template #prepend>
+                      <q-icon name="vpn_key"></q-icon>
+                    </template>
+                  </q-input>
+                </q-card-section>
+                <q-card-section>
+                  <!-- 確認密碼 -->
+                  <q-input v-model="registerForm.confirmPassword" :rules="[rules.required,rules.min,rules.max,rules.confirm]" ref="elPasswordConfirm" dark class="q-mb-xs" type="password" label="Confirm Password" hint="確認密碼" hide-hint filled dense hide-bottom-space maxlength="20">
+                    <template #prepend>
+                      <q-icon name="vpn_key"></q-icon>
+                    </template>
+                  </q-input>
+                </q-card-section>
+                <q-card-actions class="q-mt-md q-px-lg" vertical>
+                  <q-btn label="register" type="submit" color="secondary" text-color="dark" class="text-weight-bold"></q-btn>
+                  <q-card-actions align="center">
+                    <q-btn label="快速註冊" text-color="white" flat></q-btn>
+                    <q-btn label="登入會員" text-color="white" to="/login" flat></q-btn>
+                  </q-card-actions>
+                </q-card-actions>
+              </q-card-section>
+            </q-card-section>
+          </q-card>
         </q-form>
       </div>
     </div>
   </div>
 </template>
-<style scoped>
-.container {
+<style lang="scss" scoped>
+.container{
   width: 100vw;
   height: 100vh;
   background: url('../../assets/register_bg.jpg') no-repeat center/cover;
+  .bg_effect{
+    width: 100%;
+    height: 100%;
+    background-color:transparent;
+    backdrop-filter: blur(8px);
+  }
   .row{
     width:100%;
     /* 即為 100vh - toolbar預設的高度 50px */
     height: calc(100% - 50px);
-  }
-  .rg{
-    width: 20rem;
-    height: 26rem;
-    background: transparent;
-    backdrop-filter: blur(15px);
-    .rg-btn{
-      font-size: 1rem;
-    }
-    .title{
-      font-weight: 600;
-      color: white;
-      text-shadow: black 0 0 0.2em;
+    .q-card{
+      width: 20rem;
+      background:url('../../assets/register_bg.jpg') no-repeat center/cover;;
+      .left{
+        display: none;
+      }
+      .right{
+          padding: 0 3rem;
+          background-color: rgba(0,0,0,0.1);
+          backdrop-filter: blur(5px);
+      }
+      .title{
+        font-weight: 600;
+        color: white;
+        text-shadow: black 0 0 0.2em;
+      }
     }
   }
 }
-
+@media(min-width: 975px){
+  .container{
+    .row{
+      .q-card{
+        width: 60rem;
+        height: 40rem;
+        .left{
+          display: flex;
+          width: 50%;
+        }
+        .right{
+          width: 50%;
+          height: 40rem;
+        }
+      }
+    }
+  }
+}
+@media(min-width: 1200px){
+    .container{
+      .row{
+        .q-card{
+          width: 70rem;
+          height: 36rem;
+          .right{
+            padding: 0 5rem;
+            height: 36rem;
+          }
+        }
+      }
+    }
+}
 </style>
 <script setup>
 import { reactive, ref, watch } from 'vue'
@@ -99,6 +151,7 @@ import { useRouter } from 'vue-router'
 import sweetalert from 'sweetalert2'
 import { useQuasar } from 'quasar'
 import { useUserStore } from 'src/stores/user.js'
+import 'animate.css'
 
 const user = useUserStore()
 
@@ -130,14 +183,21 @@ watch(() => registerForm.password, () => {
   elPasswordConfirm.value.validate()
 })
 
-const form = ref(null)
 const register = async () => {
   try {
     await api.post('/users', registerForm)
     await sweetalert.fire({
       icon: 'success',
-      title: '成功',
-      text: '註冊成功'
+      title: '註冊成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#F198AF',
+      confirmButtonColor: '#F198AF',
+      width: '20rem'
     })
     // 註冊完送到 login 頁面
     router.push('/login')

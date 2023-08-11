@@ -1,19 +1,20 @@
 <template>
-  <div class="star"></div>
-  <div class="container q-pt-md">
-    <!-- 最上層隱形工具列 -->
-    <q-toolbar class="text-white q-px-lg" style="height: 50px;">
-      <!-- 頭貼按鈕 -->
+  <div class="container">
+    <!-- 上層的隱形 toolbar -->
+    <div class="bg_effect">
+      <q-toolbar class="text-white q-px-lg q-pt-md" style="height: 50px;">
+      <!-- 最右側的 btn -->
       <q-btn class="q-ml-auto" flat round dense>
-        <!-- 頭貼設定 -->
+        <!-- 設定該 btn 的圖 -->
         <q-avatar>
+          <!-- 之後再改，先暫訂一張圖 -->
           <img :src="user.avatar">
         </q-avatar>
-        <!-- 按頭貼後出現的下拉式 menu -->
+        <!-- 點擊 btn 後出現的 menu，之後還會改 -->
         <q-menu square class="bg-primary text-center">
           <q-list dense>
             <q-item clickable>
-              <q-item-section>遊客</q-item-section>
+              <q-item-section >USER</q-item-section>
             </q-item>
             <q-separator inset />
             <q-item v-for="navItem in navList" clickable :to="navItem.to" :key="navItem.to">
@@ -26,76 +27,113 @@
           </q-list>
         </q-menu>
       </q-btn>
-    </q-toolbar>
-    <!-- 本體 -->
-    <div class="row flex-center">
-      <div class="login q-card q-pa-xs">
-        <!-- 登入表單 -->
+      </q-toolbar>
+      <div class="row flex-center">
         <q-form @submit.prevent="login">
-          <q-card-section class=" q-px-lg">
-            <div class="title text-center text-h4 q-py-md">登入會員</div>
-            <!-- 信箱 -->
-            <q-input class="q-mb-xs" v-model="loginForm.email" :rules="[rules.required,rules.email]" type="email" label="Email" hint="請輸入信箱" hide-hint filled dense clearable hide-bottom-space clear-icon="backspace">
-              <template #prepend>
-                <q-icon name="mail"></q-icon>
-              </template>
-            </q-input>
-            <!-- 密碼 -->
-            <q-input class="q-mb-xs" v-model="loginForm.password" :rules="[rules.required,rules.min,rules.max]" type="password" label="Password" hint="請輸入密碼" hide-hint filled dense hide-bottom-space>
-              <template #prepend>
-                <q-icon name="vpn_key"></q-icon>
-              </template>
-            </q-input>
-          </q-card-section>
-          <q-card-actions class="q-mt-md q-px-lg" vertical>
-            <q-btn flat label="login" type="submit" class="login-btn" color="white" style="background: #A6D8D4;font-family: 'Playfair Display', serif;"></q-btn>
-            <q-card-actions align="center">
-              <q-btn label="快速登入" flat></q-btn>
-              <q-btn label="註冊會員" to="/register" flat></q-btn>
-            </q-card-actions>
-          </q-card-actions>
+          <q-card>
+            <q-card-section horizontal>
+              <!-- 左放圖片 -->
+              <q-card-section class="left"></q-card-section>
+              <!-- 右放表單 -->
+              <q-card-section class="right flex column justify-center">
+                <q-card-section>
+                  <div class="title text-center text-h4 q-py-md">登入會員</div>
+                  <!-- 信箱 -->
+                  <q-input v-model="loginForm.email" :rules="[rules.required,rules.email]" dark class="q-mb-xs" type="email" label="Email" hint="請輸入信箱" hide-hint filled dense clearable hide-bottom-space clear-icon="backspace">
+                    <template #prepend>
+                      <q-icon name="mail"></q-icon>
+                    </template>
+                  </q-input>
+                </q-card-section>
+                <q-card-section>
+                  <!-- 密碼 -->
+                  <q-input v-model="loginForm.password" :rules="[rules.required,rules.min,rules.max]" dark class="q-mb-xs" type="password" label="Password" hint="請輸入密碼" hide-hint filled dense hide-bottom-space maxlength="20">
+                    <template #prepend>
+                      <q-icon name="vpn_key"></q-icon>
+                    </template>
+                  </q-input>
+                </q-card-section>
+                <q-card-actions class="q-mt-md q-px-lg" vertical>
+                  <q-btn label="LOGIN" type="submit" color="secondary" text-color="dark" class="text-weight-bold"></q-btn>
+                  <q-card-actions align="center">
+                    <q-btn label="快速登入" text-color="white" flat></q-btn>
+                    <q-btn label="註冊會員" text-color="white" to="/register" flat></q-btn>
+                  </q-card-actions>
+                </q-card-actions>
+              </q-card-section>
+            </q-card-section>
+          </q-card>
         </q-form>
       </div>
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
-.star{
-    width: 100%;
-    height: 100%;
-    background: url('src/assets/star.gif');
-    position: absolute;
-
-  }
-.container {
+.container{
   width: 100vw;
   height: 100vh;
   background: url('../../assets/login_bg.jpg') no-repeat center/cover;
-
+  .bg_effect{
+    width: 100%;
+    height: 100%;
+    background-color:transparent;
+    backdrop-filter: blur(8px);
+  }
   .row{
     width:100%;
     /* 即為 100vh - toolbar預設的高度 50px */
     height: calc(100% - 50px);
-  }
-  .login{
-    width: 20rem;
-    height:22rem;
-    background: transparent;
-    backdrop-filter: blur(15px);
-    .login-btn{
-      font-size: 1rem;
+    .q-card{
+      width: 20rem;
+      background:url('../../assets/login_bg.jpg') no-repeat center/cover;;
+      .left{
+        display: none;
+      }
+      .right{
+          padding: 0 3rem;
+          background-color: rgba(0,0,0,0.1);
+          backdrop-filter: blur(5px);
+      }
+      .title{
+        font-weight: 600;
+        color: white;
+        text-shadow: black 0 0 0.2em;
+      }
     }
-
-    .title{
-      font-weight: 600;
-      color: white;
-      text-shadow: black 0 0 0.2em;
-    }
-    .q-item__section{color: white;}
   }
-
 }
-
+@media(min-width: 975px){
+  .container{
+    .row{
+      .q-card{
+        width: 60rem;
+        height: 40rem;
+        .left{
+          display: flex;
+          width: 50%;
+        }
+        .right{
+          width: 50%;
+          height: 40rem;
+        }
+      }
+    }
+  }
+}
+@media(min-width: 1200px){
+    .container{
+      .row{
+        .q-card{
+          width: 70rem;
+          height: 36rem;
+          .right{
+            padding: 0 5rem;
+            height: 36rem;
+          }
+        }
+      }
+    }
+}
 </style>
 <script setup>
 import { reactive } from 'vue'
@@ -126,8 +164,16 @@ const login = async () => {
     const { data } = await api.post('/users/login', loginForm)
     await sweetalert.fire({
       icon: 'success',
-      title: '成功',
-      text: '登入成功'
+      title: '登入成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#F198AF',
+      confirmButtonColor: '#F198AF',
+      width: '20rem'
     })
     user.login({
       // 對照後端
