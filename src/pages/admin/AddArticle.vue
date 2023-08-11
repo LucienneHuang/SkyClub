@@ -25,12 +25,12 @@
         <!-- 原文網址 -->
         <q-card-section horizontal>
           <div class="text-h7 q-mt-md q-mr-lg">原文</div>
-          <q-input type="text" label="請輸入原文網址" :rules="[rules.required]" v-model="addArticleForm.original"/>
+          <q-input type="text" label="請輸入原文網址"  v-model="addArticleForm.original"/>
         </q-card-section>
         <!-- 翻譯來源 -->
         <q-card-section horizontal>
           <div class="text-h7 q-mt-md q-mr-lg">翻譯</div>
-          <q-input type="text" label="請輸入翻譯來源" :rules="[rules.required]" v-model="addArticleForm.translation"/>
+          <q-input type="text" label="請輸入翻譯來源" v-model="addArticleForm.translation"/>
         </q-card-section>
         <q-card-section horizontal>
           <div class="text-h7 q-mt-md q-mr-lg">日期</div>
@@ -218,6 +218,7 @@
 import { ref, reactive } from 'vue'
 import { useQuasar } from 'quasar'
 import sweetalert from 'sweetalert2'
+import 'animate.css'
 import { useRouter } from 'vue-router'
 import { apiAuth } from 'src/boot/axios'
 const $q = useQuasar()
@@ -287,8 +288,16 @@ const addArticle = async () => {
     loading.value = false
     await sweetalert.fire({
       icon: 'success',
-      title: '成功',
-      text: '新增成功'
+      title: '新增成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#F198AF',
+      confirmButtonColor: '#F198AF',
+      width: '20rem'
     })
     router.push('/admin/articles')
   } catch (error) {
