@@ -11,10 +11,13 @@
         <span v-if="article.realms!=='無'">{{ article.realms }}</span>
         {{article.title}}
       </div>
+      <div id="date" class="text-h5 text-weight-bold non-selectable q-mt-md">{{ article.date }}</div>
     </div>
     <!-- 放主要圖片 -->
     <div class="flex justify-center">
       <q-img :src="article.image" style="width: 100%;"/>
+      <div class="source" v-if="article.original!==''"><a :href="article.original">原文網址</a></div>
+      <div class="source" v-if="article.translation!==''"><a :href="article.translation">翻譯來源</a></div>
     </div>
     <!-- 放文章內容 -->
     <div id="section" class="q-pl-xl">
@@ -27,6 +30,26 @@
   #title{
     border-left: .8rem solid $accent;
     font-size: 2rem;
+  }
+  #date{
+    margin-left: 2rem;
+  }
+  .source{
+    margin: 1rem 0 1rem 1rem;
+  }
+  .source a{
+    padding: 0.5rem;
+    border-radius: 25px;
+    border: 1px solid $primary;
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: $primary;
+    font-weight: 600;
+    &:hover{
+      color: white;
+      background: $primary;
+      transition: 1s;
+    }
   }
   .q-img{
     margin: 1rem 2rem;
