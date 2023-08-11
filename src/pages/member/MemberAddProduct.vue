@@ -192,12 +192,12 @@
 </style>
 <script setup>
 import { reactive, ref } from 'vue'
-import { apiAuth } from '../../boot/axios.js'
-// import { useRouter } from 'vue-router'
 import sweetalert from 'sweetalert2'
+import 'animate.css'
 import { useQuasar } from 'quasar'
-import { useUserStore } from 'src/stores/user.js'
 import { useRouter } from 'vue-router'
+import { apiAuth } from '../../boot/axios.js'
+import { useUserStore } from 'src/stores/user.js'
 const user = useUserStore()
 const $q = useQuasar()
 const router = useRouter()
@@ -283,8 +283,16 @@ const addProuct = async () => {
     loading.value = false
     await sweetalert.fire({
       icon: 'success',
-      title: '成功',
-      text: '新增成功'
+      title: '新增成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#A6D8D4',
+      confirmButtonColor: '#A6D8D4',
+      width: '20rem'
     })
     router.push('/member/products')
   } catch (error) {
