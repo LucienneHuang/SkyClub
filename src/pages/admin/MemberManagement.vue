@@ -1,4 +1,5 @@
 <template>
+  <!-- 編輯/刪除 -->
   <!-- 按詳細資訊按鈕跳出來的東西 -->
   <q-dialog v-model="dialog" persistent>
     <div id="form">
