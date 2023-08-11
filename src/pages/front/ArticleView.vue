@@ -3,13 +3,96 @@
     <div id="head" class="q-my-md">
       <q-breadcrumbs>
         <q-breadcrumbs-el label="Home" to="/" />
-        <q-breadcrumbs-el label="最新消息" />
+        <q-breadcrumbs-el v-if="article.category==='區域介紹'" label="區域介紹" to="/realms" />
+        <q-breadcrumbs-el v-else label="最新消息" to="/latestnews" />
+        <q-breadcrumbs-el label="文章" />
       </q-breadcrumbs>
-      <div id="title" class="text-weight-bold non-selectable q-mt-md q-pl-md">{{article.title}}</div>
+      <div id="title" class="text-weight-bold non-selectable q-mt-md q-pl-md">
+        <span v-if="article.realms!=='無'">{{ article.realms }}</span>
+        {{article.title}}
+      </div>
+    </div>
+    <!-- 放主要圖片 -->
+    <div class="flex justify-center">
+      <q-img :src="article.image" style="width: 100%;"/>
+    </div>
+    <!-- 放文章內容 -->
+    <div id="section" class="q-pl-xl">
+      <p class="text-h6" v-html="article.description "></p>
     </div>
   </div>
 </template>
+<style lang="scss" scoped>
+#container{
+  #title{
+    border-left: .8rem solid $accent;
+    font-size: 2rem;
+  }
+  .q-img{
+    margin: 1rem 2rem;
+  }
+  #section{
+    padding: 0 2rem;
+    margin: 1rem 0 5rem;
+    :deep(div:has(img)){
+      text-align: center;
+    }
+    :deep(div img){
+      width: 100%;
+      margin: 3rem 0 1rem 0;
+    }
+    :deep(a){
+      text-decoration: none;
+      color: $primary;
+      &:hover{
+        background: $primary;
+        color: white;
+        transition: 1s;
+      }
+    }
+  }
+}
+@media(min-width:975px){
+  #container{
+    #head{
+      margin-left: 8rem;
+      #title{
+        font-size: 2.5rem;
+      }
+      .q-breadcrumbs{
+        font-size: 1.2rem;
+      }
+    }
+    .q-img{
+      margin: 2rem 10rem;
+    }
+    #section{
+      margin: 1rem 8rem 5rem 8rem;
+    }
+  }
+}
 
+@media(min-width:1200px){
+  #container{
+    #title{
+      font-size: 3rem;
+    }
+    .q-breadcrumbs{
+      font-size: 1.3rem;
+    }
+  }
+}
+@media(min-width: 1600px){
+    #container{
+      .q-img{
+        margin: 2rem 19rem;
+      }
+      #section{
+        margin: 1rem 17rem 5rem 17rem;
+      }
+    }
+}
+</style>
 <script setup>
 import { ref } from 'vue'
 import { api } from 'src/boot/axios'
