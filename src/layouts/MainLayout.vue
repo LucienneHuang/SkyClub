@@ -105,7 +105,7 @@
   background-image: url('../assets/front.png');
   background-repeat: no-repeat;
   background-size:  cover;
-  z-index: 1;
+  z-index: 1000000000;
   .q-toolbar{
     position: fixed;
     z-index: 2147483647;
@@ -261,8 +261,16 @@ const logout = async () => {
     user.logout()
     await sweetalert.fire({
       icon: 'success',
-      title: '成功',
-      text: '登出成功'
+      title: '登出成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#B0A9EC',
+      confirmButtonColor: '#B0A9EC',
+      width: '20rem'
     })
   } catch (error) {
     $q.notify({
