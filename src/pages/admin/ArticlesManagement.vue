@@ -297,6 +297,7 @@
 import { ref, reactive } from 'vue'
 import { useQuasar } from 'quasar'
 import sweetalert from 'sweetalert2'
+import 'animate.css'
 import { apiAuth } from 'src/boot/axios'
 
 const $q = useQuasar()
@@ -453,8 +454,16 @@ const editArticle = async () => {
     await apiAuth.patch('/articles/' + articleId.value, fd)
     await sweetalert.fire({
       icon: 'success',
-      title: '成功',
-      text: '新增成功'
+      title: '更新成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#F198AF',
+      confirmButtonColor: '#F198AF',
+      width: '20rem'
     })
     rawFile.value = ''
     editArticleForm.image = ''
@@ -479,8 +488,16 @@ const deleteArticle = async () => {
     await apiAuth.delete('/articles/' + articleId.value)
     await sweetalert.fire({
       icon: 'success',
-      title: '成功',
-      text: '刪除成功'
+      title: '刪除成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#F198AF',
+      confirmButtonColor: '#F198AF',
+      width: '20rem'
     })
     tableLoadAllArticles()
   } catch (error) {

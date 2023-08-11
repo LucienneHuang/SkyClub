@@ -140,6 +140,7 @@
 import { ref, reactive } from 'vue'
 import { useQuasar } from 'quasar'
 import sweetalert from 'sweetalert2'
+import 'animate.css'
 import { apiAuth } from '../../boot/axios.js'
 
 const $q = useQuasar()
@@ -227,8 +228,16 @@ const editContactInfo = async () => {
     await apiAuth.patch('/contactUs/' + moreInfoForm.infoId, moreInfoForm)
     await sweetalert.fire({
       icon: 'success',
-      title: '成功',
-      text: '更新成功'
+      title: '更新成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#F198AF',
+      confirmButtonColor: '#F198AF',
+      width: '20rem'
     })
     // 更新後刷新 table
     tableLoadContactInfo()
