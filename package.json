@@ -14,6 +14,7 @@
   "dependencies": {
     "@boindil/vue-file-agent-next": "^1.0.5",
     "@quasar/extras": "^1.16.4",
+    "animate.css": "^4.1.1",
     "axios": "^1.2.1",
     "pinia": "^2.0.11",
     "pinia-plugin-persistedstate": "^3.2.0",
