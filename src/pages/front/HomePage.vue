@@ -1,25 +1,26 @@
 <template>
   <h2>Home</h2>
-  <div class="test">
+  <!-- 最新消息區 -->
+  <div id="latestNews">
+    <!-- 放文字 -->
+    <div class="flex justify-center q-my-xl" v-for="article in latestNews" :key="article._id">
+      <NewsCard v-bind="article"></NewsCard>
+    </div>
+  </div>
+  <div id="realm">
+    <!-- 放文字 -->
     <swiper
-    :slidesPerView="1"
+    :modules="modules"
+    :centeredSlides="true"
+    :loop="true"
+    :slidesPerView="'auto'"
     :spaceBetween="10"
     :pagination="{
       clickable: true,
     }"
-    :breakpoints="{
-      '640': {
-        slidesPerView: 2,
-        spaceBetween: 20,
-      },
-      '768': {
-        slidesPerView: 2,
-        spaceBetween: 40,
-      },
-      '1024': {
-        slidesPerView: 3,
-        spaceBetween: 50,
-      },
+    :autoplay="{
+      delay: 4000,
+      disableOnInteraction: false,
     }"
   >
     <swiper-slide v-for="realm in realms" :key="realm._id">
@@ -27,41 +28,63 @@
     </swiper-slide>
   </swiper>
   </div>
-  <div v-for="article in latestNews" :key="article._id">
-    <NewsCard v-bind="article"></NewsCard>
+  <div class="parallax flex items-center">
+    <div class="parallaxImg"></div>
   </div>
+  <div style="height: 2000px;"></div>
 </template>
 <style lang="scss" scoped>
+.swiper{
+  width: 80%;
+}
+.swiper-slide{
+    width: 95% !important;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+.parallax{
+  height: 50vh;
+  background-color: $secondary;
+  .parallaxImg{
+    width: 100%;
+    height: 90%;
+    background-image: url('/src/assets/AURORA.png');
+    background-position: 50% 70%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
 @media(min-width: 768px){
-
+  .swiper-slide{
+    width: 45% !important;
+  }
 }
 @media(min-width: 1200px){
-  .swiper{
-    width: 80%;
-    .swiper-slide{
-      width: 100% /3;
-      margin-top: 2rem;
-      margin-left: 2rem;
-    }
-}
-
+  .swiper-slide{
+    width: 30% !important;
+  }
 }
 </style>
 <script setup>
 
-import { ref } from 'vue'
+import { ref, onUpdated } from 'vue'
 import { useQuasar } from 'quasar'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
+
 import { api } from 'src/boot/axios'
 import RealmCard from 'src/components/RealmCard.vue'
 import NewsCard from 'src/components/NewsCard.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-// import required modules
-// import { Pagination } from 'swiper/modules'
-
+const modules = [Autoplay]
 const $q = useQuasar()
+
 const realms = ref([])
 const latestNews = ref([]);
 (async () => {
@@ -92,5 +115,17 @@ const latestNews = ref([]);
     })
   }
 })()
-
+gsap.registerPlugin(ScrollTrigger)
+onUpdated(() => {
+  gsap.to('.parallaxImg', {
+    scrollTrigger: {
+      trigger: '.parallaxImg',
+      start: 'top 50%',
+      end: 'bottom 0%',
+      scrub: true
+    },
+    backgroundPosition: '50% -50%',
+    ease: 'none'
+  })
+})
 </script>
