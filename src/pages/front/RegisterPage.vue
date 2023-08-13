@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <!-- 上層的隱形 toolbar -->
     <div class="bg_effect">
+      <!-- 上層的隱形 toolbar -->
       <q-toolbar class="text-white q-px-lg q-pt-md" style="height: 50px;">
       <!-- 最右側的 btn -->
       <q-btn class="q-ml-auto" flat round dense>
@@ -28,6 +28,7 @@
         </q-menu>
       </q-btn>
       </q-toolbar>
+      <!-- 註冊表單 -->
       <div class="row flex-center">
         <q-form @submit.prevent="register">
           <q-card>
@@ -37,7 +38,7 @@
               <!-- 右放表單 -->
               <q-card-section class="right flex column justify-center">
                 <q-card-section>
-                  <div class="title text-center text-h4 q-py-md">註冊會員</div>
+                  <div class="title text-center text-h4 q-py-md non-selectable">註冊會員</div>
                   <!-- 信箱 -->
                   <q-input v-model="registerForm.email" :rules="[rules.required,rules.email]" dark class="q-mb-xs" type="email" label="Email" hint="請輸入信箱" hide-hint filled dense clearable hide-bottom-space clear-icon="backspace">
                     <template #prepend>

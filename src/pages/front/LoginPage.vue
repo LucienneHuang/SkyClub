@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <!-- 上層的隱形 toolbar -->
     <div class="bg_effect">
+      <!-- 上層的隱形 toolbar -->
       <q-toolbar class="text-white q-px-lg q-pt-md" style="height: 50px;">
       <!-- 最右側的 btn -->
       <q-btn class="q-ml-auto" flat round dense>
@@ -28,6 +28,7 @@
         </q-menu>
       </q-btn>
       </q-toolbar>
+      <!-- 登入表單 -->
       <div class="row flex-center">
         <q-form @submit.prevent="login">
           <q-card>
@@ -37,7 +38,7 @@
               <!-- 右放表單 -->
               <q-card-section class="right flex column justify-center">
                 <q-card-section>
-                  <div class="title text-center text-h4 q-py-md">登入會員</div>
+                  <div class="title text-center text-h4 q-py-md non-selectable">登入會員</div>
                   <!-- 信箱 -->
                   <q-input v-model="loginForm.email" :rules="[rules.required,rules.email]" dark class="q-mb-xs" type="email" label="Email" hint="請輸入信箱" hide-hint filled dense clearable hide-bottom-space clear-icon="backspace">
                     <template #prepend>
@@ -85,7 +86,7 @@
     height: calc(100% - 50px);
     .q-card{
       width: 20rem;
-      background:url('../../assets/login_bg.jpg') no-repeat center/cover;;
+      background:url('../../assets/login_bg.jpg') no-repeat center/cover;
       .left{
         display: none;
       }
@@ -138,11 +139,11 @@
 <script setup>
 import { reactive } from 'vue'
 import validator from 'validator'
-import { api } from 'src/boot/axios.js'
 import { useRouter } from 'vue-router'
 import sweetalert from 'sweetalert2'
 import { useQuasar } from 'quasar'
 import { useUserStore } from 'src/stores/user.js'
+import { api } from 'src/boot/axios.js'
 
 const $q = useQuasar()
 const router = useRouter()
@@ -222,4 +223,5 @@ const navList = [
     icon: 'call'
   }
 ]
+
 </script>
