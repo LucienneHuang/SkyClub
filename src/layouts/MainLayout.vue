@@ -47,6 +47,19 @@
           </q-menu>
         </q-btn>
       </q-toolbar>
+      <!-- swiper? -->
+      <swiper
+        :modules="modules"
+        :loop="true"
+        :autoplay="{
+          delay: 4000,
+          disableOnInteraction: false,
+        }"
+      >
+        <swiper-slide v-for="img in carouselImages" :key="img.name">
+          <q-img :src="img.src"/>
+        </swiper-slide>
+      </swiper>
       <!-- 波浪背景 -->
       <div class="deco"></div>
     </q-header>
@@ -71,7 +84,6 @@
         </q-scroll-area>
     </q-drawer>
     <q-page-container>
-      <router-view />
       <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
             <q-btn flat>
               <q-avatar square  size="70px">
@@ -79,6 +91,7 @@
               </q-avatar>
             </q-btn>
       </q-page-scroller>
+      <router-view />
     </q-page-container>
     <q-footer class="bg-grey-8 text-white">
       <q-toolbar>
@@ -99,13 +112,11 @@
     background-color: #5c51b3;
     transition: background-color 0.5s linear;
   }
+
 .q-header{
   width: 100%;
   height: 20rem;
-  background-image: url('../assets/front.png');
-  background-repeat: no-repeat;
-  background-size:  cover;
-  z-index: 1000000000;
+  z-index: 2;
   .q-toolbar{
     position: fixed;
     z-index: 2147483647;
@@ -113,8 +124,10 @@
       text-decoration: none;
       color: white;
     }
-
-  }
+}
+    .q-img{
+      height: 20rem;
+    }
   .q-tab{
   display: none;
   }
@@ -122,8 +135,9 @@
     width: 100%;
     height: 8rem;
     position: relative;
-    top: 12rem;
+    top: -8rem;
     background: url('../assets/deco_white.png') repeat-x center/cover;
+    z-index: 1;
     &::before{
       content: "";
       width: 100%;
@@ -136,12 +150,13 @@
     }
   }
 }
-:deep(.q-tab__label){
-  font-size: 1.2rem;
-}
+
 @media(min-width:768px){
 .q-header{
   height: 32rem;
+  .q-img{
+      height: 32rem;
+  }
   .menuBtn{
     display: none;
   }
@@ -150,7 +165,7 @@
   }
   .deco{
     height: 9rem;
-    top: 23.5rem;
+    top: -8.5rem;
     &::before{
       height: 9rem;
     }
@@ -160,14 +175,17 @@
 
 @media(min-width:1200px){
   .q-header{
-    height: 50rem;
-    .deco{
-    height: 16rem;
-    top: 34.5rem;
-    &::before{
-      height: 16rem;
+    height: 44rem;
+    .q-img{
+      height: 44rem;
     }
-  }
+    .deco{
+      height: 16rem;
+      top: -15.5rem;
+      &::before{
+        height: 16rem;
+      }
+    }
 
 }
 }
@@ -175,12 +193,15 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { useUserStore } from 'src/stores/user'
 import { storeToRefs } from 'pinia'
-import { apiAuth } from 'src/boot/axios'
 import sweetalert from 'sweetalert2'
 import { useQuasar } from 'quasar'
-// import $ from 'jquery'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import { useUserStore } from 'src/stores/user'
+import { apiAuth } from 'src/boot/axios'
 
 const $q = useQuasar()
 
@@ -252,6 +273,32 @@ const menuList = computed(() => {
     }
   ]
 })
+// 輪播圖
+// 輪播圖 - module
+const modules = [Autoplay]
+// 輪播圖 - 圖片
+const carouselImages = [
+  {
+    name: 'img1',
+    src: '/src/assets/carousel1.jpg'
+  },
+  {
+    name: 'img2',
+    src: '/src/assets/carousel2.jpg'
+  },
+  {
+    name: 'img3',
+    src: '/src/assets/carousel3.jpg'
+  },
+  {
+    name: 'img4',
+    src: '/src/assets/carousel4.jpg'
+  },
+  {
+    name: 'img5',
+    src: '/src/assets/carousel5.jpg'
+  }
+]
 
 // 登出設定
 const logout = async () => {
