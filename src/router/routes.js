@@ -70,6 +70,15 @@ const routes = [
         }
       },
       {
+        // 交易需要登入才能看 不需要管理員權限
+        path: '/trade/:id',
+        name: 'tradeId',
+        component: () => import(/* webpackChunkName: "tradeId" */'pages/front/ProductView.vue'),
+        meta: {
+          title: '光遇 Club | 商品'
+        }
+      },
+      {
         // 聯絡我們不需要登入和管理員權限就能看
         path: '/contact',
         name: 'contact',
