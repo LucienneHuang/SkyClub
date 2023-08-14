@@ -1,44 +1,48 @@
 <template>
-  <!-- 編輯/刪除 -->
   <!-- 按詳細資訊按鈕跳出來的東西 -->
   <q-dialog v-model="dialog" persistent>
     <div id="form">
-      <q-form @submit.prevent="editContactInfo">
+      <q-form @submit.prevent="editUser">
         <q-card class="flex column justify-center items-center q-pa-lg q-ma-xl">
-            <!-- 日期 -->
           <q-card-section horizontal>
-            <div class="text-h7 q-mt-md q-mr-lg">日期</div>
-            <q-input color="primary" type="text" readonly v-model="moreInfoForm.date" />
+            <VueFileAgent v-if="updateImage" :maxSize="'1MB'" :deletable="true" :accept="'image/jpg,image/jpeg,image/png'" :helpText="'只接受 jpg, jpeg 或 png 檔'" v-model="editUserForm.avatar" v-model:rawModelValue="rawFile" :errorText="{type: '檔案類型不合法。只接受 jpg, jpeg 或 png 檔。',size: '檔案大小不得大於1MB',}" ></VueFileAgent>
+            <q-btn v-else @click="updateImageBtn">
+              <q-img :src="editUserForm.oldImg" style="width: 160px; height: 160px; border-radius: 0;"/>
+            </q-btn>
           </q-card-section>
-            <!-- 稱呼 -->
+          <!-- 會員 ID -->
           <q-card-section horizontal>
-            <div class="text-h7 q-mt-md q-mr-lg">稱呼</div>
-            <q-input color="primary" type="text" readonly v-model="moreInfoForm.name" />
+            <div class="text-h7 q-mt-md q-mr-lg">&nbsp;&nbsp;ID&nbsp;</div>
+            <q-input color="primary" type="text"  v-model="editUserForm.userId" readonly />
           </q-card-section>
-            <!-- 信箱 -->
+          <!-- 權限 -->
+          <q-card-section horizontal>
+            <div class="text-h7 q-mt-md q-mr-lg">權限</div>
+            <q-input color="primary" type="text"  v-model="editUserForm.role" readonly />
+          </q-card-section >
+          <!-- 暱稱 -->
+          <q-card-section horizontal>
+            <div class="text-h7 q-mt-md q-mr-lg">暱稱</div>
+            <q-input label="請輸入暱稱" color="primary" type="text"  v-model="editUserForm.nickname" :rules="[rules.required]" />
+          </q-card-section>
+          <!-- 信箱 -->
           <q-card-section horizontal>
             <div class="text-h7 q-mt-md q-mr-lg">信箱</div>
-            <q-input color="primary" type="email" readonly v-model="moreInfoForm.email"/>
+            <q-input label="請輸入信箱" color="primary" type="email"  v-model="editUserForm.email" :rules="[rules.required,rules.email]"/>
           </q-card-section >
-            <!-- 內容 -->
           <q-card-section horizontal>
-            <div class="text-h7 q-mt-md q-mr-lg">內文</div>
-            <q-input color="primary" type="textarea" readonly v-model="moreInfoForm.message"/>
+            <div class="text-h7 q-mt-md q-mr-lg">停權</div>
+            <q-checkbox class="q-mt-sm" color="primary" v-model="editUserForm.block"/>
           </q-card-section>
-          <!-- 確認 -->
-          <q-card-section horizontal>
-            <div class="text-h7 q-mt-md q-mr-lg">確認</div>
-            <q-checkbox class="q-mt-sm" color="primary" v-model="moreInfoForm.done"/>
-          </q-card-section>
-          <!-- 送出/取消 -->
           <q-card-actions class="q-mt-sm">
-            <q-btn type="submit" unelevated rounded style="width: 6rem;" size="1rem" color="primary" label="送出"  v-close-popup />
+            <q-btn type="submit" unelevated rounded style="width: 6rem;" size="1rem" color="primary" label="送出" v-close-popup/>
             <q-btn unelevated rounded style="width: 6rem;" size="1rem" outline color="primary" label="取消" @click="dialog=false" />
           </q-card-actions>
         </q-card>
       </q-form>
     </div>
   </q-dialog>
+
   <!-- 標題 -->
   <div id="title" class="q-ml-xl q-my-lg q-pl-lg q-py-sm text-h4 text-weight-bold non-selectable">會員資料管理</div>
   <!-- 表格本體 -->
@@ -68,6 +72,18 @@
           </q-td>
           <q-td :props="props" v-else>
             會員
+          </q-td>
+        </template>
+        <!-- 頭貼 -->
+        <template #body-cell-block="props">
+          <q-td :props="props">
+            <q-icon name="mdi-triangle-outline" v-if="props.value" />
+          </q-td>
+        </template>
+        <!-- 編輯按鈕 -->
+        <template #body-cell-edit="props">
+          <q-td :props="props">
+            <q-btn round color="primary" @click="tableEditItem(props.row)" icon="mdi-file-document-edit" />
           </q-td>
         </template>
       </q-table>
@@ -148,6 +164,9 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useQuasar } from 'quasar'
+import validator from 'validator'
+import sweetalert from 'sweetalert2'
+import 'animate.css'
 import { apiAuth } from 'src/boot/axios'
 
 const $q = useQuasar()
@@ -192,7 +211,23 @@ const columns = [
     label: '權限',
     align: 'center',
     field: 'role',
+    sortable: false
+  },
+  {
+    name: 'block',
+    required: true,
+    label: '停權',
+    align: 'center',
+    field: 'block',
     sortable: true
+  },
+  {
+    name: 'edit',
+    required: true,
+    label: '編輯',
+    align: 'center',
+    field: 'edit',
+    sortable: false
   }
 ]
 const rows = reactive([])
@@ -209,6 +244,98 @@ const tableLoadAllMember = async () => {
 }
 tableLoadAllMember()
 
+// 設定 updateImage 的值
+const updateImage = ref(false)
+const updateImageBtn = () => {
+  updateImage.value = !updateImage.value
+}
+// 驗證規則
+const rules = {
+  required: (value) => !!value || '欄位必填',
+  email: (value) => validator.isEmail(value) || '信箱格式錯誤'
+}
+// dialog 開關預設 false
+const dialog = ref(false)
+const rawFile = ref([])
+const editUserForm = reactive({
+  avatar: [],
+  oldImg: '',
+  nickname: '',
+  userId: '',
+  email: '',
+  role: '',
+  block: 0
+})
+// 取得所有資料
+const tableEditItem = (item) => {
+  dialog.value = true
+  editUserForm.avatar = item.avatar
+  editUserForm.oldImg = item.avatar
+  editUserForm.nickname = item.nickname
+  editUserForm.userId = item._id
+  editUserForm.email = item.email
+  if (item.role === 0) {
+    editUserForm.role = '會員'
+  } else {
+    editUserForm.role = '管理員'
+  }
+  if (item.block === 0) {
+    editUserForm.block = false
+  } else {
+    editUserForm.block = true
+  }
+}
+const editProducts = async (userId, fd2) => {
+  const products = await apiAuth.get('/products/user/' + userId)
+  console.log(products.data.result)
+  for (const id of products.data.result) {
+    await apiAuth.patch('/products/' + id._id, fd2)
+  }
+}
+// 編輯完成送出
+const editUser = async () => {
+  try {
+    const fd = new FormData()
+    const fd2 = new FormData()
+    fd.append('nickname', editUserForm.nickname)
+    fd.append('email', editUserForm.email)
+    if (editUserForm.avatar.length === 0 || typeof editUserForm.avatar === 'string') {
+      fd.append('avatar', editUserForm.oldImg)
+    } else {
+      fd.append('avatar', editUserForm.avatar[0].file)
+    }
+    if (editUserForm.block === true) {
+      fd.append('block', 1)
+      fd2.append('sell', false)
+      editProducts(editUserForm.userId, fd2)
+    } else {
+      fd.append('block', 0)
+    }
+
+    await apiAuth.patch('/users/all/' + editUserForm.userId, fd)
+    await sweetalert.fire({
+      icon: 'success',
+      title: '更新成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#F198AF',
+      confirmButtonColor: '#F198AF',
+      width: '20rem'
+    })
+    tableLoadAllMember()
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: error.response.data.message
+    })
+  }
+}
+
+// 調整 table 寬高比例
 const ratioTop = ref('')
 const ratioBottom = ref('')
 const rwd = () => {
