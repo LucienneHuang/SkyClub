@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div class="bg_effect">
+      <div id="shine"></div>
       <!-- 上層的隱形 toolbar -->
       <q-toolbar class="text-white q-px-lg q-pt-md" style="height: 50px;">
       <!-- 最右側的 btn -->
@@ -82,11 +83,20 @@
   width: 100vw;
   height: 100vh;
   background: url('../../assets/register_bg.jpg') no-repeat center/cover;
+
   .bg_effect{
     width: 100%;
     height: 100%;
     background-color:transparent;
     backdrop-filter: blur(8px);
+      #shine{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('/src/assets/shine.gif');
+      background-size: cover;
+      filter: opacity(0.1);
+    }
   }
   .row{
     width:100%;

@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div class="bg_effect">
+      <div id="star"></div>
       <!-- 上層的隱形 toolbar -->
       <q-toolbar class="text-white q-px-lg q-pt-md" style="height: 50px;">
       <!-- 最右側的 btn -->
@@ -70,15 +71,24 @@
   </div>
 </template>
 <style lang="scss" scoped>
+
 .container{
   width: 100vw;
   height: 100vh;
   background: url('../../assets/login_bg.jpg') no-repeat center/cover;
+
   .bg_effect{
     width: 100%;
     height: 100%;
     background-color:transparent;
     backdrop-filter: blur(8px);
+    #star{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('/src/assets/star2.gif');
+      filter: opacity(0.2);
+    }
   }
   .row{
     width:100%;
@@ -185,8 +195,19 @@ const login = async () => {
       nickname: data.result.nickname,
       avatar: data.result.avatar,
       cart: data.result.cart,
-      role: data.result.role
+      role: data.result.role,
+      block: data.result.block
     })
+    if (user.isBlock) {
+      await sweetalert.fire({
+        icon: 'warning',
+        title: '帳號停權中',
+        text: '暫時關閉交易功能，已完成的訂單不受影響。',
+        iconColor: '#ff0000',
+        confirmButtonColor: '#ff0000',
+        width: '30rem'
+      })
+    }
     router.push('/')
   } catch (error) {
     $q.notify({
