@@ -296,6 +296,7 @@ const addProuct = async () => {
     })
     router.push('/member/products')
   } catch (error) {
+    loading.value = false
     $q.notify({
       type: 'negative',
       message: error.response.data.message
