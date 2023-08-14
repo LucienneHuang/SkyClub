@@ -4,6 +4,8 @@ import { route } from 'quasar/wrappers'
 // 就是第一次路由導航的位置
 // 可以判斷他是不是第一次進這個網頁
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory, START_LOCATION } from 'vue-router'
+import sweetalert from 'sweetalert2'
+
 import routes from './routes'
 import { useUserStore } from 'src/stores/user'
 
@@ -62,6 +64,26 @@ export default route(function (/* { store, ssrContext } */) {
       next('/')
     } else if (!user.isLogin && ['/trade'].includes(to.path)) {
       next('/login')
+    } else if (user.isBlock && ['/trade'].includes(to.path)) {
+      await sweetalert.fire({
+        icon: 'warning',
+        title: '帳號停權中',
+        text: '暫時關閉交易功能，已完成的訂單不受影響。',
+        iconColor: '#ff0000',
+        confirmButtonColor: '#ff0000',
+        width: '30rem'
+      })
+      next('/')
+    } else if (user.isBlock && ['/member/products'].includes(to.path)) {
+      await sweetalert.fire({
+        icon: 'warning',
+        title: '帳號停權中',
+        text: '暫時關閉交易功能，已完成的訂單不受影響。',
+        iconColor: '#ff0000',
+        confirmButtonColor: '#ff0000',
+        width: '30rem'
+      })
+      next('/member')
     } else {
       // else 該去哪就去哪，不導向
       next()
