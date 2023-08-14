@@ -3,6 +3,13 @@
     <div id="form">
       <q-form @submit.prevent="editProduct">
         <q-card class="flex column justify-center items-center q-pa-lg q-ma-xl">
+            <!-- 首圖 -->
+            <q-card-section horizontal>
+              <VueFileAgent v-if="updateImage" :maxSize="'1MB'" :deletable="true" :accept="'image/jpg,image/jpeg,image/png'" :helpText="'只接受 jpg, jpeg 或 png 檔'" v-model="editProductForm.image" v-model:rawModelValue="rawFile" :errorText="{type: '檔案類型不合法。只接受 jpg, jpeg 或 png 檔。',size: '檔案大小不得大於1MB',}" ></VueFileAgent>
+              <q-btn v-else @click="updateImageBtn">
+                <q-img :src="editProductForm.oldImg" style="width: 160px; height: 160px; border-radius: 0;"/>
+              </q-btn>
+          </q-card-section>
             <!-- 商品標題 -->
             <q-card-section horizontal>
             <div class="text-h7 q-mt-md q-mr-lg">標題</div>
@@ -25,7 +32,86 @@
           </q-card-section>
           <q-card-section horizontal>
             <div class="text-h7 q-mt-md q-mr-lg">內文</div>
-            <q-input color="secondary" type="textarea" v-model="editProductForm.description" :rules="[rules.required]"/>
+            <q-editor  :rules="[rules.required]" v-model="editProductForm.description"  class="q-my-md"
+      :dense="$q.screen.lt.md"
+      :toolbar="[
+        [
+          {
+            label: $q.lang.editor.align,
+            icon: $q.iconSet.editor.align,
+            fixedLabel: true,
+            list: 'only-icons',
+            options: ['left', 'center', 'right', 'justify']
+          }
+        ],
+        ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
+        ['token', 'hr', 'link', 'custom_btn'],
+        [
+          {
+            label: $q.lang.editor.formatting,
+            icon: $q.iconSet.editor.formatting,
+            list: 'no-icons',
+            options: [
+              'p',
+              'h1',
+              'h2',
+              'h3',
+              'h4',
+              'h5',
+              'h6',
+              'code'
+            ]
+          },
+          {
+            label: $q.lang.editor.fontSize,
+            icon: $q.iconSet.editor.fontSize,
+            fixedLabel: true,
+            fixedIcon: true,
+            list: 'no-icons',
+            options: [
+              'size-1',
+              'size-2',
+              'size-3',
+              'size-4',
+              'size-5',
+              'size-6',
+              'size-7'
+            ]
+          },
+          {
+            label: $q.lang.editor.defaultFont,
+            icon: $q.iconSet.editor.font,
+            fixedIcon: true,
+            list: 'no-icons',
+            options: [
+              'default_font',
+              'arial',
+              'arial_black',
+              'comic_sans',
+              'courier_new',
+              'impact',
+              'lucida_grande',
+              'times_new_roman',
+              'verdana'
+            ]
+          },
+          'removeFormat'
+        ],
+        ['quote', 'unordered', 'ordered'],
+
+        ['undo', 'redo'],
+        ['viewsource']
+      ]"
+      :fonts="{
+        arial: 'Arial',
+        arial_black: 'Arial Black',
+        comic_sans: 'Comic Sans MS',
+        courier_new: 'Courier New',
+        impact: 'Impact',
+        lucida_grande: 'Lucida Grande',
+        times_new_roman: 'Times New Roman',
+        verdana: 'Verdana'
+      }"/>
           </q-card-section>
           <q-card-section horizontal>
             <!-- 選擇單位 -->
@@ -114,6 +200,10 @@
     :deep(.q-field__control){
       width: 12rem;
     }
+    .q-editor{
+        border: 1px solid $secondary;
+        width: 12rem;
+    }
   }
 }
 
@@ -131,6 +221,10 @@
       :deep(.q-field__control){
         width: 30rem;
       }
+      .q-editor{
+        border: 1px solid $secondary;
+        width: 30rem;
+      }
     }
   }
 }
@@ -146,6 +240,10 @@
       font-size: 1rem;
       width: 50rem;
       :deep(.q-field__control){
+        width: 40rem;
+      }
+      .q-editor{
+        border: 1px solid $secondary;
         width: 40rem;
       }
     }
@@ -250,7 +348,16 @@ const rules = {
   currencyRequired: (value) => ['季票', '愛心', '現金', '噗幣', '其他'].includes(value) || '沒有該幣值',
   categoryRequired: (value) => ['季票', '禮包', '周邊', '其他'].includes(value) || '沒有該分類'
 }
+
+// 設定 updateImage 的值
+const updateImage = ref(false)
+const updateImageBtn = () => {
+  updateImage.value = !updateImage.value
+}
+const rawFile = ref([])
 const editProductForm = reactive({
+  image: [],
+  oldImg: '',
   name: '',
   price: 0,
   currency: '',
@@ -266,6 +373,8 @@ const dialog = ref(false)
 const productId = ref('')
 const tableEditItem = (item) => {
   dialog.value = true
+  editProductForm.image = item.image
+  editProductForm.oldImg = item.image
   editProductForm.name = item.name
   editProductForm.price = item.price
   editProductForm.currency = item.currency
@@ -286,6 +395,11 @@ const editProduct = async () => {
     fd.append('description', editProductForm.description)
     fd.append('category', editProductForm.category)
     fd.append('sell', editProductForm.sell)
+    if (editProductForm.image.length === 0 || typeof editProductForm.image === 'string') {
+      fd.append('image', editProductForm.oldImg)
+    } else {
+      fd.append('image', editProductForm.image[0].file)
+    }
     await apiAuth.patch('/products/' + productId.value, fd)
     await sweetalert.fire({
       icon: 'success',
@@ -300,6 +414,9 @@ const editProduct = async () => {
       confirmButtonColor: '#A6D8D4',
       width: '20rem'
     })
+    rawFile.value = ''
+    editProductForm.image = ''
+    updateImage.value = false
     tableLoadItems()
   } catch (error) {
     $q.notify({
