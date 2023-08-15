@@ -23,10 +23,10 @@
       disableOnInteraction: false,
     }"
   >
-    <swiper-slide v-for="realm in realms" :key="realm._id">
-      <RealmCard v-bind="realm"></RealmCard>
-    </swiper-slide>
-  </swiper>
+      <swiper-slide v-for="realm in realms" :key="realm._id">
+        <RealmCard v-bind="realm"></RealmCard>
+      </swiper-slide>
+    </swiper>
   </div>
   <div class="parallax flex items-center">
     <div class="parallaxImg"></div>
