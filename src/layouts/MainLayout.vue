@@ -199,7 +199,6 @@ import { useQuasar } from 'quasar'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
-import 'swiper/css/navigation'
 import { useUserStore } from 'src/stores/user'
 import { apiAuth } from 'src/boot/axios'
 
