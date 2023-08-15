@@ -321,7 +321,7 @@ tableLoadItems()
 const rules = {
   required: (value) => !!value || '欄位必填',
   numberRequired: (value) => (!isNaN(value) && value > 0) || '不得小於 0',
-  currencyRequired: (value) => ['季票', '愛心', '現金', '噗幣', '其他'].includes(value) || '沒有該幣值',
+  currencyRequired: (value) => ['台幣'].includes(value) || '沒有該幣值',
   categoryRequired: (value) => ['季票', '禮包', '周邊', '其他'].includes(value) || '沒有該分類'
 }
 const editProductForm = reactive({
@@ -336,7 +336,7 @@ const editProductForm = reactive({
   category: '',
   sell: false
 })
-const currencyOptions = ['季票', '愛心', '現金', '噗幣', '其他']
+const currencyOptions = ['台幣']
 const categoryOptions = ['季票', '禮包', '周邊', '其他']
 
 const dialog = ref(false)
