@@ -6,11 +6,12 @@
         </q-card-section>
       </router-link>
       <q-card-section>
+        <div class="text-center text-weight-bold">賣家：{{ user }}</div>
         <div class="text-h5 text-weight-bolder text-center">{{ name }}</div>
-        <div class="text-center text-weight-bolder" style="font-size: 1.3rem;">$&nbsp;{{ price }}&nbsp;{{ currency }}</div>
+        <div class="text-center text-weight-bolder" style="font-size: 1.3rem;">{{ price }}&nbsp;{{ currency }}</div>
         <q-chip clickable @click="onClick" color="primary" text-color="white" icon="mdi-tag">{{category}}</q-chip>
         <div class="text-center">
-          <q-btn label="Add To Cart" color="accent" rounded class="addToCart text-center"/>
+          <q-btn label="Add To Cart" @click="addCart" color="accent" rounded class=" text-center"/>
         </div>
       </q-card-section>
   </q-card>
@@ -19,7 +20,7 @@
 .product{
   position: relative;
   width: 23rem;
-  height: 27rem;
+  height: 31rem;
   margin-bottom: 4rem;
   .q-card__section:nth-child(1){
     padding: 0;
@@ -53,8 +54,13 @@
 </style>
 <script setup>
 // 用 props 把資料丟進元件裡面
+import { useQuasar } from 'quasar'
 import { defineProps } from 'vue'
-defineProps({
+import sweetalert from 'sweetalert2'
+import 'animate.css'
+import { apiAuth } from 'src/boot/axios'
+const $q = useQuasar()
+const props = defineProps({
   // 商品 id
   _id: {
     type: String,
@@ -107,4 +113,31 @@ defineProps({
   }
 })
 
+const addCart = async () => {
+  try {
+    await apiAuth.post('/users/cart', {
+      product: props._id,
+      seller: props.user,
+      quantity: 1
+    })
+    await sweetalert.fire({
+      icon: 'success',
+      title: '新增購物車成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#B0A9EC',
+      confirmButtonColor: '#B0A9EC',
+      width: '20rem'
+    })
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: error.response.data.message
+    })
+  }
+}
 </script>
