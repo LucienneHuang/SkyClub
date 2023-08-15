@@ -8,3 +8,16 @@ body{
 #navbar .q-tab__label{
   font-size: 1.2rem;
 }
+.swiper-pagination{
+  margin-bottom: .3rem;
+}
+.swiper-pagination-bullet{
+  border-radius: 0 !important;
+  width: 30px !important;
+  height: 8px !important;
+  background:#6d5dff !important;
+  transition: 1s;
+  &:hover{
+    background:#1900ff !important;
+  }
+}
