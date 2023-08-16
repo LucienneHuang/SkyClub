@@ -227,7 +227,8 @@ const addProductForm = reactive({
   images: [],
   description: '',
   category: '',
-  sell: false
+  sell: false,
+  date: ''
 })
 const rawFile = ref([])
 const rawFiles = ref([])
@@ -253,6 +254,7 @@ const onReset = () => {
   addProductForm.category = ''
   addProductForm.sell = false
   addMoreImages.value = false
+  addProductForm.date = ''
 }
 const addProuct = async () => {
   // 檢查是否有新增主要圖片
@@ -262,6 +264,8 @@ const addProuct = async () => {
       message: '請選擇圖片'
     })
   }
+  const trueDate = new Date().toJSON().slice(0, 10)
+  addProductForm.date = trueDate
   try {
     loading.value = true
     const fd = new FormData()
@@ -274,12 +278,15 @@ const addProuct = async () => {
     fd.append('description', addProductForm.description)
     fd.append('category', addProductForm.category)
     fd.append('sell', addProductForm.sell)
+    fd.append('date', addProductForm.date)
     if (addProductForm.images.length >= 1) {
       addProductForm.images.forEach(item => {
         fd.append('images', item.file)
       })
     }
+    console.log('1')
     await apiAuth.post('/products', fd)
+    console.log('2')
     loading.value = false
     await sweetalert.fire({
       icon: 'success',
@@ -296,6 +303,7 @@ const addProuct = async () => {
     })
     router.push('/member/products')
   } catch (error) {
+    console.log(error)
     loading.value = false
     $q.notify({
       type: 'negative',
