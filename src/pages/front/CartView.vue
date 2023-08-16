@@ -58,7 +58,10 @@
             </q-markup-table>
           </div>
           <div class=" col-12 col-md-3 flex justify-center">
-            <div class="price"></div>
+            <div class="price">
+              <!-- test -->
+              <q-btn color="primary" label="Primary" @click="test" :disable="!canCheckout" />
+            </div>
           </div>
         </div>
     </div>
@@ -166,12 +169,17 @@ const total = computed(() => {
     }, 0)
     return total + sellerPrice
   }, 0)
+})
+const canCheckout = computed(() => {
+  // 每個賣家的購物車去檢查
+  // 如果最終回傳結果是 false (商品都有上架)，則 !後變成 true，反之則 false
+  return carts.value.length > 0 && !carts.value.some(cart => {
+    // 檢查每個賣家的購物車內的商品
+    // 如果商品有一個沒有上架，回傳 true
+    // 如果商品都有上架，回傳 false
+    return cart.productCart.some(product => !product.product.sell)
+  })
 });
-// const canCheckout=computed(()=>{
-//   return carts.value.length>0 && !carts.value.some(cart=>{
-//     cart.productCart.some(product=> !product.product.sel)
-//   })
-// });
 (async () => {
   try {
     const { data } = await apiAuth.get('/users/cart')
@@ -180,4 +188,7 @@ const total = computed(() => {
 
   }
 })()
+const test = () => {
+  console.log('可以結帳')
+}
 </script>
