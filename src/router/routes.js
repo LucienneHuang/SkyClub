@@ -79,6 +79,15 @@ const routes = [
         }
       },
       {
+        // 交易需要登入才能看 不需要管理員權限
+        path: '/cart',
+        name: 'Cart',
+        component: () => import(/* webpackChunkName: "cart" */'pages/front/CartView.vue'),
+        meta: {
+          title: '光遇 Club | 購物車'
+        }
+      },
+      {
         // 聯絡我們不需要登入和管理員權限就能看
         path: '/contact',
         name: 'contact',
