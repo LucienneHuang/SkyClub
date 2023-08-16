@@ -57,7 +57,7 @@
             <q-chip clickable @click="onClick" color="primary" text-color="white" icon="mdi-tag">{{product.category}}</q-chip>            <!-- 商品名稱 -->
             <div class="name text-weight-bold q-mb-md">{{ product.name }}</div>
             <!-- 賣家 -->
-            <div class="q-mb-sm">賣家: {{ product.user }}</div>
+            <div class="q-mb-sm">賣家:&nbsp;{{ product.sellername }}（{{ product.seller }}）</div>
             <!-- 剩餘數量 -->
             <div>剩餘數量： {{ product.MaxNumber }}</div>
             <!-- 商品價格 -->
@@ -283,7 +283,8 @@ const rules = {
 }
 const product = ref({
   _id: '',
-  user: '',
+  seller: '',
+  sellername: '',
   name: '',
   price: 0,
   currency: '',
@@ -298,7 +299,8 @@ const product = ref({
   try {
     const { data } = await api.get('/products/' + route.params.id)
     product.value._id = data.result._id
-    product.value.user = data.result.user
+    product.value.seller = data.result.user._id
+    product.value.sellername = data.result.user.nickname
     product.value.name = data.result.name
     product.value.price = data.result.price
     product.value.currency = data.result.currency
@@ -324,7 +326,7 @@ const addCart = async () => {
     loading.value = true
     await apiAuth.post('/users/cart', {
       product: product.value._id,
-      seller: product.value.user,
+      seller: product.value.user._id,
       quantity: quantity.value
     })
     loading.value = false
