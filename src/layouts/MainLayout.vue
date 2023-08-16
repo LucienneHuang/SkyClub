@@ -112,7 +112,9 @@
     background-color: #5c51b3;
     transition: background-color 0.5s linear;
   }
-
+.q-item.q-router-link--active, .q-item--active{
+  color: #000;
+}
 .q-header{
   width: 100%;
   height: 20rem;
