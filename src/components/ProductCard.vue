@@ -6,9 +6,9 @@
         </q-card-section>
       </router-link>
       <q-card-section>
-        <div class="text-center text-weight-bold">賣家：{{ user }}</div>
+        <div class="text-center text-weight-bold">賣家：{{ user.nickname }}（{{user._id}}）</div>
         <div class="text-h5 text-weight-bolder text-center">{{ name }}</div>
-        <div class="text-center text-weight-bolder" style="font-size: 1.3rem;">{{ price }}&nbsp;{{ currency }}</div>
+        <div class="text-center text-weight-bolder text-red-10" style="font-size: 1.3rem;">{{ price }}&nbsp;{{ currency }}</div>
         <q-chip clickable @click="onClick" color="primary" text-color="white" icon="mdi-tag">{{category}}</q-chip>
         <div class="text-center">
           <q-btn label="Add To Cart" @click="addCart" color="accent" rounded class=" text-center"/>
@@ -110,6 +110,10 @@ const props = defineProps({
   sell: {
     type: Boolean,
     default: () => true
+  },
+  date: {
+    type: String,
+    default: () => ''
   }
 })
 
@@ -117,7 +121,7 @@ const addCart = async () => {
   try {
     await apiAuth.post('/users/cart', {
       product: props._id,
-      seller: props.user,
+      seller: props.user._id,
       quantity: 1
     })
     await sweetalert.fire({
