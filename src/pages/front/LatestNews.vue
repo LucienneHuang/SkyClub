@@ -27,35 +27,6 @@
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-#container{
-  #title{
-    border-left: .8rem solid $accent;
-    font-size: 2rem;
-  }
-}
-@media(min-width:975px){
-  #container{
-    #head{
-      margin-left: 8rem;
-      #title{
-        font-size: 2.5rem;
-      }
-      .q-breadcrumbs{
-        font-size: 1.2rem;
-      }
-    }
-  }
-}
-@media(min-width:1200px){
-  #title{
-    font-size: 3rem;
-  }
-  .q-breadcrumbs{
-    font-size: 1.3rem;
-  }
-}
-</style>
 <script setup>
 import { ref, watch } from 'vue'
 import { useQuasar } from 'quasar'
