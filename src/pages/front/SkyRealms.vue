@@ -16,10 +16,6 @@
 </template>
 <style lang="scss" scoped>
 #container{
-  #title{
-    border-left: .8rem solid $accent;
-    font-size: 2rem;
-  }
   #section{
     margin: 6rem 2rem;
   }
@@ -30,28 +26,9 @@
       margin: 6rem 0rem;
     }
 }}
-@media(min-width:975px){
-  #container{
-    #head{
-      margin-left: 8rem;
-      #title{
-        font-size: 2.5rem;
-      }
-      .q-breadcrumbs{
-        font-size: 1.2rem;
-      }
-    }
 
-  }
-}
 @media(min-width:1200px){
   #container{
-    #title{
-      font-size: 3rem;
-    }
-    .q-breadcrumbs{
-      font-size: 1.3rem;
-    }
     #section{
       margin: 6rem 3rem;
     }
