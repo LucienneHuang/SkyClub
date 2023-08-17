@@ -206,7 +206,6 @@
 
   #form{
     width: 50rem;
-    max-width: 100vw;
     .q-card{
       font-size: 1rem;
       width: 40rem;
@@ -226,7 +225,6 @@
 
   #form{
     width: 60rem;
-    max-width: 100vw;
     .q-card{
       font-size: 1rem;
       width: 50rem;

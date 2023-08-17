@@ -1,56 +1,65 @@
 <template>
   <q-dialog v-model="dialog">
-    <q-card>
-      <q-card-section>
-        <q-card-section horizontal>
-          <div class="text-h7 q-mt-md q-mr-lg">訂單編號</div>
-          <q-input type="text" readonly v-model="order._id" color="secondary"/>
-        </q-card-section>
-        <q-card-section horizontal>
-          <div class="text-h7 q-mt-md q-mr-lg">賣家ＩＤ
-          </div>
-          <q-input type="text" readonly v-model="order.seller" color="secondary"/>
-        </q-card-section>
-        <q-card-section horizontal class="two">
-          <div class="text-h7 q-mt-md q-mr-lg">買家姓名</div>
-          <q-input type="text" readonly v-model="order.realName" color="secondary"/>
-          <div class="text-h7 q-mt-md q-mr-lg">買家電話</div>
-          <q-input type="text" readonly v-model="order.phoneNumber" color="secondary"/>
-        </q-card-section>
-        <q-card-section horizontal>
-          <div class="text-h7 q-mt-md q-mr-lg">聯絡方式</div>
-          <q-input type="text" readonly v-model="order.address" color="secondary"/>
-        </q-card-section>
-        <q-card-section horizontal class="two">
-          <div class="text-h7 q-mt-md q-mr-lg">商品總額</div>
-          <q-input type="text" readonly v-model="order.total" color="secondary"/>
-          <div class="text-h7 q-mt-md q-mr-lg">訂單日期</div>
-          <q-input type="text" readonly v-model="order.date" color="secondary"/>
-        </q-card-section>
-        <q-card-section horizontal class="q-mb-sm">
-          <div class="text-h7 q-mt-md q-mr-lg">付款方式</div>
-          <q-input type="text" readonly v-model="order.payment" color="secondary"/>
-        </q-card-section>
-        <q-card-section v-for="(product,i) in order.cart" :key="i" style="background: rgb(228, 228, 228);" class="q-mb-md">
-          <div class="text-center">
-            <q-img :src="product.product.image" style="width: 150px;height: 120px;"/>
-          </div>
-          <q-card-section horizontal>
-            <div class="text-h7 q-mt-md q-mr-lg">商品名稱</div>
-            <q-input type="text" readonly v-model="product.product.name" color="secondary"/>
+    <div id="form">
+      <q-form @submit.prevent="editOrder">
+        <q-card>
+          <q-card-section>
+            <q-card-section horizontal class="flex justify-center">
+                <div class="text-h7 q-mt-md q-mr-lg text-h6">出貨</div>
+                <q-checkbox style="margin-top: 12px;" color="secondary" v-model="order.check"/>
+              </q-card-section>
+            <q-card-section horizontal>
+              <div class="text-h7 q-mt-md q-mr-lg">訂單編號</div>
+              <q-input type="text" readonly v-model="order._id" color="secondary"/>
+            </q-card-section>
+            <q-card-section horizontal>
+              <div class="text-h7 q-mt-md q-mr-lg">賣家ＩＤ
+              </div>
+              <q-input type="text" readonly v-model="order.buyer" color="secondary"/>
+            </q-card-section>
+            <q-card-section horizontal class="two">
+              <div class="text-h7 q-mt-md q-mr-lg">買家姓名</div>
+              <q-input type="text" readonly v-model="order.realName" color="secondary"/>
+              <div class="text-h7 q-mt-md q-mr-lg">買家電話</div>
+              <q-input type="text" readonly v-model="order.phoneNumber" color="secondary"/>
+            </q-card-section>
+            <q-card-section horizontal>
+              <div class="text-h7 q-mt-md q-mr-lg">聯絡方式</div>
+              <q-input type="text" readonly v-model="order.address" color="secondary"/>
+            </q-card-section>
+            <q-card-section horizontal class="two">
+              <div class="text-h7 q-mt-md q-mr-lg">商品總額</div>
+              <q-input type="text" readonly v-model="order.total" color="secondary"/>
+              <div class="text-h7 q-mt-md q-mr-lg">訂單日期</div>
+              <q-input type="text" readonly v-model="order.date" color="secondary"/>
+            </q-card-section>
+            <q-card-section horizontal class="q-mb-sm">
+              <div class="text-h7 q-mt-md q-mr-lg">付款方式</div>
+              <q-input type="text" readonly v-model="order.payment" color="secondary"/>
+            </q-card-section>
+            <q-card-section v-for="(product,i) in order.cart" :key="i" style="background: rgb(228, 228, 228);" class="q-mb-md">
+              <div class="text-center">
+                <q-img :src="product.product.image" style="width: 150px;height: 120px;"/>
+              </div>
+              <q-card-section horizontal>
+                <div class="text-h7 q-mt-md q-mr-lg">商品名稱</div>
+                <q-input type="text" readonly v-model="product.product.name" color="secondary"/>
+              </q-card-section>
+              <q-card-section horizontal class="two">
+                <div class="text-h7 q-mt-md q-mr-lg">數量</div>
+              <q-input type="text" readonly v-model="product.quantity" color="secondary"/>
+              <div class="text-h7 q-mt-md q-mr-lg">單價</div>
+              <q-input type="text" readonly v-model="product.product.price" color="secondary"/>
+              </q-card-section>
+            </q-card-section>
           </q-card-section>
-          <q-card-section horizontal class="two">
-            <div class="text-h7 q-mt-md q-mr-lg">數量</div>
-          <q-input type="text" readonly v-model="product.quantity" color="secondary"/>
-          <div class="text-h7 q-mt-md q-mr-lg">單價</div>
-          <q-input type="text" readonly v-model="product.product.price" color="secondary"/>
-          </q-card-section>
-        </q-card-section>
-      </q-card-section>
-      <q-card-actions class="flex justify-center">
-        <q-btn unelevated rounded style="width: 6rem;" size="1rem" color="secondary" label="OK" class="q-mb-md" v-close-popup/>
-      </q-card-actions>
-    </q-card>
+          <q-card-actions class="flex justify-center q-mb-md">
+            <q-btn type="submit" unelevated rounded style="width: 6rem;" size="1rem" color="secondary" label="送出"  v-close-popup />
+            <q-btn unelevated rounded style="width: 6rem;" size="1rem" outline color="secondary" label="取消" @click="dialog=false" />
+          </q-card-actions>
+        </q-card>
+      </q-form>
+    </div>
   </q-dialog>
   <div id="title" class="q-ml-xl q-my-lg q-pl-lg q-py-sm text-h4 text-weight-bold non-selectable">出售訂單管理</div>
   <div id="container" class="flex justify-center q-px-xl q-pb-xl">
@@ -65,10 +74,10 @@
             </q-input>
           </template>
           <!-- 賣家 -->
-          <template #body-cell-sell="props">
+          <template #body-cell-buyer="props">
             <q-td :props="props">
-              {{ props.row.seller.nickname}}
-              （{{ props.row.seller._id}}）
+              {{ props.row.user.nickname}}
+              （{{ props.row.user._id}}）
             </q-td>
           </template>
           <!-- 賣家 -->
@@ -109,8 +118,11 @@
       height: 100%;
     }
   }
-  .q-card{
+  #form{
     width: 35rem;
+    max-width: 100vw;
+    .q-card{
+    width: 25rem;
     max-width: 100vw;
     border: 4px solid $secondary;
     border-radius: 2rem;
@@ -123,20 +135,24 @@
       }
     }
   }
+  }
 
   @media(min-width:992px){
     #title{
     font-size: 3rem;
     }
-    .q-card{
-      width: 40rem;
-      :deep(.q-field__control){
-          width: 30rem;
-      }
-      .two{
+    #form{
+      width: 53rem;
+      .q-card{
+        width: 50rem;
         :deep(.q-field__control){
-          width: 12.5rem;
-      }
+            width: 30rem;
+        }
+        .two{
+          :deep(.q-field__control){
+            width: 12.5rem;
+        }
+        }
       }
     }
   }
@@ -172,11 +188,11 @@ const columns = [
     sortable: false
   },
   {
-    name: 'sell',
+    name: 'buyer',
     required: true,
-    label: '賣家',
+    label: '買家',
     align: 'center',
-    field: 'sell',
+    field: 'buyer',
     sortable: false
   },
   {
@@ -208,7 +224,7 @@ const rows = reactive([])
 // 取得自己的商品資訊
 const tableLoadItems = async () => {
   try {
-    const { data } = await apiAuth.get('/orders')
+    const { data } = await apiAuth.get('/orders/sell')
     rows.splice(0, rows.length, ...data.result)
   } catch (error) {
     console.log(error)
@@ -222,29 +238,38 @@ const tableLoadItems = async () => {
 tableLoadItems()
 const order = reactive({
   _id: '',
-  seller: '',
+  buyer: '',
   realName: '',
   phoneNumber: '',
   address: '',
   payment: '',
   total: '',
   date: '',
-  cart: []
+  cart: [],
+  check: false
 })
 // 詳細訂單
 const orderDetail = (detail) => {
   dialog.value = true
   order._id = detail._id
-  order.seller = detail.seller.nickname + '（' + `${detail.seller._id}` + '）'
+  order.buyer = detail.user.nickname + '（' + `${detail.user._id}` + '）'
   order.realName = detail.realName
   order.phoneNumber = detail.phoneNumber
   order.address = detail.address
   order.payment = detail.payment
   order.total = detail.total
+  order.check = detail.check
   order.date = detail.date.slice(0, 10) + ' ' + detail.date.slice(11, 19)
   order.cart = [...detail.cart]
 }
 
+const editOrder = async () => {
+  try {
+    await apiAuth.patch('/orders/' + order._id, order.check)
+  } catch (error) {
+
+  }
+}
 const ratioTop = ref('')
 const ratioBottom = ref('')
 const rwd = () => {
