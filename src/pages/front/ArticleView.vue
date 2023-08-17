@@ -27,10 +27,6 @@
 </template>
 <style lang="scss" scoped>
 #container{
-  #title{
-    border-left: .8rem solid $accent;
-    font-size: 2rem;
-  }
   #date{
     margin-left: 2rem;
   }
@@ -77,31 +73,11 @@
 }
 @media(min-width:975px){
   #container{
-    #head{
-      margin-left: 8rem;
-      #title{
-        font-size: 2.5rem;
-      }
-      .q-breadcrumbs{
-        font-size: 1.2rem;
-      }
-    }
     .q-img{
       margin: 2rem 10rem;
     }
     #section{
       margin: 1rem 8rem 5rem 8rem;
-    }
-  }
-}
-
-@media(min-width:1200px){
-  #container{
-    #title{
-      font-size: 3rem;
-    }
-    .q-breadcrumbs{
-      font-size: 1.3rem;
     }
   }
 }
