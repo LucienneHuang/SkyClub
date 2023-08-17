@@ -8,7 +8,7 @@
           －即將跳轉到交易主頁－
         </q-card-section>
         <q-card-actions align="center">
-          <q-btn label="OK" @click="$router.go" color="primary" v-close-popup />
+          <q-btn label="OK" to="/trade" color="primary" v-close-popup />
         </q-card-actions>
     </q-card>
   </q-dialog>
@@ -326,7 +326,7 @@ const addCart = async () => {
     loading.value = true
     await apiAuth.post('/users/cart', {
       product: product.value._id,
-      seller: product.value.user._id,
+      seller: product.value.seller,
       quantity: quantity.value
     })
     loading.value = false
