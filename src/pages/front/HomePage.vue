@@ -124,7 +124,7 @@ onUpdated(() => {
       end: 'bottom 0%',
       scrub: true
     },
-    backgroundPosition: '50% -50%',
+    backgroundPosition: '50% 50%',
     ease: 'none'
   })
 })

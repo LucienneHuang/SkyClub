@@ -19,11 +19,11 @@
       <NewsCard v-bind="article"></NewsCard>
     </div>
     <div class="q-pa-lg flex flex-center">
-    <q-pagination
-      v-model="currentPage"
-      :max="pagesOfPagination"
-      boundary-links
-      direction-links/>
+      <q-pagination
+        v-model="currentPage"
+        :max="pagesOfPagination"
+        boundary-links
+        direction-links/>
     </div>
   </div>
 </template>
