@@ -6,8 +6,8 @@
         </q-card-section>
       </router-link>
       <q-card-section>
-        <div class="text-center text-weight-bold">賣家：{{ user.nickname }}（{{user._id}}）</div>
-        <div class="text-h5 text-weight-bolder text-center">{{ name }}</div>
+        <div class="text-weight-bold">賣家：{{ user.nickname }}<br>&nbsp;ID:&nbsp;：{{user._id}}</div>
+        <div class="text-h5 text-weight-bolder text-center q-mt-sm">{{ name }}</div>
         <div class="text-center text-weight-bolder text-red-10" style="font-size: 1.3rem;">{{ price }}&nbsp;{{ currency }}</div>
         <q-chip clickable @click="onClick" color="primary" text-color="white" icon="mdi-tag">{{category}}</q-chip>
         <div class="text-center">
@@ -20,11 +20,11 @@
 .product{
   position: relative;
   width: 23rem;
-  height: 31rem;
+  height: 28rem;
   margin-bottom: 4rem;
   .q-card__section:nth-child(1){
     padding: 0;
-    height: 70%;
+    height: 60%;
   }
   :deep(.q-img){
     height: 100%;
