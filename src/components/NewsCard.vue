@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-mx-xl q-my-lg">
+  <q-card class="q-mx-xl">
     <q-card-section horizontal class="all flex">
         <q-img :src="image" class="ratio "/>
         <q-card-section class="ratio flex column justify-center items-center">
