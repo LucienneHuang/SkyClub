@@ -150,6 +150,12 @@
             <q-img :src="props.value" spinner-color="white" style="height: 140px; width: 180px" />
           </q-td>
         </template>
+        <!-- 名稱 -->
+        <template #body-cell-name="props">
+          <q-td :props="props">
+            <router-link :to="'/trade/'+props.row._id">{{ props.row.name }}</router-link>
+          </q-td>
+        </template>
         <!-- 商品是否上架 -->
         <template #body-cell-sell="props">
           <q-td :props="props">
@@ -168,10 +174,21 @@
 
 </template>
 <style lang="scss" scoped>
+
 #title{
   border-left: .8rem solid $secondary;
   }
 #container{
+  td>a{
+  color: black;
+  text-decoration: none;
+  padding: 5px 8px;
+  transition: .3s;
+  &:hover{
+    background: $secondary;
+    color: white;
+  }
+}
   width: 100%;
   // height: calc(100vh - 164px);
   :deep(.q-table thead th){
@@ -284,14 +301,6 @@ const columns = [
     align: 'center',
     field: 'price',
     sortable: true
-  },
-  {
-    name: 'currency',
-    required: true,
-    label: '幣值',
-    align: 'center',
-    field: 'currency',
-    sortable: false
   },
   {
     name: 'MaxNumber',
