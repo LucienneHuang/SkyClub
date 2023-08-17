@@ -237,8 +237,8 @@ const categoryOptions = ['季票', '禮包', '周邊', '其他']
 const rules = {
   required: (value) => !!value || '欄位必填',
   numberRequired: (value) => (!isNaN(value) && value > 0) || '不得小於 0',
-  currencyRequired: (value) => ['台幣'].includes(value) || '沒有該幣值',
-  categoryRequired: (value) => ['季票', '禮包', '周邊', '其他'].includes(value) || '沒有該分類'
+  currencyRequired: (value) => currencyOptions.includes(value) || '沒有該幣值',
+  categoryRequired: (value) => categoryOptions.includes(value) || '沒有該分類'
 }
 
 const onReset = () => {
@@ -284,9 +284,7 @@ const addProuct = async () => {
         fd.append('images', item.file)
       })
     }
-    console.log('1')
     await apiAuth.post('/products', fd)
-    console.log('2')
     loading.value = false
     await sweetalert.fire({
       icon: 'success',
