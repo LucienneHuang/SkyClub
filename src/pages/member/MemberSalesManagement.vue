@@ -39,7 +39,9 @@
             </q-card-section>
             <q-card-section v-for="(product,i) in order.cart" :key="i" style="background: rgb(228, 228, 228);" class="q-mb-md">
               <div class="text-center">
-                <q-img :src="product.product.image" style="width: 150px;height: 120px;"/>
+                <router-link :to="'/trade/'+product.product._id">
+                  <q-img :src="product.product.image" style="width: 150px;height: 120px;"/>
+                </router-link>
               </div>
               <q-card-section horizontal>
                 <div class="text-h7 q-mt-md q-mr-lg">商品名稱</div>
@@ -80,11 +82,18 @@
               （{{ props.row.user._id}}）
             </q-td>
           </template>
-          <!-- 賣家 -->
+          <!-- 日期 -->
           <template #body-cell-datedetail="props">
             <q-td :props="props">
               {{ props.row.date.slice(0, 10)}}<br>
               {{ props.row.date.slice(11, 19)}}
+            </q-td>
+          </template>
+          <!-- 出貨狀態 -->
+          <template #body-cell-check="props">
+            <q-td :props="props">
+              <div v-if="props.value">已出貨</div>
+              <div v-else>準備中</div>
             </q-td>
           </template>
           <!-- 詳細按鈕 -->
@@ -146,12 +155,12 @@
       .q-card{
         width: 50rem;
         :deep(.q-field__control){
-            width: 30rem;
+            width: 40rem;
         }
         .two{
           :deep(.q-field__control){
-            width: 12.5rem;
-        }
+            width: 18rem;
+          }
         }
       }
     }
@@ -164,6 +173,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useQuasar } from 'quasar'
+import sweetalert from 'sweetalert2'
 import 'animate.css'
 import { apiAuth } from '../../boot/axios.js'
 
@@ -206,10 +216,10 @@ const columns = [
   {
     name: 'check',
     required: true,
-    label: '出貨',
+    label: '出貨狀態',
     align: 'center',
     field: 'check',
-    sortable: true
+    sortable: false
   },
   {
     name: 'detail',
@@ -265,9 +275,26 @@ const orderDetail = (detail) => {
 
 const editOrder = async () => {
   try {
-    await apiAuth.patch('/orders/' + order._id, order.check)
+    await apiAuth.patch('/orders/' + order._id, order)
+    await sweetalert.fire({
+      icon: 'success',
+      title: '更新成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#A6D8D4',
+      confirmButtonColor: '#A6D8D4',
+      width: '20rem'
+    })
+    tableLoadItems()
   } catch (error) {
-
+    $q.notify({
+      type: 'negative',
+      message: error.response.data.message
+    })
   }
 }
 const ratioTop = ref('')

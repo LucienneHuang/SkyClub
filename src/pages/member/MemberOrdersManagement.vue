@@ -33,11 +33,13 @@
       </q-card-section>
       <q-card-section v-for="(product,i) in order.cart" :key="i" style="background: rgb(228, 228, 228);" class="q-mb-md">
         <div class="text-center">
-          <q-img :src="product.product.image" style="width: 150px;height: 120px;"/>
+          <router-link :to="'/trade/'+product.product._id">
+            <q-img :src="product.product.image" style="width: 150px;height: 120px;"/>
+          </router-link>
         </div>
         <q-card-section horizontal>
           <div class="text-h7 q-mt-md q-mr-lg">商品名稱</div>
-          <q-input type="text" readonly v-model="product.product.name" color="secondary"/>
+            <q-input type="text" readonly v-model="product.product.name" color="secondary"/>
         </q-card-section>
         <q-card-section horizontal class="two">
           <div class="text-h7 q-mt-md q-mr-lg">數量</div>
@@ -71,13 +73,20 @@
             （{{ props.row.seller._id}}）
           </q-td>
         </template>
-        <!-- 賣家 -->
+        <!-- 日期 -->
         <template #body-cell-datedetail="props">
           <q-td :props="props">
             {{ props.row.date.slice(0, 10)}}<br>
             {{ props.row.date.slice(11, 19)}}
           </q-td>
         </template>
+        <!-- 出貨狀態 -->
+        <template #body-cell-check="props">
+            <q-td :props="props">
+              <div v-if="props.value">已出貨</div>
+              <div v-else>準備中</div>
+            </q-td>
+          </template>
         <!-- 詳細按鈕 -->
         <template #body-cell-detail="props">
           <q-td :props="props">
@@ -190,7 +199,7 @@ const columns = [
   {
     name: 'check',
     required: true,
-    label: '出貨',
+    label: '出貨狀態',
     align: 'center',
     field: 'check',
     sortable: true
