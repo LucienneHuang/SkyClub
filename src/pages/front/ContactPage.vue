@@ -44,10 +44,6 @@
       left: 7rem;
     }
   }
-  #title{
-    border-left: .8rem solid $accent;
-    font-size: 2rem;
-  }
   .q-card{
     padding: 1rem;
     width: 22rem;
@@ -60,15 +56,6 @@
 }
 @media(min-width:975px){
   #container{
-    #head{
-      margin-left: 8rem;
-      #title{
-        font-size: 2.5rem;
-      }
-      .q-breadcrumbs{
-        font-size: 1.2rem;
-      }
-    }
     #background{
       width: 48rem;
       height: 33rem;
@@ -83,15 +70,6 @@
         width: 30rem;
       }
     }
-  }
-}
-
-@media(min-width:1200px){
-  #title{
-    font-size: 3rem;
-  }
-  .q-breadcrumbs{
-    font-size: 1.3rem;
   }
 }
 </style>
