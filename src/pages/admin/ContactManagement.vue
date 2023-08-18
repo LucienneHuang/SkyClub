@@ -44,12 +44,18 @@
       <q-table :rows-per-page-options="[10,0]" :columns="columns" row-key="name" :rows="rows" :filter="filter">
         <!-- 搜尋欄位 -->
         <template v-slot:top-right>
-          <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="Search">
+          <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入關鍵字">
             <template v-slot:append>
               <q-icon name="search" />
             </template>
           </q-input>
         </template>
+        <!-- 日期 -->
+        <template #body-cell-date="props">
+            <q-td :props="props">
+              {{ new Date(props.row.date).toLocaleString()}}
+            </q-td>
+          </template>
         <template #body-cell-done="props">
           <q-td :props="props">
             <q-icon name="mdi-check" v-if="props.value" />
@@ -216,7 +222,7 @@ const dialog = ref(false)
 const moreInfo = (item) => {
   console.log(item)
   dialog.value = true
-  moreInfoForm.date = item.date
+  moreInfoForm.date = new Date(item.date).toLocaleString()
   moreInfoForm.name = item.name
   moreInfoForm.email = item.email
   moreInfoForm.message = item.message
