@@ -69,7 +69,7 @@
         <q-table :columns="columns" row-key="name" :rows="rows" :filter="filter" :rows-per-page-options="[10,0]">
           <!-- 搜尋欄位 -->
           <template v-slot:top-right>
-            <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="Search">
+            <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入訂單編號">
               <template v-slot:append>
                 <q-icon name="search" />
               </template>
@@ -85,8 +85,7 @@
           <!-- 日期 -->
           <template #body-cell-datedetail="props">
             <q-td :props="props">
-              {{ props.row.date.slice(0, 10)}}<br>
-              {{ props.row.date.slice(11, 19)}}
+              {{ new Date(props.row.date).toLocaleString()}}
             </q-td>
           </template>
           <!-- 出貨狀態 -->
@@ -269,7 +268,7 @@ const orderDetail = (detail) => {
   order.payment = detail.payment
   order.total = detail.total
   order.check = detail.check
-  order.date = detail.date.slice(0, 10) + ' ' + detail.date.slice(11, 19)
+  order.date = new Date(detail.date).toLocaleString()
   order.cart = [...detail.cart]
 }
 
