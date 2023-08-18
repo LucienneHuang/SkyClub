@@ -56,9 +56,13 @@
 // 用 props 把資料丟進元件裡面
 import { useQuasar } from 'quasar'
 import { defineProps } from 'vue'
+import { useRouter } from 'vue-router'
 import sweetalert from 'sweetalert2'
 import 'animate.css'
 import { apiAuth } from 'src/boot/axios'
+import { useUserStore } from 'src/stores/user'
+const checkUser = useUserStore()
+const router = useRouter()
 const $q = useQuasar()
 const props = defineProps({
   // 商品 id
@@ -119,24 +123,45 @@ const props = defineProps({
 
 const addCart = async () => {
   try {
-    await apiAuth.post('/users/cart', {
-      product: props._id,
-      seller: props.user._id,
-      quantity: 1
-    })
-    await sweetalert.fire({
-      icon: 'success',
-      title: '新增購物車成功',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      },
-      iconColor: '#B0A9EC',
-      confirmButtonColor: '#B0A9EC',
-      width: '20rem'
-    })
+    if (checkUser.token === '') {
+      await sweetalert.fire({
+        icon: 'error',
+        title: '請登入再操作',
+        iconColor: '#ff0000',
+        confirmButtonColor: '#ff0000',
+        width: '20rem'
+      })
+      router.push('/login')
+    } else if (checkUser.isBlock === true) {
+      await sweetalert.fire({
+        icon: 'error',
+        title: '帳號停權中',
+        text: '暫時關閉交易功能。',
+        iconColor: '#ff0000',
+        confirmButtonColor: '#ff0000',
+        width: '20rem'
+      })
+      router.push('/login')
+    } else {
+      await apiAuth.post('/users/cart', {
+        product: props._id,
+        seller: props.user._id,
+        quantity: 1
+      })
+      await sweetalert.fire({
+        icon: 'success',
+        title: '新增購物車成功',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        },
+        iconColor: '#B0A9EC',
+        confirmButtonColor: '#B0A9EC',
+        width: '20rem'
+      })
+    }
   } catch (error) {
     $q.notify({
       type: 'negative',
