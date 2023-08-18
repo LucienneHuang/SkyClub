@@ -15,9 +15,9 @@
         <q-tabs align="center" active-color="primary" class="col-md-8 q-mt-md">
           <q-route-tab to="/" label="首頁" />
           <q-route-tab to="/latestnews" label="最新消息" />
-          <q-route-tab to="/realms" label="區域" />
-          <q-route-tab to="/trade" label="交易" />
-          <q-route-tab to="/contact" label="聯絡" />
+          <q-route-tab to="/realms" label="區域介紹" />
+          <q-route-tab to="/trade" label="交易專區" />
+          <q-route-tab to="/contact" label="聯絡我們" />
         </q-tabs>
         <!-- 右側 -->
         <!-- 之後再刻 遊客/會員/管理員 -->
