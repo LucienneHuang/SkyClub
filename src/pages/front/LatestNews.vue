@@ -5,12 +5,18 @@
         <q-breadcrumbs-el label="Home" to="/" />
         <q-breadcrumbs-el label="最新消息" />
       </q-breadcrumbs>
-      <div id="title" class="text-weight-bold non-selectable q-mt-md q-pl-md">最新消息</div>
+      <div id="title" class="text-weight-bold non-selectable q-mt-md q-pl-md flex">最新消息
+        <q-input class="q-ml-md q-mt-sm " rounded outlined v-model="search" color="accent" label="請輸入文章關鍵字">
+          <template v-slot:append>
+            <q-icon name="search" color="accent" size="2.5rem"/>
+          </template>
+        </q-input>
+      </div>
       <div class="q-mt-md q-ml-lg">
-        <q-chip clickable @click="changeSortOrder('decs')" color="primary" text-color="white">
+        <q-chip clickable @click="changeSortOrder('decs')" color="accent" text-color="white">
           最新
         </q-chip>
-        <q-chip clickable @click="changeSortOrder('asc')" color="primary" text-color="white">
+        <q-chip clickable @click="changeSortOrder('asc')" color="accent" text-color="white">
           最舊
         </q-chip>
       </div>
@@ -42,13 +48,16 @@ const pagesOfPagination = ref(0)
 const articlesPerPage = ref(5)
 // 設定目前第幾頁
 const currentPage = ref(1)
+// 搜尋欄位
+const search = ref('')
 const getNews = async () => {
   try {
     const { data } = await api.get('/articles/getNews', {
       params: {
         currentPage: currentPage.value,
         articlesPerPage: articlesPerPage.value,
-        sortOrder: sortOrder.value
+        sortOrder: sortOrder.value,
+        search: search.value
       }
     })
     latestNews.value.splice(0, latestNews.value.length, ...data.result.data)
@@ -68,6 +77,10 @@ watch(currentPage, async (newPage, oldPage) => {
   getNews()
 })
 watch(sortOrder, async (newOrder, oldOrder) => {
+  currentPage.value = 1
+  getNews()
+})
+watch(search, async (newOrder, oldOrder) => {
   currentPage.value = 1
   getNews()
 })
