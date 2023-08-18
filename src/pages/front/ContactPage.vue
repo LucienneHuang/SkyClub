@@ -93,8 +93,7 @@ if (user.nickname !== '遊客') {
 const contactForm = reactive({
   name: nickname,
   email: user.email,
-  message: '',
-  date: ''
+  message: ''
 })
 const rules = {
   required: (value) => !!value || '欄位必填',
@@ -102,8 +101,6 @@ const rules = {
 }
 
 const sendContact = async () => {
-  const trueDate = new Date().toJSON().slice(0, 10)
-  contactForm.date = trueDate
   try {
     await api.post('/contactUs', contactForm)
     await sweetalert.fire({
