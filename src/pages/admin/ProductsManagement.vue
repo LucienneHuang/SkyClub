@@ -134,15 +134,16 @@
   <div id="title" class="q-ml-xl q-my-lg q-pl-lg q-py-sm text-h4 text-weight-bold non-selectable">全部商品管理</div>
   <div id="container" class="flex justify-center q-px-xl q-pb-xl">
     <q-responsive id="wh" :ratio="ratioTop/ratioBottom">
-      <q-table :rows-per-page-options="[10,0]" :columns="columns" row-key="name" :rows="rows" :filter="filter">
+      <q-table :rows-per-page-options="[10,0]" :columns="columns" row-key="name" :rows="rows">
         <!-- 搜尋欄位 -->
         <template v-slot:top-right>
-          <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="Search">
+          <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入商品關鍵字">
             <template v-slot:append>
               <q-icon name="search" />
             </template>
           </q-input>
         </template>
+        <!-- 賣家 -->
         <template #body-cell-user="props">
           <q-td :props="props">
             {{ props.row.user.nickname}}
@@ -153,6 +154,12 @@
         <template #body-cell-image="props">
           <q-td :props="props">
             <q-img :src="props.value" spinner-color="white" style="height: 140px; width: 180px" />
+          </q-td>
+        </template>
+        <!-- 名稱 -->
+        <template #body-cell-name="props">
+          <q-td :props="props">
+            <router-link :to="'/trade/'+props.row._id">{{ props.row.name }}</router-link>
           </q-td>
         </template>
         <!-- 商品是否上架 -->
@@ -177,6 +184,16 @@
   border-left: .8rem solid $primary;
   }
 #container{
+  td>a{
+  color: black;
+  text-decoration: none;
+  padding: 5px 8px;
+  transition: .3s;
+  &:hover{
+    background: $primary;
+    color: white;
+  }
+}
   width: 100%;
   // height: calc(100vh - 164px);
   :deep(.q-table thead th){
@@ -252,7 +269,7 @@
 }
 </style>
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import sweetalert from 'sweetalert2'
 import 'animate.css'
@@ -317,7 +334,11 @@ const rows = reactive([])
 // 取得自己的商品資訊
 const tableLoadItems = async () => {
   try {
-    const { data } = await apiAuth.get('/products/all')
+    const { data } = await apiAuth.get('/products/all', {
+      params: {
+        search: filter.value
+      }
+    })
     rows.splice(0, rows.length, ...data.result)
   } catch (error) {
     $q.notify({
@@ -427,5 +448,8 @@ const rwd = () => {
 rwd()
 window.addEventListener('resize', () => {
   rwd()
+})
+watch(filter, async (newOrder, oldOrder) => {
+  tableLoadItems()
 })
 </script>
