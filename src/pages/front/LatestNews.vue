@@ -22,7 +22,7 @@
       </div>
     </div>
     <div id="section" class="flex justify-center q-my-xl" v-for="article in latestNews" :key="article._id">
-      <NewsCard v-bind="article"></NewsCard>
+      <NewsCard v-bind="article" data-aos="fade-up"  data-aos-duration="800" data-aos-easing="ease-in-out-back"></NewsCard>
     </div>
     <div class="q-pa-lg flex flex-center">
       <q-pagination
@@ -75,6 +75,7 @@ const changeSortOrder = (order) => {
 }
 watch(currentPage, async (newPage, oldPage) => {
   getNews()
+  window.scrollTo(0, 0)
 })
 watch(sortOrder, async (newOrder, oldOrder) => {
   currentPage.value = 1
@@ -84,4 +85,7 @@ watch(search, async (newOrder, oldOrder) => {
   currentPage.value = 1
   getNews()
 })
+// onMounted(() => {
+//   AOS.init()
+// })
 </script>

@@ -9,7 +9,7 @@
     </div>
     <div id="section" class="flex justify-center">
       <div v-for="realm in realms" :key="realm._id" class="q-mx-xl">
-        <RealmCard v-bind="realm"></RealmCard>
+        <RealmCard v-bind="realm" data-aos="flip-left"  data-aos-duration="800" data-aos-easing="ease-in-out-back"></RealmCard>
       </div>
     </div>
   </div>
@@ -62,4 +62,5 @@ const realms = ref([]);
     })
   }
 })()
+
 </script>

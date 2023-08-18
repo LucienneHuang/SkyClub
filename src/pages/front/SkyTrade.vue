@@ -23,7 +23,7 @@
     </div>
     <div id="section" class="flex justify-center">
       <div v-for="product in products" :key="product._id">
-        <ProductCard v-bind="product"></ProductCard>
+        <ProductCard v-bind="product" data-aos="flip-left"  data-aos-duration="1300" data-aos-easing="ease-in-out-back"></ProductCard>
       </div>
     </div>
     <div class="q-pa-lg flex flex-center">
@@ -60,7 +60,9 @@
 </style>
 <script setup>
 import { useQuasar } from 'quasar'
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import { api } from 'src/boot/axios'
 import ProductCard from 'src/components/ProductCard.vue'
 const $q = useQuasar()
@@ -109,5 +111,8 @@ watch(sortOrder, async (newOrder, oldOrder) => {
 watch(search, async (newOrder, oldOrder) => {
   currentPage.value = 1
   getProducts()
+})
+onMounted(() => {
+  AOS.init()
 })
 </script>
