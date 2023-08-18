@@ -54,7 +54,7 @@
           </q-card-section>
           <!-- 文字 -->
           <q-card-section class="right q-my-sm q-px-lg">
-            <q-chip clickable @click="onClick" color="primary" text-color="white" icon="mdi-tag">{{product.category}}</q-chip>            <!-- 商品名稱 -->
+            <q-chip color="primary" text-color="white" icon="mdi-tag">{{product.category}}</q-chip>            <!-- 商品名稱 -->
             <div class="name text-weight-bold q-mb-md">{{ product.name }}</div>
             <!-- 賣家 -->
             <div class="q-mb-sm">賣家:&nbsp;{{ product.sellername }}（{{ product.seller }}）</div>
@@ -78,8 +78,7 @@
               </div>
               <q-card-section>
                 <div class="flex justify-center items-center">
-                  <q-btn type="submit" class="buy" outline rounded label="Add To Cart" color="accent" :loading="loading"/>
-                  <q-btn class="buy" rounded label="Buy now" color="accent"/>
+                  <q-btn type="submit" class="buy" rounded label="Add To Cart" color="accent" :loading="loading"/>
                 </div>
               </q-card-section>
             </q-form>
