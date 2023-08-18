@@ -41,6 +41,7 @@ export default route(function (/* { store, ssrContext } */) {
   // next 如果 okay 導去下一頁
   // beforeEach 進到每一頁之前
   Router.beforeEach(async (to, from, next) => {
+    const checkBlock = to.path.slice(0, 6)
     // 抓使用者資料
     const user = useUserStore()
     // 剛進網頁時的第一次路由跳轉
@@ -64,26 +65,36 @@ export default route(function (/* { store, ssrContext } */) {
       next('/')
     } else if (!user.isLogin && ['/trade'].includes(to.path)) {
       next('/login')
-    } else if (user.isBlock && ['/trade'].includes(to.path)) {
+    } else if (user.isBlock && ['/trade'].includes(checkBlock)) {
       await sweetalert.fire({
         icon: 'warning',
         title: '帳號停權中',
-        text: '暫時關閉交易功能，已完成的訂單不受影響。',
+        text: '暫時關閉交易功能。',
         iconColor: '#ff0000',
         confirmButtonColor: '#ff0000',
         width: '30rem'
       })
       next('/')
-    } else if (user.isBlock && ['/member/products'].includes(to.path)) {
+    } else if (user.isBlock && ['/member/products', '/member/addproduct'].includes(to.path)) {
       await sweetalert.fire({
         icon: 'warning',
         title: '帳號停權中',
-        text: '暫時關閉交易功能，已完成的訂單不受影響。',
+        text: '暫時關閉交易功能。',
         iconColor: '#ff0000',
         confirmButtonColor: '#ff0000',
         width: '30rem'
       })
       next('/member')
+    } else if (user.isBlock && ['/cart'].includes(to.path)) {
+      await sweetalert.fire({
+        icon: 'warning',
+        title: '帳號停權中',
+        text: '暫時關閉交易功能。',
+        iconColor: '#ff0000',
+        confirmButtonColor: '#ff0000',
+        width: '30rem'
+      })
+      next('/')
     } else {
       // else 該去哪就去哪，不導向
       next()
