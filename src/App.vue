@@ -4,8 +4,13 @@
 
 <script>
 import { defineComponent } from 'vue'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 export default defineComponent({
-  name: 'App'
+  name: 'App',
+  mounted () {
+    AOS.init()
+  }
 })
 </script>
