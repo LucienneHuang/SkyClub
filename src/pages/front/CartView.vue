@@ -289,7 +289,10 @@ const checkOut = () => {
     const { data } = await apiAuth.get('/users/cart')
     carts.value.push(...data.result)
   } catch (error) {
-
+    $q.notify({
+      type: 'negative',
+      message: error.response.data.message
+    })
   }
 })()
 </script>
