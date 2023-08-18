@@ -41,6 +41,15 @@ body{
   }
 }
 
+.login,.register{
+  .text-negative{
+    color:#F198AF !important;
+  }
+  .q-field__messages{
+    color:#F198AF ;
+  }
+}
+
 @media(min-width:975px){
   #container{
     #head{
