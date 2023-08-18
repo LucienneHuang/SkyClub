@@ -30,7 +30,7 @@
       </q-btn>
       </q-toolbar>
       <!-- 登入表單 -->
-      <div class="row flex-center">
+      <div class="row flex-center login">
         <q-form @submit.prevent="login">
           <q-card>
             <q-card-section horizontal>
