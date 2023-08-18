@@ -36,11 +36,12 @@
   <!-- 視差區 -->
   <div class="parallax flex items-center q-my-xl">
     <div class="parallaxImg"></div>
+    <div class="parallaxText">AURORA 安可場演唱會，8/25與你相見。</div>
   </div>
   <!-- 商品區 -->
   <div id="products">
     <div class="text-center">
-      <div class="title non-selectable q-mb-xl" data-aos="fade-down" data-aos-duration="800" data-aos-easing="ease-in-out-back">最新商品</div>
+      <div class="title non-selectable q-mb-xl" data-aos="fade-down" data-aos-duration="800" data-aos-easing="ease-in-out-back">交易專區</div>
     </div>
     <div class="flex justify-center q-my-xl">
       <div  v-for="product in products" :key="product._id">
@@ -86,6 +87,7 @@
   height: 60vh;
   background-color: $secondary;
   margin: 7rem 0;
+  position: relative;
   .parallaxImg{
     width: 100%;
     height: 90%;
@@ -93,6 +95,14 @@
     // background-position: 50% 20%;
     background-repeat: no-repeat;
     background-size: cover;
+  }
+  .parallaxText{
+    position: absolute;
+    bottom: 2rem;
+    font-weight: bolder;
+    font-size: 2rem;
+    color: white;
+    padding-left: 1rem;
   }
 }
 #products{
@@ -105,6 +115,11 @@
   #products{
     margin: 0rem 0rem;
   }
+  .parallax{
+    .parallaxText{
+      font-size: 3rem;
+    }
+  }
 }
 @media(min-width: 1200px){
   .swiper-slide{
@@ -112,6 +127,11 @@
   }
   #products{
     margin: 0rem 10.5rem 0rem 10.5rem;
+  }
+  .parallax{
+    .parallaxText{
+      font-size: 4rem;
+    }
   }
 }
 </style>
