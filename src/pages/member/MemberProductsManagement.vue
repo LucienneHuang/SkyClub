@@ -135,10 +135,10 @@
   </div>
   <div id="container" class="flex justify-center q-px-xl q-pb-xl">
     <q-responsive id="wh" :ratio="8/5">
-      <q-table :columns="columns" row-key="name" :rows="rows" :filter="filter">
+      <q-table :columns="columns" row-key="name" :rows="rows">
         <!-- 搜尋欄位 -->
         <template v-slot:top-right>
-          <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="Search">
+          <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入商品關鍵字">
             <template v-slot:append>
               <q-icon name="search" />
             </template>
@@ -268,7 +268,7 @@
 }
 </style>
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import sweetalert from 'sweetalert2'
 import 'animate.css'
@@ -339,7 +339,11 @@ const rows = reactive([])
 // 取得自己的商品資訊
 const tableLoadItems = async () => {
   try {
-    const { data } = await apiAuth.get('/products/own')
+    const { data } = await apiAuth.get('/products/own', {
+      params: {
+        search: filter.value
+      }
+    })
     rows.splice(0, rows.length, ...data.result)
   } catch (error) {
     $q.notify({
@@ -434,4 +438,7 @@ const editProduct = async () => {
     })
   }
 }
+watch(filter, async (newOrder, oldOrder) => {
+  tableLoadItems()
+})
 </script>
