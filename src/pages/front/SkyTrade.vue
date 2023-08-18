@@ -5,12 +5,18 @@
         <q-breadcrumbs-el label="Home" to="/" />
         <q-breadcrumbs-el label="交易" />
       </q-breadcrumbs>
-      <div id="title" class="text-weight-bold non-selectable q-mt-md q-pl-md">交易專區</div>
+      <div id="title" class="text-weight-bold non-selectable q-mt-md q-pl-md flex">交易專區
+        <q-input class="q-ml-md q-mt-sm" rounded outlined v-model="search" color="accent" label="請輸入商品關鍵字">
+          <template v-slot:append>
+            <q-icon name="search" color="accent" size="2.5rem"/>
+          </template>
+        </q-input>
+      </div>
       <div class="q-mt-md q-ml-lg">
-        <q-chip clickable @click="changeSortOrder('decs')" color="primary" text-color="white">
+        <q-chip clickable @click="changeSortOrder('decs')" color="accent" text-color="white">
           最新
         </q-chip>
-        <q-chip clickable @click="changeSortOrder('asc')" color="primary" text-color="white">
+        <q-chip clickable @click="changeSortOrder('asc')" color="accent" text-color="white">
           最舊
         </q-chip>
       </div>
@@ -31,28 +37,22 @@
 </template>
 <style lang="scss" scoped>
 #container{
+
   #section{
-    margin: 6rem 2rem;
+    margin: 0rem 2rem;
   }
 }
 @media(min-width:768px){
   #container{
     #section{
-      margin: 6rem 0rem;
+      margin: 0rem 0rem;
     }
 }}
-@media(min-width:1200px){
-  #container{
-    #section{
-      margin: 6rem 3rem;
-    }
-  }
 
-}
 @media(min-width:1570px){
   #container{
     #section{
-      margin: 1rem 10.5rem 5rem 10.5rem;
+      margin: 0rem 10.5rem 0rem 10.5rem;
     }
   }
 
@@ -73,13 +73,16 @@ const pagesOfPagination = ref(0)
 const productsPerPage = ref(9)
 // 設定目前第幾頁
 const currentPage = ref(1)
+// 搜尋欄位
+const search = ref('')
 const getProducts = async () => {
   try {
     const { data } = await api.get('/products', {
       params: {
         currentPage: currentPage.value,
         productsPerPage: productsPerPage.value,
-        sortOrder: sortOrder.value
+        sortOrder: sortOrder.value,
+        search: search.value
       }
     })
     products.value.splice(0, products.value.length, ...data.result.data)
@@ -95,10 +98,15 @@ const getProducts = async () => {
 const changeSortOrder = (order) => {
   sortOrder.value = order
 }
+// 監聽最新最舊
 watch(currentPage, async (newPage, oldPage) => {
   getProducts()
 })
 watch(sortOrder, async (newOrder, oldOrder) => {
+  currentPage.value = 1
+  getProducts()
+})
+watch(search, async (newOrder, oldOrder) => {
   currentPage.value = 1
   getProducts()
 })
