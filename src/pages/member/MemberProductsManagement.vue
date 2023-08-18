@@ -123,6 +123,12 @@
             <q-checkbox class="q-mt-sm" color="secondary" v-model="editProductForm.sell"/>
           </q-card-section>
           <q-card-actions class="q-mt-sm">
+            <q-btn unelevated rounded style="width: 6rem;" size="1rem" outline color="secondary" label="更多圖片" @click="moreImageBtn" />
+          </q-card-actions>
+          <q-card-section v-if="addMoreImages" horizontal>
+            <VueFileAgent :multiple="true" :maxFiles="6" :maxSize="'1MB'" :deletable="true" :accept="'image/jpg,image/jpeg,image/png'" :helpText="'只接受 jpg, jpeg 或 png 檔，最多六張。'" v-model="editProductForm.images" :errorText="{type: '檔案類型不合法。只接受 jpg, jpeg 或 png 檔。',size: '檔案大小不得大於1MB',}" v-model:rawModelValue="rawFiles" ></VueFileAgent>
+          </q-card-section>
+          <q-card-actions class="q-mt-sm">
             <q-btn type="submit" unelevated rounded style="width: 6rem;" size="1rem" color="secondary" label="送出"  v-close-popup />
             <q-btn unelevated rounded style="width: 6rem;" size="1rem" outline color="secondary" label="取消" @click="dialog=false" />
           </q-card-actions>
@@ -276,7 +282,21 @@ import { apiAuth } from '../../boot/axios.js'
 
 const $q = useQuasar()
 const filter = ref('')
-
+const addMoreImages = ref(false)
+const moreImageBtn = () => {
+  addMoreImages.value = !addMoreImages.value
+  if (addMoreImages.value === true) {
+    $q.notify({
+      type: 'positive',
+      message: '最多只能有六張圖片'
+    })
+  } else {
+    $q.notify({
+      type: 'negative',
+      message: '取消'
+    })
+  }
+}
 const columns = [
   {
     name: 'image',
@@ -370,7 +390,9 @@ const updateImageBtn = () => {
 const rawFile = ref([])
 const editProductForm = reactive({
   image: [],
+  images: [],
   oldImg: '',
+  oldImgs: [],
   name: '',
   price: 0,
   currency: '',
@@ -388,6 +410,7 @@ const tableEditItem = (item) => {
   dialog.value = true
   editProductForm.image = item.image
   editProductForm.oldImg = item.image
+  editProductForm.oldImgs = [...item.images]
   editProductForm.name = item.name
   editProductForm.price = item.price
   editProductForm.currency = item.currency

@@ -207,7 +207,7 @@ const moreImageBtn = () => {
   if (addMoreImages.value === true) {
     $q.notify({
       type: 'positive',
-      message: '最多可新增六張圖片'
+      message: '最多只能有六張圖片'
     })
   } else {
     $q.notify({
