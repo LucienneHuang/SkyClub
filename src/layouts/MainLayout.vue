@@ -93,13 +93,10 @@
       </q-page-scroller>
       <router-view />
     </q-page-container>
-    <q-footer class="bg-grey-8 text-white">
+    <q-footer class="bg-accent text-white">
       <q-toolbar>
         <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-          </q-avatar>
-          <div>Title</div>
+          <div class="footer">泰山網頁設計青年專班 黃蔓渝</div>
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>
@@ -152,12 +149,15 @@
     }
   }
 }
-
+.footer{
+  font-size: 1rem;
+  font-weight: 500;
+}
 @media(min-width:768px){
 .q-header{
-  height: 32rem;
+  height: 60rem;
   .q-img{
-      height: 32rem;
+      height: 60rem;
   }
   .menuBtn{
     display: none;
@@ -166,10 +166,10 @@
     display: block;
   }
   .deco{
-    height: 9rem;
-    top: -8.5rem;
+    height: 10rem;
+    top: -9.5rem;
     &::before{
-      height: 9rem;
+      height: 10rem;
     }
   }
 }
@@ -177,9 +177,9 @@
 
 @media(min-width:1200px){
   .q-header{
-    height: 44rem;
+    height: 60rem;
     .q-img{
-      height: 44rem;
+      height: 60rem;
     }
     .deco{
       height: 16rem;
@@ -331,7 +331,7 @@ const logout = async () => {
 const navbaranimation = () => {
   const navbar = document.querySelector('#navbar')
   // console.log(window.scrollY)
-  if (window.scrollY > 40) {
+  if (window.scrollY > 50) {
     navbar.classList.add('solid-nav')
   } else {
     navbar.classList.remove('solid-nav')
