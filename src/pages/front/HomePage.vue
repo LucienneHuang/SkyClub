@@ -45,13 +45,13 @@
     justify-content: center;
   }
 .parallax{
-  height: 50vh;
+  height: 60vh;
   background-color: $secondary;
   .parallaxImg{
     width: 100%;
     height: 90%;
     background-image: url('/src/assets/AURORA.png');
-    background-position: 50% 70%;
+    // background-position: 50% 20%;
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -124,7 +124,7 @@ onUpdated(() => {
       end: 'bottom 0%',
       scrub: true
     },
-    backgroundPosition: '50% 50%',
+    backgroundPosition: '50% 100%',
     ease: 'none'
   })
 })
