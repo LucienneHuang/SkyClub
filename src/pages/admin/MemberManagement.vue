@@ -51,7 +51,7 @@
       <q-table :rows-per-page-options="[10,0]" :columns="columns" row-key="name" :rows="rows" :filter="filter">
         <!-- 搜尋欄位 -->
         <template v-slot:top-right>
-          <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="Search">
+          <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入關鍵字">
             <template v-slot:append>
               <q-icon name="search" />
             </template>
