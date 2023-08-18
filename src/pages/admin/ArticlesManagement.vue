@@ -170,10 +170,10 @@
   <!-- 表格本體 -->
   <div id="container" class="flex justify-center q-px-xl q-pb-xl">
     <q-responsive id="wh" :ratio="ratioTop/ratioBottom">
-      <q-table :rows-per-page-options="[10,0]" :columns="columns" row-key="name" :rows="rows" :filter="filter">
+      <q-table :rows-per-page-options="[10,0]" :columns="columns" row-key="name" :rows="rows">
         <!-- 搜尋欄位 -->
         <template v-slot:top-right>
-          <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="Search">
+          <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入文章關鍵字">
             <template v-slot:append>
               <q-icon name="search" />
             </template>
@@ -183,6 +183,13 @@
         <template #body-cell-image="props">
           <q-td :props="props">
             <q-img :src="props.value" spinner-color="white" style="height: 140px; width: 180px" />
+          </q-td>
+        </template>
+        <!-- 名稱 -->
+        <template #body-cell-title="props">
+          <q-td :props="props">
+            <router-link v-if="props.row.category==='最新消息'" :to="'/latestnews/'+props.row.category+'?articleId='+props.row._id">{{ props.row.title }}</router-link>
+            <router-link v-else :to="'/realms/'+props.row.category+'?articleId='+props.row._id">{{ props.row.title }}</router-link>
           </q-td>
         </template>
         <template #body-cell-display="props">
@@ -209,6 +216,16 @@
   border-left: .8rem solid $primary;
   }
 #container{
+  td>a{
+  color: black;
+  text-decoration: none;
+  padding: 5px 8px;
+  transition: .3s;
+  &:hover{
+    background: $primary;
+    color: white;
+  }
+}
   width: 100%;
   :deep(.q-table thead th){
     background: $primary;
@@ -294,7 +311,7 @@
 }
 </style>
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import sweetalert from 'sweetalert2'
 import 'animate.css'
@@ -365,7 +382,11 @@ const rows = reactive([])
 // 載入所有文章資料
 const tableLoadAllArticles = async () => {
   try {
-    const { data } = await apiAuth.get('/articles/all')
+    const { data } = await apiAuth.get('/articles/all', {
+      params: {
+        search: filter.value
+      }
+    })
     rows.splice(0, rows.length, ...data.result)
   } catch (error) {
     $q.notify({
@@ -527,5 +548,7 @@ rwd()
 window.addEventListener('resize', () => {
   rwd()
 })
-
+watch(filter, async (newOrder, oldOrder) => {
+  tableLoadAllArticles()
+})
 </script>
