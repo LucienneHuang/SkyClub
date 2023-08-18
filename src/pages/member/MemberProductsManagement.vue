@@ -125,8 +125,13 @@
           <q-card-actions class="q-mt-sm">
             <q-btn unelevated rounded style="width: 6rem;" size="1rem" outline color="secondary" label="更多圖片" @click="moreImageBtn" />
           </q-card-actions>
+          <q-card-section v-if="editProductForm.oldImgs.length>=1" class="flex justify-center">
+            <q-btn v-for="(img,i) in editProductForm.oldImgs" :key="i" @click="deleteImg">
+              <q-img :src="img" style="width: 160px; height: 160px; border-radius: 0;"/>
+            </q-btn>
+          </q-card-section>
           <q-card-section v-if="addMoreImages" horizontal>
-            <VueFileAgent :multiple="true" :maxFiles="6" :maxSize="'1MB'" :deletable="true" :accept="'image/jpg,image/jpeg,image/png'" :helpText="'只接受 jpg, jpeg 或 png 檔，最多六張。'" v-model="editProductForm.images" :errorText="{type: '檔案類型不合法。只接受 jpg, jpeg 或 png 檔。',size: '檔案大小不得大於1MB',}" v-model:rawModelValue="rawFiles" ></VueFileAgent>
+            <VueFileAgent :multiple="true" :maxFiles="maxImgs" :maxSize="'1MB'" :deletable="true" :accept="'image/jpg,image/jpeg,image/png'" :helpText="'只接受 jpg, jpeg 或 png 檔，加上已上傳，最多六張。'" v-model="editProductForm.images" :errorText="{type: '檔案類型不合法。只接受 jpg, jpeg 或 png 檔。',size: '檔案大小不得大於1MB',}" v-model:rawModelValue="rawFiles" ></VueFileAgent>
           </q-card-section>
           <q-card-actions class="q-mt-sm">
             <q-btn type="submit" unelevated rounded style="width: 6rem;" size="1rem" color="secondary" label="送出"  v-close-popup />
@@ -282,6 +287,7 @@ import { apiAuth } from '../../boot/axios.js'
 
 const $q = useQuasar()
 const filter = ref('')
+const maxImgs = ref(6)
 const addMoreImages = ref(false)
 const moreImageBtn = () => {
   addMoreImages.value = !addMoreImages.value
@@ -419,6 +425,7 @@ const tableEditItem = (item) => {
   editProductForm.category = item.category
   editProductForm.sell = item.sell
   productId.value = item._id
+  maxImgs.value = 6 - item.images.length
 }
 
 const editProduct = async () => {

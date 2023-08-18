@@ -20,15 +20,15 @@
         </q-card-section>
         <!-- 身分/稱呼/信箱 -->
         <q-card-section align="center" class="non-selectable">
-          <div class="text-h2 text-weight-bold q-mb-md">管理員</div>
+          <div class="text-weight-bold q-mb-md role">管理員</div>
           <template v-if="edit">
             <q-input class="q-mx-xl" color="primary" type="text" label="請輸入暱稱" :rules="[rules.required]" v-model="editProfileForm.nickname" clearable/>
             <q-input class="q-mx-xl" color="primary" type="email" label="請輸入信箱" :rules="[rules.required,rules.email]" v-model="editProfileForm.email" clearable />
             <q-btn class="q-my-md" type="submit" unelevated rounded style="width: 6rem;" size="1rem" color="primary" label="送出" />
           </template>
           <template v-else>
-            <div class="text-h3 text-weight-bold q-mb-md">{{ user.nickname }}</div>
-            <div class="text-h5">{{ user.email }}</div>
+            <div class="text-weight-bold q-mb-md nickname">{{ user.nickname }}</div>
+            <div class="email">{{ user.email }}</div>
           </template>
         </q-card-section>
       </q-card>
@@ -47,10 +47,19 @@
   .q-card{
     border-radius: 2rem;
     border: 1px solid $primary;
-    width: 55rem;
-    height: 45rem;
+    width: 22rem;
+    height: 40rem;
     #top{
       height: 5rem;
+    }
+    .role{
+      font-size: 3rem;
+    }
+    .nickname{
+      font-size: 2rem;
+    }
+    .email{
+      font-size: 1.5rem;
     }
   }
 
@@ -59,6 +68,12 @@
 @media(min-width:992px){
   #title{
   font-size: 3rem;
+  }
+  #container{
+    .q-card{
+      width: 55rem;
+      height: 45rem;
+    }
   }
 }
 </style>
