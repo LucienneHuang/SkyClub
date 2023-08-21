@@ -36,47 +36,6 @@
 
   </div>
 </template>
-<style lang="scss" scoped>
-#title{
-  border-left: .8rem solid $primary;
-  }
-#container{
-  width: 100%;
-  // height: calc(100vh - 164px);
-
-  .q-card{
-    border-radius: 2rem;
-    border: 1px solid $primary;
-    width: 22rem;
-    height: 40rem;
-    #top{
-      height: 5rem;
-    }
-    .role{
-      font-size: 3rem;
-    }
-    .nickname{
-      font-size: 2rem;
-    }
-    .email{
-      font-size: 1.5rem;
-    }
-  }
-
-}
-
-@media(min-width:992px){
-  #title{
-  font-size: 3rem;
-  }
-  #container{
-    .q-card{
-      width: 55rem;
-      height: 45rem;
-    }
-  }
-}
-</style>
 <script setup>
 import { ref, reactive } from 'vue'
 import validator from 'validator'
@@ -129,3 +88,44 @@ const sendEditProfile = async () => {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#title{
+  border-left: .8rem solid $primary;
+  }
+#container{
+  width: 100%;
+  // height: calc(100vh - 164px);
+
+  .q-card{
+    border-radius: 2rem;
+    border: 1px solid $primary;
+    width: 22rem;
+    height: 45rem;
+    #top{
+      height: 5rem;
+    }
+    .role{
+      font-size: 3rem;
+    }
+    .nickname{
+      font-size: 2rem;
+    }
+    .email{
+      font-size: 1.5rem;
+    }
+  }
+
+}
+
+@media(min-width:992px){
+  #title{
+  font-size: 3rem;
+  }
+  #container{
+    .q-card{
+      width: 40rem;
+    }
+  }
+}
+</style>

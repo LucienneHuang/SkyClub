@@ -179,95 +179,6 @@
   </div>
 
 </template>
-<style lang="scss" scoped>
-#title{
-  border-left: .8rem solid $primary;
-  }
-#container{
-  td>a{
-  color: black;
-  text-decoration: none;
-  padding: 5px 8px;
-  transition: .3s;
-  &:hover{
-    background: $primary;
-    color: white;
-  }
-}
-  width: 100%;
-  // height: calc(100vh - 164px);
-  :deep(.q-table thead th){
-    background: $primary;
-    font-size: 1rem;
-  }
-  :deep(.q-table__top){
-    background: $primary;
-  }
-  :deep(td){
-    font-size: 1rem;
-  }
-  #wh{
-    width: 100%;
-    height: 100%;
-  }
-}
-
-#form{
-    width: 35rem;
-    max-width: 100vw;
-    .q-card{
-    border: 4px solid $primary;
-    width: 25rem;
-    border-radius: 2rem;
-    :deep(.q-field__control){
-      width: 12rem;
-    }
-    .q-editor{
-      border: 1px solid $primary;
-      width: 12rem;
-    }
-  }
-}
-
-@media(min-width:975px){
-  #title{
-  font-size: 3rem;
-  }
-
-  #form{
-    width: 50rem;
-    .q-card{
-      font-size: 1rem;
-      width: 40rem;
-      :deep(.q-field__control){
-        width: 30rem;
-      }
-      .q-editor{
-        width: 30rem;
-      }
-    }
-  }
-}
-@media(min-width:1200px){
-  #title{
-    font-size: 3rem;
-  }
-
-  #form{
-    width: 60rem;
-    .q-card{
-      font-size: 1rem;
-      width: 50rem;
-      :deep(.q-field__control){
-        width: 40rem;
-      }
-      .q-editor{
-        width: 40rem;
-      }
-    }
-  }
-}
-</style>
 <script setup>
 import { ref, reactive, watch } from 'vue'
 import { useQuasar } from 'quasar'
@@ -453,3 +364,93 @@ watch(filter, async (newOrder, oldOrder) => {
   tableLoadItems()
 })
 </script>
+
+<style lang="scss" scoped>
+#title{
+  border-left: .8rem solid $primary;
+  }
+#container{
+  td>a{
+  color: black;
+  text-decoration: none;
+  padding: 5px 8px;
+  transition: .3s;
+  &:hover{
+    background: $primary;
+    color: white;
+  }
+}
+  width: 100%;
+  // height: calc(100vh - 164px);
+  :deep(.q-table thead th){
+    background: $primary;
+    font-size: 1rem;
+  }
+  :deep(.q-table__top){
+    background: $primary;
+  }
+  :deep(td){
+    font-size: 1rem;
+  }
+  #wh{
+    width: 100%;
+    height: 100%;
+  }
+}
+
+#form{
+    width: 35rem;
+    max-width: 100vw;
+    .q-card{
+    border: 4px solid $primary;
+    width: 25rem;
+    border-radius: 2rem;
+    :deep(.q-field__control){
+      width: 12rem;
+    }
+    .q-editor{
+      border: 1px solid $primary;
+      width: 12rem;
+    }
+  }
+}
+
+@media(min-width:975px){
+  #title{
+  font-size: 3rem;
+  }
+
+  #form{
+    width: 50rem;
+    .q-card{
+      font-size: 1rem;
+      width: 40rem;
+      :deep(.q-field__control){
+        width: 30rem;
+      }
+      .q-editor{
+        width: 30rem;
+      }
+    }
+  }
+}
+@media(min-width:1200px){
+  #title{
+    font-size: 3rem;
+  }
+
+  #form{
+    width: 60rem;
+    .q-card{
+      font-size: 1rem;
+      width: 50rem;
+      :deep(.q-field__control){
+        width: 40rem;
+      }
+      .q-editor{
+        width: 40rem;
+      }
+    }
+  }
+}
+</style>

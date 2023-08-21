@@ -35,29 +35,6 @@
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-#container{
-
-  #section{
-    margin: 0rem 2rem;
-  }
-}
-@media(min-width:768px){
-  #container{
-    #section{
-      margin: 0rem 0rem;
-    }
-}}
-
-@media(min-width:1570px){
-  #container{
-    #section{
-      margin: 0rem 10.5rem 0rem 10.5rem;
-    }
-  }
-
-}
-</style>
 <script setup>
 import { useQuasar } from 'quasar'
 import { ref, watch, onMounted } from 'vue'
@@ -116,3 +93,27 @@ onMounted(() => {
   AOS.init()
 })
 </script>
+
+<style lang="scss" scoped>
+#container{
+
+  #section{
+    margin: 0rem 2rem;
+  }
+}
+@media(min-width:768px){
+  #container{
+    #section{
+      margin: 0rem 0rem;
+    }
+}}
+
+@media(min-width:1570px){
+  #container{
+    #section{
+      margin: 0rem 10.5rem 0rem 10.5rem;
+    }
+  }
+
+}
+</style>

@@ -147,73 +147,6 @@
     </q-form>
   </div>
 </template>
-<style lang="scss" scoped>
-#title{
-  border-left: .8rem solid $primary;
-  }
-#container{
-  width: 100%;
-  .q-card{
-    border: 4px solid $primary;
-    width: 23rem;
-    border-radius: 2rem;
-    :deep(.q-field__control){
-      width: 15rem;
-    }
-    .q-editor{
-      border: 1px solid $primary;
-      width: 15rem;
-    }
-    #select:deep(.q-field__control){
-        width: 6rem;
-      }
-  }
-}
-
-@media(min-width:975px){
-  #title{
-    font-size: 2.4rem;
-  }
-  #container{
-    .q-card{
-      font-size: 1.2rem;
-      width: 40rem;
-      :deep(.q-field__control){
-        width: 30rem;
-      // .vue-file-agent.file-input-wrapper{
-      //   width: 25rem;
-      // }
-      }
-      .q-editor{
-        width: 30rem;
-      }
-      #select:deep(.q-field__control){
-        width: 13rem;
-      }
-    }
-  }
-}
-@media(min-width:1200px){
-  #title{
-  font-size: 3rem;
-  }
-  #container{
-    .q-card{
-      font-size: 1.4rem;
-      width: 52.2rem;
-      :deep(.q-field__control){
-      width: 42.2rem;
-      }
-      .q-editor{
-        width: 42.2rem;
-      }
-      #select:deep(.q-field__control){
-        width: 19rem;
-      }
-    }
-  }
-}
-</style>
 <script setup>
 import { ref, reactive } from 'vue'
 import { useQuasar } from 'quasar'
@@ -309,3 +242,70 @@ const addArticle = async () => {
 }
 
 </script>
+<style lang="scss" scoped>
+#title{
+  border-left: .8rem solid $primary;
+  }
+#container{
+  width: 100%;
+  .q-card{
+    border: 4px solid $primary;
+    width: 23rem;
+    border-radius: 2rem;
+    :deep(.q-field__control){
+      width: 15rem;
+    }
+    .q-editor{
+      border: 1px solid $primary;
+      width: 15rem;
+    }
+    #select:deep(.q-field__control){
+        width: 6rem;
+      }
+  }
+}
+
+@media(min-width:975px){
+  #title{
+    font-size: 2.4rem;
+  }
+  #container{
+    .q-card{
+      font-size: 1.2rem;
+      width: 40rem;
+      :deep(.q-field__control){
+        width: 30rem;
+      // .vue-file-agent.file-input-wrapper{
+      //   width: 25rem;
+      // }
+      }
+      .q-editor{
+        width: 30rem;
+      }
+      #select:deep(.q-field__control){
+        width: 13rem;
+      }
+    }
+  }
+}
+@media(min-width:1200px){
+  #title{
+  font-size: 3rem;
+  }
+  #container{
+    .q-card{
+      font-size: 1.4rem;
+      width: 52.2rem;
+      :deep(.q-field__control){
+      width: 42.2rem;
+      }
+      .q-editor{
+        width: 42.2rem;
+      }
+      #select:deep(.q-field__control){
+        width: 19rem;
+      }
+    }
+  }
+}
+</style>

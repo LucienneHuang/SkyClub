@@ -96,63 +96,6 @@
     </q-responsive>
   </div>
 </template>
-<style lang="scss" scoped>
-#title{
-  border-left: .8rem solid $secondary;
-  }
-#container{
-  width: 100%;
-  :deep(.q-table thead th){
-    background: $secondary;
-    font-size: 1rem;
-  }
-  :deep(.q-table__top){
-    background: $secondary;
-  }
-  :deep(td){
-    font-size: 1rem;
-  }
-  #wh{
-    width: 100%;
-    height: 100%;
-  }
-}
-.q-card{
-  width: 35rem;
-  max-width: 100vw;
-  border: 4px solid $secondary;
-  border-radius: 2rem;
-  :deep(.q-field__control){
-        width: 15rem;
-    }
-  .two{
-    :deep(.q-field__control){
-        width: 5rem;
-    }
-  }
-}
-
-@media(min-width:992px){
-  #title{
-  font-size: 3rem;
-  }
-  .q-card{
-    width: 40rem;
-    :deep(.q-field__control){
-        width: 30rem;
-    }
-    .two{
-      :deep(.q-field__control){
-        width: 12.5rem;
-    }
-    }
-  }
-}
-@media(min-width:1200px){
-
-}
-
-</style>
 <script setup>
 import { ref, reactive } from 'vue'
 import { useQuasar } from 'quasar'
@@ -272,3 +215,61 @@ window.addEventListener('resize', () => {
   rwd()
 })
 </script>
+
+<style lang="scss" scoped>
+#title{
+  border-left: .8rem solid $secondary;
+  }
+#container{
+  width: 100%;
+  :deep(.q-table thead th){
+    background: $secondary;
+    font-size: 1rem;
+  }
+  :deep(.q-table__top){
+    background: $secondary;
+  }
+  :deep(td){
+    font-size: 1rem;
+  }
+  #wh{
+    width: 100%;
+    height: 100%;
+  }
+}
+.q-card{
+  width: 35rem;
+  max-width: 100vw;
+  border: 4px solid $secondary;
+  border-radius: 2rem;
+  :deep(.q-field__control){
+        width: 15rem;
+    }
+  .two{
+    :deep(.q-field__control){
+        width: 5rem;
+    }
+  }
+}
+
+@media(min-width:992px){
+  #title{
+  font-size: 3rem;
+  }
+  .q-card{
+    width: 40rem;
+    :deep(.q-field__control){
+        width: 30rem;
+    }
+    .two{
+      :deep(.q-field__control){
+        width: 12.5rem;
+    }
+    }
+  }
+}
+@media(min-width:1200px){
+
+}
+
+</style>

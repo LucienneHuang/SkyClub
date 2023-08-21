@@ -16,42 +16,6 @@
       </q-card-section>
   </q-card>
 </template>
-<style scoped>
-.product{
-  position: relative;
-  width: 23rem;
-  height: 28rem;
-  margin-bottom: 4rem;
-  .q-card__section:nth-child(1){
-    padding: 0;
-    height: 60%;
-  }
-  :deep(.q-img){
-    height: 100%;
-  }
-  :deep(img):hover{
-    transform:scale(1.2,1.2);
-    transition: 2s;
-  }
-  &.q-card{
-    filter: drop-shadow(0px 0px 5px rgba(131, 131, 131, 0.5));
-  }
-  &.q-card:hover .q-btn{
-    visibility: visible;
-    opacity: 1;
-  }
-}
-.q-btn {
-  visibility: hidden;
-  opacity: 0;
-  bottom: 0.3rem;
-  position: relative;
-  line-height: 2rem;
-  filter: drop-shadow(0px 0px 4px #d5d0ff);
-  transition: 0.5s;
-
-}
-</style>
 <script setup>
 // 用 props 把資料丟進元件裡面
 import { useQuasar } from 'quasar'
@@ -170,3 +134,40 @@ const addCart = async () => {
   }
 }
 </script>
+
+<style scoped>
+.product{
+  position: relative;
+  width: 23rem;
+  height: 28rem;
+  margin-bottom: 4rem;
+  .q-card__section:nth-child(1){
+    padding: 0;
+    height: 60%;
+  }
+  :deep(.q-img){
+    height: 100%;
+  }
+  :deep(img):hover{
+    transform:scale(1.2,1.2);
+    transition: 2s;
+  }
+  &.q-card{
+    filter: drop-shadow(0px 0px 5px rgba(131, 131, 131, 0.5));
+  }
+  &.q-card:hover .q-btn{
+    visibility: visible;
+    opacity: 1;
+  }
+}
+.q-btn {
+  visibility: hidden;
+  opacity: 0;
+  bottom: 0.3rem;
+  position: relative;
+  line-height: 2rem;
+  filter: drop-shadow(0px 0px 4px #d5d0ff);
+  transition: 0.5s;
+
+}
+</style>

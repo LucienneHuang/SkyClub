@@ -102,97 +102,6 @@
     </q-footer>
   </q-layout>
 </template>
-
-<style lang="scss" scoped>
-// navbar 改背景顏色的 class
-.solid-nav {
-    background-color: #5c51b3;
-    transition: background-color 0.5s linear;
-  }
-.q-item.q-router-link--active, .q-item--active{
-  color: #000;
-}
-.q-header{
-  width: 100%;
-  height: 20rem;
-  z-index: 2;
-  .q-toolbar{
-    position: fixed;
-    z-index: 2147483647;
-    .logo{
-      text-decoration: none;
-      color: white;
-    }
-}
-    .q-img{
-      height: 20rem;
-    }
-  .q-tab{
-  display: none;
-  }
-  .deco{
-    width: 100%;
-    height: 8rem;
-    position: relative;
-    top: -8rem;
-    background: url('../assets/deco_white.png') repeat-x center/cover;
-    z-index: 1;
-    &::before{
-      content: "";
-      width: 100%;
-      height: 8rem;
-      display: block;
-      position: relative;
-      top: -.5rem;
-      background: url('../assets/deco_white.png') repeat-x center/cover;
-      opacity: 0.5;
-    }
-  }
-}
-.footer{
-  font-size: 1rem;
-  font-weight: 500;
-}
-@media(min-width:768px){
-.q-header{
-  height: 60rem;
-  .q-img{
-      height: 60rem;
-  }
-  .menuBtn{
-    display: none;
-  }
-  .q-tab{
-    display: block;
-  }
-  .deco{
-    height: 10rem;
-    top: -9.5rem;
-    &::before{
-      height: 10rem;
-    }
-  }
-}
-}
-
-@media(min-width:1200px){
-  .q-header{
-    height: 60rem;
-    .q-img{
-      height: 60rem;
-    }
-    .deco{
-      height: 16rem;
-      top: -15.5rem;
-      &::before{
-        height: 16rem;
-      }
-    }
-
-}
-}
-</style>
-
 <script setup>
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -338,3 +247,93 @@ const navbaranimation = () => {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+// navbar 改背景顏色的 class
+.solid-nav {
+    background-color: #5c51b3;
+    transition: background-color 0.5s linear;
+  }
+.q-item.q-router-link--active, .q-item--active{
+  color: #000;
+}
+.q-header{
+  width: 100%;
+  height: 20rem;
+  z-index: 2;
+  .q-toolbar{
+    position: fixed;
+    z-index: 2147483647;
+    .logo{
+      text-decoration: none;
+      color: white;
+    }
+}
+    .q-img{
+      height: 20rem;
+    }
+  .q-tab{
+  display: none;
+  }
+  .deco{
+    width: 100%;
+    height: 8rem;
+    position: relative;
+    top: -8rem;
+    background: url('../assets/deco_white.png') repeat-x center/cover;
+    z-index: 1;
+    &::before{
+      content: "";
+      width: 100%;
+      height: 8rem;
+      display: block;
+      position: relative;
+      top: -.5rem;
+      background: url('../assets/deco_white.png') repeat-x center/cover;
+      opacity: 0.5;
+    }
+  }
+}
+.footer{
+  font-size: 1rem;
+  font-weight: 500;
+}
+@media(min-width:768px){
+.q-header{
+  height: 60rem;
+  .q-img{
+      height: 60rem;
+  }
+  .menuBtn{
+    display: none;
+  }
+  .q-tab{
+    display: block;
+  }
+  .deco{
+    height: 10rem;
+    top: -9.5rem;
+    &::before{
+      height: 10rem;
+    }
+  }
+}
+}
+
+@media(min-width:1200px){
+  .q-header{
+    height: 60rem;
+    .q-img{
+      height: 60rem;
+    }
+    .deco{
+      height: 16rem;
+      top: -15.5rem;
+      &::before{
+        height: 16rem;
+      }
+    }
+
+}
+}
+</style>

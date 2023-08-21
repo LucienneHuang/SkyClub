@@ -51,6 +51,87 @@
   </div>
 
 </template>
+<script setup>
+import { ref, onUpdated } from 'vue'
+import { useQuasar } from 'quasar'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
+import { api } from 'src/boot/axios'
+import RealmCard from 'src/components/RealmCard.vue'
+import NewsCard from 'src/components/NewsCard.vue'
+import ProductCard from 'src/components/ProductCard.vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/pagination'
+
+const modules = [Autoplay]
+const $q = useQuasar()
+
+const realms = ref([])
+const latestNews = ref([])
+const products = ref([]);
+(async () => {
+  try {
+    const { data } = await api.get('/articles/getRealms')
+    realms.value.push(...data.result)
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: '發生錯誤'
+    })
+  }
+})();
+(async () => {
+  try {
+    const { data } = await api.get('/articles/getNews', {
+      params: {
+        currentPage: 1,
+        articlesPerPage: 1,
+        sortOrder: 'desc'
+      }
+    })
+    latestNews.value.push(...data.result.data)
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: '發生錯誤'
+    })
+  }
+})();
+(async () => {
+  try {
+    const { data } = await api.get('/products', {
+      params: {
+        currentPage: 1,
+        productsPerPage: 6,
+        sortOrder: 'desc'
+      }
+    })
+    products.value.push(...data.result.data)
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: '發生錯誤'
+    })
+  }
+})()
+gsap.registerPlugin(ScrollTrigger)
+onUpdated(() => {
+  gsap.to('.parallaxImg', {
+    scrollTrigger: {
+      trigger: '.parallaxImg',
+      start: '-10% 50%',
+      end: '90% 0%',
+      scrub: true
+    },
+    backgroundPosition: '50% 80%',
+    ease: 'none'
+  })
+})
+
+</script>
+
 <style lang="scss" scoped>
 .title{
   font-weight: 700;
@@ -135,83 +216,3 @@
   }
 }
 </style>
-<script setup>
-import { ref, onUpdated } from 'vue'
-import { useQuasar } from 'quasar'
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
-import { api } from 'src/boot/axios'
-import RealmCard from 'src/components/RealmCard.vue'
-import NewsCard from 'src/components/NewsCard.vue'
-import ProductCard from 'src/components/ProductCard.vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Autoplay } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/pagination'
-
-const modules = [Autoplay]
-const $q = useQuasar()
-
-const realms = ref([])
-const latestNews = ref([])
-const products = ref([]);
-(async () => {
-  try {
-    const { data } = await api.get('/articles/getRealms')
-    realms.value.push(...data.result)
-  } catch (error) {
-    $q.notify({
-      type: 'negative',
-      message: '發生錯誤'
-    })
-  }
-})();
-(async () => {
-  try {
-    const { data } = await api.get('/articles/getNews', {
-      params: {
-        currentPage: 1,
-        articlesPerPage: 1,
-        sortOrder: 'desc'
-      }
-    })
-    latestNews.value.push(...data.result.data)
-  } catch (error) {
-    $q.notify({
-      type: 'negative',
-      message: '發生錯誤'
-    })
-  }
-})();
-(async () => {
-  try {
-    const { data } = await api.get('/products', {
-      params: {
-        currentPage: 1,
-        productsPerPage: 6,
-        sortOrder: 'desc'
-      }
-    })
-    products.value.push(...data.result.data)
-  } catch (error) {
-    $q.notify({
-      type: 'negative',
-      message: '發生錯誤'
-    })
-  }
-})()
-gsap.registerPlugin(ScrollTrigger)
-onUpdated(() => {
-  gsap.to('.parallaxImg', {
-    scrollTrigger: {
-      trigger: '.parallaxImg',
-      start: '-10% 50%',
-      end: '90% 0%',
-      scrub: true
-    },
-    backgroundPosition: '50% 80%',
-    ease: 'none'
-  })
-})
-
-</script>

@@ -14,6 +14,27 @@
     </div>
   </div>
 </template>
+<script setup>
+import { ref } from 'vue'
+import { useQuasar } from 'quasar'
+import { api } from 'src/boot/axios'
+import RealmCard from 'src/components/RealmCard.vue'
+const $q = useQuasar()
+const realms = ref([]);
+(async () => {
+  try {
+    const { data } = await api.get('/articles/getRealms')
+    realms.value.push(...data.result)
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: '發生錯誤'
+    })
+  }
+})()
+
+</script>
+
 <style lang="scss" scoped>
 #container{
   #section{
@@ -44,23 +65,3 @@
 
 }
 </style>
-<script setup>
-import { ref } from 'vue'
-import { useQuasar } from 'quasar'
-import { api } from 'src/boot/axios'
-import RealmCard from 'src/components/RealmCard.vue'
-const $q = useQuasar()
-const realms = ref([]);
-(async () => {
-  try {
-    const { data } = await api.get('/articles/getRealms')
-    realms.value.push(...data.result)
-  } catch (error) {
-    $q.notify({
-      type: 'negative',
-      message: '發生錯誤'
-    })
-  }
-})()
-
-</script>

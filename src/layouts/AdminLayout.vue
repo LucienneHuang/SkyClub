@@ -44,33 +44,6 @@
 
   </q-layout>
 </template>
-<style lang="scss" scoped>
-.name a{
-  text-decoration: none;
-  color: white;
-}
-.q-item__section:not(:first-child){
-    font-weight: 700;
-    font-size: 1.2rem;
-    background: white;
-    text-align: center;
-    border-radius:3rem;
-    height: 2.8rem;
-  }
-
-@media(min-width:975px){
-  .menuBtn{
-    display: none;
-  }
-  .q-layout__section--marginal,.q-toolbar{
-    background: transparent;
-    .q-toolbar__title{
-      display: none;
-    }
-  }
-
-}
-</style>
 <script setup>
 import { ref } from 'vue'
 import { useUserStore } from 'src/stores/user.js'
@@ -109,3 +82,31 @@ const navList = [
 ]
 
 </script>
+
+<style lang="scss" scoped>
+.name a{
+  text-decoration: none;
+  color: white;
+}
+.q-item__section:not(:first-child){
+    font-weight: 700;
+    font-size: 1.2rem;
+    background: white;
+    text-align: center;
+    border-radius:3rem;
+    height: 2.8rem;
+  }
+
+@media(min-width:975px){
+  .menuBtn{
+    display: none;
+  }
+  .q-layout__section--marginal,.q-toolbar{
+    background: transparent;
+    .q-toolbar__title{
+      display: none;
+    }
+  }
+
+}
+</style>

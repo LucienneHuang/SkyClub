@@ -78,82 +78,6 @@
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-.container{
-  width: 100vw;
-  height: 100vh;
-  background: url('../../assets/register_bg.jpg') no-repeat center/cover;
-
-  .bg_effect{
-    width: 100%;
-    height: 100%;
-    background-color:transparent;
-    backdrop-filter: blur(8px);
-      #shine{
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: url('/src/assets/shine.gif');
-      background-size: cover;
-      filter: opacity(0.1);
-    }
-  }
-  .row{
-    width:100%;
-    /* 即為 100vh - toolbar預設的高度 50px */
-    height: calc(100% - 50px);
-    .q-card{
-      width: 20rem;
-      background:url('../../assets/register_bg.jpg') no-repeat center/cover;;
-      .left{
-        display: none;
-      }
-      .right{
-          padding: 0 3rem;
-          background-color: rgba(0,0,0,0.1);
-          backdrop-filter: blur(5px);
-      }
-      .title{
-        font-weight: 600;
-        color: white;
-        text-shadow: black 0 0 0.2em;
-      }
-    }
-  }
-}
-@media(min-width: 975px){
-  .container{
-    .row{
-      .q-card{
-        width: 60rem;
-        height: 40rem;
-        .left{
-          display: flex;
-          width: 50%;
-        }
-        .right{
-          width: 50%;
-          height: 40rem;
-        }
-      }
-    }
-  }
-}
-@media(min-width: 1200px){
-    .container{
-      .row{
-        .q-card{
-          width: 70rem;
-          height: 36rem;
-          .right{
-            padding: 0 5rem;
-            height: 36rem;
-          }
-        }
-      }
-    }
-}
-</style>
 <script setup>
 import { reactive, ref, watch } from 'vue'
 import validator from 'validator'
@@ -247,3 +171,80 @@ const navList = [
   }
 ]
 </script>
+
+<style lang="scss" scoped>
+.container{
+  width: 100vw;
+  height: 100vh;
+  background: url('../../assets/register_bg.jpg') no-repeat center/cover;
+
+  .bg_effect{
+    width: 100%;
+    height: 100%;
+    background-color:transparent;
+    backdrop-filter: blur(8px);
+      #shine{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('/src/assets/shine.gif');
+      background-size: cover;
+      filter: opacity(0.1);
+    }
+  }
+  .row{
+    width:100%;
+    /* 即為 100vh - toolbar預設的高度 50px */
+    height: calc(100% - 50px);
+    .q-card{
+      width: 20rem;
+      background:url('../../assets/register_bg.jpg') no-repeat center/cover;;
+      .left{
+        display: none;
+      }
+      .right{
+          padding: 0 3rem;
+          background-color: rgba(0,0,0,0.1);
+          backdrop-filter: blur(5px);
+      }
+      .title{
+        font-weight: 600;
+        color: white;
+        text-shadow: black 0 0 0.2em;
+      }
+    }
+  }
+}
+@media(min-width: 975px){
+  .container{
+    .row{
+      .q-card{
+        width: 60rem;
+        height: 40rem;
+        .left{
+          display: flex;
+          width: 50%;
+        }
+        .right{
+          width: 50%;
+          height: 40rem;
+        }
+      }
+    }
+  }
+}
+@media(min-width: 1200px){
+    .container{
+      .row{
+        .q-card{
+          width: 70rem;
+          height: 36rem;
+          .right{
+            padding: 0 5rem;
+            height: 36rem;
+          }
+        }
+      }
+    }
+}
+</style>

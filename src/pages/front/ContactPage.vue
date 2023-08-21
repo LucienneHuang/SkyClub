@@ -33,46 +33,6 @@
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-#container{
-  #background{
-    background: $primary;
-    border-radius: 2rem;
-    #backgroundtext{
-      position: relative;
-      top: 3rem;
-      left: 7rem;
-    }
-  }
-  .q-card{
-    padding: 1rem;
-    width: 22rem;
-    border-radius: 2rem;
-    :deep(.q-field__control){
-      width: 12rem;
-    }
-  }
-
-}
-@media(min-width:975px){
-  #container{
-    #background{
-      width: 48rem;
-      height: 33rem;
-    }
-    #section{
-      margin: 6rem 6rem 12rem;
-    }
-    .q-card{
-      width: 48rem;
-      height: 33rem;
-      :deep(.q-field__control){
-        width: 30rem;
-      }
-    }
-  }
-}
-</style>
 <script setup>
 import { reactive } from 'vue'
 import validator from 'validator'
@@ -117,3 +77,44 @@ const sendContact = async () => {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#container{
+  #background{
+    background: $primary;
+    border-radius: 2rem;
+    #backgroundtext{
+      position: relative;
+      top: 3rem;
+      left: 7rem;
+    }
+  }
+  .q-card{
+    padding: 1rem;
+    width: 22rem;
+    border-radius: 2rem;
+    :deep(.q-field__control){
+      width: 12rem;
+    }
+  }
+
+}
+@media(min-width:975px){
+  #container{
+    #background{
+      width: 48rem;
+      height: 33rem;
+    }
+    #section{
+      margin: 6rem 6rem 12rem;
+    }
+    .q-card{
+      width: 48rem;
+      height: 33rem;
+      :deep(.q-field__control){
+        width: 30rem;
+      }
+    }
+  }
+}
+</style>

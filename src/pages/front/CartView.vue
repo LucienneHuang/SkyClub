@@ -94,93 +94,6 @@
     </div>
   </div>
 </template>
-<style lang="scss" scoped>
-.price{
-  text-align: center;
-  line-height: 70px;
-  width: 100%;
-
-}
-#container{
-  #title{
-    border-left: .8rem solid $accent;
-    font-size: 2rem;
-  }
-  thead tr:nth-child(2) span{
-    font-size: 1rem;
-  }
-}
-#form{
-    width: 35rem;
-    max-width: 100vw;
-    .q-card{
-    border: 4px solid $accent;
-    width: 25rem;
-    border-radius: 2rem;
-    :deep(.q-field__control){
-      width: 12rem;
-    }
-  }
-}
-tbody{
-  tr {
-    & > :nth-child(1){
-      width: 84px;
-    }
-    & > :nth-child(2){
-      width: 150px;
-    }
-    & > :nth-child(3){
-      width: 230px;
-    }
-
-  }
-}
-@media(min-width:975px){
-  #container{
-    #head{
-      margin-left: 8rem;
-      #title{
-        font-size: 2.5rem;
-      }
-      .q-breadcrumbs{
-        font-size: 1.2rem;
-      }
-    }
-    #section{
-      margin: 5rem 6rem 5rem;
-    }
-  }
-  #form{
-    width: 50rem;
-    max-width: 100vw;
-    .q-card{
-      font-size: 1rem;
-      width: 40rem;
-      :deep(.q-field__control){
-        width: 30rem;
-      }
-    }
-  }
-}
-
-@media(min-width:1200px){
-  #form{
-    width: 60rem;
-    max-width: 100vw;
-    .q-card{
-      font-size: 1rem;
-      width: 50rem;
-      :deep(.q-field__control){
-        width: 40rem;
-      }
-      .q-editor{
-        width: 40rem;
-      }
-    }
-  }
-}
-</style>
 <script setup>
 import { ref, computed, reactive } from 'vue'
 import { useQuasar } from 'quasar'
@@ -296,3 +209,91 @@ const checkOut = () => {
   }
 })()
 </script>
+
+<style lang="scss" scoped>
+.price{
+  text-align: center;
+  line-height: 70px;
+  width: 100%;
+
+}
+#container{
+  #title{
+    border-left: .8rem solid $accent;
+    font-size: 2rem;
+  }
+  thead tr:nth-child(2) span{
+    font-size: 1rem;
+  }
+}
+#form{
+    width: 35rem;
+    max-width: 100vw;
+    .q-card{
+    border: 4px solid $accent;
+    width: 25rem;
+    border-radius: 2rem;
+    :deep(.q-field__control){
+      width: 12rem;
+    }
+  }
+}
+tbody{
+  tr {
+    & > :nth-child(1){
+      width: 84px;
+    }
+    & > :nth-child(2){
+      width: 150px;
+    }
+    & > :nth-child(3){
+      width: 230px;
+    }
+
+  }
+}
+@media(min-width:975px){
+  #container{
+    #head{
+      margin-left: 8rem;
+      #title{
+        font-size: 2.5rem;
+      }
+      .q-breadcrumbs{
+        font-size: 1.2rem;
+      }
+    }
+    #section{
+      margin: 5rem 6rem 5rem;
+    }
+  }
+  #form{
+    width: 50rem;
+    max-width: 100vw;
+    .q-card{
+      font-size: 1rem;
+      width: 40rem;
+      :deep(.q-field__control){
+        width: 30rem;
+      }
+    }
+  }
+}
+
+@media(min-width:1200px){
+  #form{
+    width: 60rem;
+    max-width: 100vw;
+    .q-card{
+      font-size: 1rem;
+      width: 50rem;
+      :deep(.q-field__control){
+        width: 40rem;
+      }
+      .q-editor{
+        width: 40rem;
+      }
+    }
+  }
+}
+</style>

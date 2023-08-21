@@ -43,6 +43,37 @@
 
   </q-layout>
 </template>
+<script setup>
+import { ref } from 'vue'
+import { useUserStore } from 'src/stores/user.js'
+
+const user = useUserStore()
+
+const leftDrawerOpen = ref(false)
+function toggleLeftDrawer () {
+  leftDrawerOpen.value = !leftDrawerOpen.value
+}
+
+const navList = [
+  {
+    to: '/member/products',
+    name: '個人商品管理'
+  },
+  {
+    to: '/member/sales',
+    name: '出售訂單管理'
+  },
+  {
+    to: '/member/orders',
+    name: '購買訂單查詢'
+  }, {
+    to: '/',
+    name: '回首頁'
+  }
+]
+
+</script>
+
 <style lang="scss" scoped>
 .name a{
   text-decoration: none;
@@ -77,33 +108,3 @@
 
 }
 </style>
-<script setup>
-import { ref } from 'vue'
-import { useUserStore } from 'src/stores/user.js'
-
-const user = useUserStore()
-
-const leftDrawerOpen = ref(false)
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value
-}
-
-const navList = [
-  {
-    to: '/member/products',
-    name: '個人商品管理'
-  },
-  {
-    to: '/member/sales',
-    name: '出售訂單管理'
-  },
-  {
-    to: '/member/orders',
-    name: '購買訂單查詢'
-  }, {
-    to: '/',
-    name: '回首頁'
-  }
-]
-
-</script>

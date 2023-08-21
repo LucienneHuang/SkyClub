@@ -132,64 +132,6 @@
     </q-form>
   </div>
 </template>
-<style lang="scss" scoped>
-#title{
-  border-left: .8rem solid $secondary;
-  }
-#container{
-  width: 100%;
-  .q-card{
-    border: 4px solid $secondary;
-    width: 23rem;
-    border-radius: 2rem;
-    :deep(.q-field__control){
-      width: 15rem;
-    }
-    .q-editor{
-        border: 1px solid $secondary;
-        width: 15rem;
-      }
-  }
-}
-
-@media(min-width:975px){
-  #title{
-    font-size: 2.4rem;
-  }
-  #container{
-    .q-card{
-      font-size: 1.2rem;
-      width: 40rem;
-      :deep(.q-field__control){
-      width: 30rem;
-      }
-      .vue-file-agent.file-input-wrapper{
-        width: 25rem;
-      }
-      .q-editor{
-        width: 30rem;
-      }
-    }
-  }
-}
-@media(min-width:1200px){
-  #title{
-  font-size: 3rem;
-  }
-  #container{
-    .q-card{
-      font-size: 1.4rem;
-      width: 50rem;
-      :deep(.q-field__control){
-        width: 40rem;
-      }
-      .q-editor{
-        width: 40rem;
-      }
-    }
-  }
-}
-</style>
 <script setup>
 import { reactive, ref } from 'vue'
 import sweetalert from 'sweetalert2'
@@ -310,3 +252,62 @@ const addProuct = async () => {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#title{
+  border-left: .8rem solid $secondary;
+  }
+#container{
+  width: 100%;
+  .q-card{
+    border: 4px solid $secondary;
+    width: 23rem;
+    border-radius: 2rem;
+    :deep(.q-field__control){
+      width: 15rem;
+    }
+    .q-editor{
+        border: 1px solid $secondary;
+        width: 15rem;
+      }
+  }
+}
+
+@media(min-width:975px){
+  #title{
+    font-size: 2.4rem;
+  }
+  #container{
+    .q-card{
+      font-size: 1.2rem;
+      width: 40rem;
+      :deep(.q-field__control){
+      width: 30rem;
+      }
+      .vue-file-agent.file-input-wrapper{
+        width: 25rem;
+      }
+      .q-editor{
+        width: 30rem;
+      }
+    }
+  }
+}
+@media(min-width:1200px){
+  #title{
+  font-size: 3rem;
+  }
+  #container{
+    .q-card{
+      font-size: 1.4rem;
+      width: 50rem;
+      :deep(.q-field__control){
+        width: 40rem;
+      }
+      .q-editor{
+        width: 40rem;
+      }
+    }
+  }
+}
+</style>

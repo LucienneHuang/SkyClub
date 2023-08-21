@@ -14,6 +14,58 @@
     <div class="back"></div>
   </q-card>
 </template>
+<script setup>
+// 用 props 把資料丟進元件裡面
+import { defineProps } from 'vue'
+defineProps({
+  _id: {
+    type: String,
+    default: () => ''
+  },
+  category: {
+    type: String,
+    default: () => ''
+  },
+  date: {
+    type: String,
+    default: () => ''
+  },
+  description: {
+    type: String,
+    default: () => ''
+  },
+  display: {
+    type: Boolean,
+    default: () => true
+  },
+  image: {
+    type: String,
+    default: () => ''
+  },
+  original: {
+    type: String,
+    default: () => ''
+  },
+  quote: {
+    type: String,
+    default: () => ''
+  },
+  realms: {
+    type: String,
+    default: () => ''
+  },
+  title: {
+    type: String,
+    default: () => ''
+  },
+  translation: {
+    type: String,
+    default: () => ''
+  }
+})
+
+</script>
+
 <style scoped>
 .realm{
   border-top-left-radius: 3rem;
@@ -71,54 +123,3 @@
 }
 
 </style>
-<script setup>
-// 用 props 把資料丟進元件裡面
-import { defineProps } from 'vue'
-defineProps({
-  _id: {
-    type: String,
-    default: () => ''
-  },
-  category: {
-    type: String,
-    default: () => ''
-  },
-  date: {
-    type: String,
-    default: () => ''
-  },
-  description: {
-    type: String,
-    default: () => ''
-  },
-  display: {
-    type: Boolean,
-    default: () => true
-  },
-  image: {
-    type: String,
-    default: () => ''
-  },
-  original: {
-    type: String,
-    default: () => ''
-  },
-  quote: {
-    type: String,
-    default: () => ''
-  },
-  realms: {
-    type: String,
-    default: () => ''
-  },
-  title: {
-    type: String,
-    default: () => ''
-  },
-  translation: {
-    type: String,
-    default: () => ''
-  }
-})
-
-</script>

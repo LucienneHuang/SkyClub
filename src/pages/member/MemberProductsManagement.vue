@@ -126,7 +126,7 @@
             <q-btn unelevated rounded style="width: 6rem;" size="1rem" outline color="secondary" label="更多圖片" @click="moreImageBtn" />
           </q-card-actions>
           <q-card-section v-if="editProductForm.oldImgs.length>=1" class="flex justify-center">
-            <q-btn v-for="(img,i) in editProductForm.oldImgs" :key="i" @click="deleteImg">
+            <q-btn v-for="(img,i) in editProductForm.oldImgs" :key="i" @click="deleteImg(test)">
               <q-img :src="img" style="width: 160px; height: 160px; border-radius: 0;"/>
             </q-btn>
           </q-card-section>
@@ -184,100 +184,6 @@
   </div>
 
 </template>
-<style lang="scss" scoped>
-
-#title{
-  border-left: .8rem solid $secondary;
-  }
-#container{
-  td>a{
-  color: black;
-  text-decoration: none;
-  padding: 5px 8px;
-  transition: .3s;
-  &:hover{
-    background: $secondary;
-    color: white;
-  }
-}
-  width: 100%;
-  // height: calc(100vh - 164px);
-  :deep(.q-table thead th){
-    background: $secondary;
-    font-size: 1rem;
-  }
-  :deep(.q-table__top){
-    background: $secondary;
-  }
-  :deep(td){
-    font-size: 1rem;
-  }
-  #wh{
-    width: 100%;
-    height: 100%;
-  }
-}
-
-#form{
-    width: 35rem;
-    max-width: 100vw;
-    .q-card{
-    border: 4px solid $secondary;
-    width: 25rem;
-    border-radius: 2rem;
-    :deep(.q-field__control){
-      width: 12rem;
-    }
-    .q-editor{
-        border: 1px solid $secondary;
-        width: 12rem;
-    }
-  }
-}
-
-@media(min-width:975px){
-  #title{
-  font-size: 3rem;
-  }
-
-  #form{
-    width: 50rem;
-    max-width: 100vw;
-    .q-card{
-      font-size: 1rem;
-      width: 40rem;
-      :deep(.q-field__control){
-        width: 30rem;
-      }
-      .q-editor{
-        border: 1px solid $secondary;
-        width: 30rem;
-      }
-    }
-  }
-}
-@media(min-width:1200px){
-  #title{
-    font-size: 3rem;
-  }
-
-  #form{
-    width: 60rem;
-    max-width: 100vw;
-    .q-card{
-      font-size: 1rem;
-      width: 50rem;
-      :deep(.q-field__control){
-        width: 40rem;
-      }
-      .q-editor{
-        border: 1px solid $secondary;
-        width: 40rem;
-      }
-    }
-  }
-}
-</style>
 <script setup>
 import { ref, reactive, watch } from 'vue'
 import { useQuasar } from 'quasar'
@@ -294,7 +200,7 @@ const moreImageBtn = () => {
   if (addMoreImages.value === true) {
     $q.notify({
       type: 'positive',
-      message: '最多只能有六張圖片'
+      message: '加上已上傳，最多六張。'
     })
   } else {
     $q.notify({
@@ -472,3 +378,98 @@ watch(filter, async (newOrder, oldOrder) => {
   tableLoadItems()
 })
 </script>
+
+<style lang="scss" scoped>
+
+#title{
+  border-left: .8rem solid $secondary;
+  }
+#container{
+  td>a{
+  color: black;
+  text-decoration: none;
+  padding: 5px 8px;
+  transition: .3s;
+  &:hover{
+    background: $secondary;
+    color: white;
+  }
+}
+  width: 100%;
+  // height: calc(100vh - 164px);
+  :deep(.q-table thead th){
+    background: $secondary;
+    font-size: 1rem;
+  }
+  :deep(.q-table__top){
+    background: $secondary;
+  }
+  :deep(td){
+    font-size: 1rem;
+  }
+  #wh{
+    width: 100%;
+    height: 100%;
+  }
+}
+
+#form{
+    width: 35rem;
+    max-width: 100vw;
+    .q-card{
+    border: 4px solid $secondary;
+    width: 25rem;
+    border-radius: 2rem;
+    :deep(.q-field__control){
+      width: 12rem;
+    }
+    .q-editor{
+        border: 1px solid $secondary;
+        width: 12rem;
+    }
+  }
+}
+
+@media(min-width:975px){
+  #title{
+  font-size: 3rem;
+  }
+
+  #form{
+    width: 50rem;
+    max-width: 100vw;
+    .q-card{
+      font-size: 1rem;
+      width: 40rem;
+      :deep(.q-field__control){
+        width: 30rem;
+      }
+      .q-editor{
+        border: 1px solid $secondary;
+        width: 30rem;
+      }
+    }
+  }
+}
+@media(min-width:1200px){
+  #title{
+    font-size: 3rem;
+  }
+
+  #form{
+    width: 60rem;
+    max-width: 100vw;
+    .q-card{
+      font-size: 1rem;
+      width: 50rem;
+      :deep(.q-field__control){
+        width: 40rem;
+      }
+      .q-editor{
+        border: 1px solid $secondary;
+        width: 40rem;
+      }
+    }
+  }
+}
+</style>

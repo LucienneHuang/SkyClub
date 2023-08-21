@@ -89,6 +89,101 @@
   </div>
 
 </template>
+<script setup>
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useQuasar } from 'quasar'
+import sweetalert from 'sweetalert2'
+import 'animate.css'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay, Pagination } from 'swiper/modules'
+import 'swiper/css/pagination'
+import 'swiper/css'
+import { api, apiAuth } from 'src/boot/axios'
+const $q = useQuasar()
+const route = useRoute()
+
+const modules = [Autoplay, Pagination]
+const dialog = ref(false)
+const loading = ref(false)
+const quantity = ref(1)
+const rules = {
+  required: (value) => !!value || '欄位必填，且不得為 0',
+  numberRequired: (value) => (!isNaN(value) && value > 0) || '不得小於 0',
+  limited: (value) => (value <= product.value.MaxNumber) || '超過商品剩餘數量'
+}
+const product = ref({
+  _id: '',
+  seller: '',
+  sellername: '',
+  name: '',
+  price: 0,
+  currency: '',
+  MaxNumber: 0,
+  image: '',
+  images: [],
+  description: '',
+  category: '',
+  sell: true
+});
+(async () => {
+  try {
+    const { data } = await api.get('/products/' + route.params.id)
+    product.value._id = data.result._id
+    product.value.seller = data.result.user._id
+    product.value.sellername = data.result.user.nickname
+    product.value.name = data.result.name
+    product.value.price = data.result.price
+    product.value.currency = data.result.currency
+    product.value.MaxNumber = data.result.MaxNumber
+    product.value.image = data.result.image
+    product.value.images = [...data.result.images]
+    product.value.description = data.result.description
+    product.value.category = data.result.category
+    product.value.sell = data.result.sell
+    if (product.value.sell === false) {
+      dialog.value = true
+    }
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: '發生錯誤'
+    })
+  }
+})()
+
+const addCart = async () => {
+  try {
+    loading.value = true
+    await apiAuth.post('/users/cart', {
+      product: product.value._id,
+      seller: product.value.seller,
+      quantity: quantity.value
+    })
+    loading.value = false
+    await sweetalert.fire({
+      icon: 'success',
+      title: '新增購物車成功',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+      iconColor: '#B0A9EC',
+      confirmButtonColor: '#B0A9EC',
+      width: '20rem'
+    })
+  } catch (error) {
+    loading.value = false
+    $q.notify({
+      type: 'negative',
+      message: error.response.data.message
+    })
+  }
+}
+</script>
+
 <style scoped>
 :deep(.left){
   width: 100%;
@@ -257,97 +352,3 @@
 
 }
 </style>
-<script setup>
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { useQuasar } from 'quasar'
-import sweetalert from 'sweetalert2'
-import 'animate.css'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Autoplay, Pagination } from 'swiper/modules'
-import 'swiper/css/pagination'
-import 'swiper/css'
-import { api, apiAuth } from 'src/boot/axios'
-const $q = useQuasar()
-const route = useRoute()
-
-const modules = [Autoplay, Pagination]
-const dialog = ref(false)
-const loading = ref(false)
-const quantity = ref(1)
-const rules = {
-  required: (value) => !!value || '欄位必填，且不得為 0',
-  numberRequired: (value) => (!isNaN(value) && value > 0) || '不得小於 0',
-  limited: (value) => (value <= product.value.MaxNumber) || '超過商品剩餘數量'
-}
-const product = ref({
-  _id: '',
-  seller: '',
-  sellername: '',
-  name: '',
-  price: 0,
-  currency: '',
-  MaxNumber: 0,
-  image: '',
-  images: [],
-  description: '',
-  category: '',
-  sell: true
-});
-(async () => {
-  try {
-    const { data } = await api.get('/products/' + route.params.id)
-    product.value._id = data.result._id
-    product.value.seller = data.result.user._id
-    product.value.sellername = data.result.user.nickname
-    product.value.name = data.result.name
-    product.value.price = data.result.price
-    product.value.currency = data.result.currency
-    product.value.MaxNumber = data.result.MaxNumber
-    product.value.image = data.result.image
-    product.value.images = [...data.result.images]
-    product.value.description = data.result.description
-    product.value.category = data.result.category
-    product.value.sell = data.result.sell
-    if (product.value.sell === false) {
-      dialog.value = true
-    }
-  } catch (error) {
-    $q.notify({
-      type: 'negative',
-      message: '發生錯誤'
-    })
-  }
-})()
-
-const addCart = async () => {
-  try {
-    loading.value = true
-    await apiAuth.post('/users/cart', {
-      product: product.value._id,
-      seller: product.value.seller,
-      quantity: quantity.value
-    })
-    loading.value = false
-    await sweetalert.fire({
-      icon: 'success',
-      title: '新增購物車成功',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      },
-      iconColor: '#B0A9EC',
-      confirmButtonColor: '#B0A9EC',
-      width: '20rem'
-    })
-  } catch (error) {
-    loading.value = false
-    $q.notify({
-      type: 'negative',
-      message: error.response.data.message
-    })
-  }
-}
-</script>
