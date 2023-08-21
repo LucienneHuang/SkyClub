@@ -192,22 +192,22 @@ const modules = [Autoplay]
 const carouselImages = [
   {
     name: 'img1',
-    src: '/src/assets/carousel1.jpg',
+    src: new URL('../assets/carousel1.JPG', import.meta.url).href,
     text: '懷著溫暖的心一同冒險吧。'
   },
   {
     name: 'img2',
-    src: '/src/assets/carousel2.jpg',
+    src: new URL('../assets/carousel2.JPG', import.meta.url).href,
     text: '在光遇，遇見你真好。'
   },
   {
     name: 'img3',
-    src: '/src/assets/carousel3.jpg',
+    src: new URL('../assets/carousel3.JPG', import.meta.url).href,
     text: 'PC 版即將上市。'
   },
   {
     name: 'img4',
-    src: '/src/assets/carousel4.jpg',
+    src: new URL('../assets/carousel4.JPG', import.meta.url).href,
     text: '讓 AURORA 帶領你踏上音樂之旅。'
   }
 ]
