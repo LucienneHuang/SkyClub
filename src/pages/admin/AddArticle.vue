@@ -51,7 +51,7 @@
         <!-- 文章內容 -->
         <q-card-section horizontal>
           <div class="text-h7 q-mt-md q-mr-lg">內文</div>
-          <q-editor :rules="[rules.required]" v-model="addArticleForm.description"  class="q-my-md"
+          <q-editor :rules="[rules.required]" max-height="20rem" v-model="addArticleForm.description"  class="q-my-md"
       :dense="$q.screen.lt.md"
       :toolbar="[
         [

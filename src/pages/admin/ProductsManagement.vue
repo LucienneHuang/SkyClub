@@ -33,7 +33,7 @@
           </q-card-section>
           <q-card-section horizontal>
             <div class="text-h7 q-mt-md q-mr-lg">內文</div>
-            <q-editor :rules="[rules.required]" v-model="editProductForm.description"  class="q-my-md"
+            <q-editor :rules="[rules.required]" max-height="20rem" v-model="editProductForm.description"  class="q-my-md"
       :dense="$q.screen.lt.md"
       :toolbar="[
         [
@@ -123,6 +123,21 @@
             <div class="text-h7 q-mt-md q-mr-lg">上架</div>
             <q-checkbox class="q-mt-sm" color="primary" v-model="editProductForm.sell"/>
           </q-card-section>
+          <!-- 更多圖片按鈕 -->
+          <q-card-actions class="q-mt-sm">
+            <q-btn unelevated rounded style="width: 6rem;" size="1rem" outline color="primary" label="更多圖片" @click="moreImageBtn" />
+          </q-card-actions>
+          <!-- 顯示已上傳圖片 -->
+          <q-card-section v-if="editProductForm.oldImgs.length>=1" class="flex justify-center">
+            <q-btn v-for="(img,i) in editProductForm.oldImgs" :key="i" @click="deleteImg(img)">
+              <q-img :src="img" style="width: 160px; height: 160px; border-radius: 0;"/>
+            </q-btn>
+          </q-card-section>
+          <!-- 加更多圖片 -->
+          <q-card-section v-if="addMoreImages" horizontal>
+            <VueFileAgent v-if="maxImgs>0" :multiple="true" :maxFiles="maxImgs" :maxSize="'1MB'" :deletable="true" :accept="'image/jpg,image/jpeg,image/png'" :helpText="'只接受 jpg, jpeg 或 png 檔，加上已上傳，最多六張。'" v-model="editProductForm.images" :errorText="{type: '檔案類型不合法。只接受 jpg, jpeg 或 png 檔。',size: '檔案大小不得大於1MB',}" v-model:rawModelValue="rawFiles" ></VueFileAgent>
+            <div v-else>圖片最多六張，請刪除圖片再新增。</div>
+          </q-card-section>
           <q-card-actions class="q-mt-sm">
             <q-btn type="submit" unelevated rounded style="width: 6rem;" size="1rem" color="primary" label="送出"  v-close-popup />
             <q-btn unelevated rounded style="width: 6rem;" size="1rem" outline color="primary" label="取消" @click="dialog=false" />
@@ -189,7 +204,22 @@ import { apiAuth } from '../../boot/axios.js'
 const user = useUserStore()
 const $q = useQuasar()
 const filter = ref('')
-
+const maxImgs = ref(6)
+const addMoreImages = ref(false)
+const moreImageBtn = () => {
+  addMoreImages.value = !addMoreImages.value
+  if (addMoreImages.value === true) {
+    $q.notify({
+      type: 'positive',
+      message: '加上已上傳，最多六張。'
+    })
+  } else {
+    $q.notify({
+      type: 'negative',
+      message: '取消'
+    })
+  }
+}
 const columns = [
   {
     name: 'user',
@@ -273,14 +303,16 @@ const updateImageBtn = () => {
   updateImage.value = !updateImage.value
 }
 const rawFile = ref([])
+const rawFiles = ref([])
 const editProductForm = reactive({
   user: user.user,
   name: '',
   price: 0,
   currency: '',
   MaxNumber: 0,
-  image: [],
   oldImg: '',
+  oldImgs: [],
+  image: [],
   images: [],
   description: '',
   category: '',
@@ -292,10 +324,15 @@ const categoryOptions = ['季票', '禮包', '周邊', '其他']
 const dialog = ref(false)
 const productId = ref('')
 const tableEditItem = (item) => {
+  updateImage.value = false
+  addMoreImages.value = false
   dialog.value = true
-  editProductForm.name = item.name
   editProductForm.image = item.image
+  editProductForm.images = []
+  rawFiles.value = []
   editProductForm.oldImg = item.image
+  editProductForm.oldImgs = [...item.images]
+  editProductForm.name = item.name
   editProductForm.price = item.price
   editProductForm.currency = item.currency
   editProductForm.MaxNumber = item.MaxNumber
@@ -303,8 +340,14 @@ const tableEditItem = (item) => {
   editProductForm.category = item.category
   editProductForm.sell = item.sell
   productId.value = item._id
+  maxImgs.value = 6 - item.images.length
 }
-
+// 刪除圖片
+const deleteImg = (img) => {
+  const idx = editProductForm.oldImgs.findIndex(element => element === img)
+  editProductForm.oldImgs.splice(idx, 1)
+  maxImgs.value = 6 - editProductForm.oldImgs.length
+}
 const editProduct = async () => {
   try {
     const fd = new FormData()
@@ -315,10 +358,22 @@ const editProduct = async () => {
     fd.append('description', editProductForm.description)
     fd.append('category', editProductForm.category)
     fd.append('sell', editProductForm.sell)
+    // 檢查首圖
     if (editProductForm.image.length === 0 || typeof editProductForm.image === 'string') {
       fd.append('image', editProductForm.oldImg)
     } else {
       fd.append('image', editProductForm.image[0].file)
+    }
+    // 如果有新增照片，則 images 的長度會>=1，此時再加進去
+    if (editProductForm.images.length >= 1) {
+      editProductForm.images.forEach(item => {
+        fd.append('images', item.file)
+      })
+    }
+    if (editProductForm.oldImgs.length >= 1) {
+      editProductForm.oldImgs.forEach(item => {
+        fd.append('oldImgs', item)
+      })
     }
     await apiAuth.patch('/products/' + productId.value, fd)
     await sweetalert.fire({
@@ -334,6 +389,11 @@ const editProduct = async () => {
       confirmButtonColor: '#F198AF',
       width: '20rem'
     })
+    rawFile.value = ''
+    rawFiles.value = []
+    editProductForm.image = []
+    editProductForm.images = []
+    updateImage.value = false
     tableLoadItems()
   } catch (error) {
     $q.notify({
@@ -342,6 +402,8 @@ const editProduct = async () => {
     })
   }
 }
+
+// 表格長寬比
 const ratioTop = ref('')
 const ratioBottom = ref('')
 const rwd = () => {

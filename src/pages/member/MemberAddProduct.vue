@@ -27,7 +27,7 @@
         </q-card-section>
         <q-card-section horizontal>
           <div class="text-h7 q-mt-md q-mr-lg">內文</div>
-            <q-editor  :rules="[rules.required]" v-model="addProductForm.description"  class="q-my-md"
+            <q-editor max-height="20rem" :rules="[rules.required]" v-model="addProductForm.description"  class="q-my-md"
       :dense="$q.screen.lt.md"
       :toolbar="[
         [

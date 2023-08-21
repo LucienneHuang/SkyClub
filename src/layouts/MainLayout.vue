@@ -52,12 +52,15 @@
         :modules="modules"
         :loop="true"
         :autoplay="{
-          delay: 4000,
+          delay: 6000,
           disableOnInteraction: false,
         }"
       >
         <swiper-slide v-for="img in carouselImages" :key="img.name">
-          <q-img :src="img.src"/>
+          <div class="carousel">
+            <div class="text non-selectable">{{ img.text }}</div>
+            <q-img :src="img.src"/>
+          </div>
         </swiper-slide>
       </swiper>
       <!-- 波浪背景 -->
@@ -79,7 +82,6 @@
               </q-item>
               <q-separator :key="'sep' + index"  v-if="navItem.separator" />
             </template>
-
           </q-list>
         </q-scroll-area>
     </q-drawer>
@@ -140,17 +142,17 @@ const navList = [
   },
   {
     to: '/realms',
-    label: '區域',
+    label: '區域介紹',
     icon: 'location_on'
   },
   {
     to: '/trade',
-    label: '交易',
+    label: '交易專區',
     icon: 'local_mall'
   },
   {
     to: '/contact',
-    label: '聯絡',
+    label: '聯絡我們',
     icon: 'call'
   }
 ]
@@ -190,23 +192,23 @@ const modules = [Autoplay]
 const carouselImages = [
   {
     name: 'img1',
-    src: '/src/assets/carousel1.jpg'
+    src: '/src/assets/carousel1.jpg',
+    text: '懷著溫暖的心一同冒險吧。'
   },
   {
     name: 'img2',
-    src: '/src/assets/carousel2.jpg'
+    src: '/src/assets/carousel2.jpg',
+    text: '在光遇，遇見你真好。'
   },
   {
     name: 'img3',
-    src: '/src/assets/carousel3.jpg'
+    src: '/src/assets/carousel3.jpg',
+    text: 'PC 版即將上市。'
   },
   {
     name: 'img4',
-    src: '/src/assets/carousel4.jpg'
-  },
-  {
-    name: 'img5',
-    src: '/src/assets/carousel5.jpg'
+    src: '/src/assets/carousel4.jpg',
+    text: '讓 AURORA 帶領你踏上音樂之旅。'
   }
 ]
 
@@ -268,10 +270,22 @@ const navbaranimation = () => {
       text-decoration: none;
       color: white;
     }
-}
-    .q-img{
-      height: 20rem;
+  }
+  .carousel{
+    position: relative;
+    .text{
+      position: absolute;
+      z-index: 1;
+      font-size: 1rem;
+      font-weight: bolder;
+      top: 40%;
+      padding: .5rem 1.2rem;
+      background: linear-gradient(90deg,rgba(0,0,0,0.7),rgba(0,0,0,0.3),transparent);
     }
+  }
+  .q-img{
+    height: 20rem;
+  }
   .q-tab{
   display: none;
   }
@@ -304,6 +318,14 @@ const navbaranimation = () => {
   .q-img{
       height: 60rem;
   }
+  .carousel{
+    .text{
+      font-size: 3rem;
+      font-weight: bolder;
+      top: 65%;
+      padding: .5rem 5rem;
+    }
+  }
   .menuBtn{
     display: none;
   }
@@ -326,6 +348,13 @@ const navbaranimation = () => {
     .q-img{
       height: 60rem;
     }
+    .carousel{
+    .text{
+      font-size: 3.5rem;
+      font-weight: bolder;
+      top: 55%;
+    }
+  }
     .deco{
       height: 16rem;
       top: -15.5rem;

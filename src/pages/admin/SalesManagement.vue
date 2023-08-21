@@ -66,7 +66,8 @@
   <div id="title" class="q-ml-xl q-my-lg q-pl-lg q-py-sm text-h4 text-weight-bold non-selectable">出售訂單管理</div>
   <div id="container" class="flex justify-center q-px-xl q-pb-xl">
       <q-responsive id="wh" :ratio="ratioTop/ratioBottom">
-        <q-table :columns="columns" row-key="name" :rows="rows" :filter="filter" :rows-per-page-options="[10,0]">
+        <q-table :columns="columns" row-key="name" :rows="rows"  :rows-per-page-options="[10,0]">
+          <!-- :filter="filter" -->
           <!-- 搜尋欄位 -->
           <template v-slot:top-right>
             <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入出售訂單編號">
