@@ -111,7 +111,7 @@ onMounted(() => {
 @media(min-width:1570px){
   #container{
     #section{
-      margin: 0rem 10.5rem 0rem 10.5rem;
+      margin: 0rem 14.5rem 0rem 14.5rem;
     }
   }
 
