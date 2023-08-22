@@ -66,10 +66,10 @@
   <div id="title" class="q-ml-xl q-my-lg q-pl-lg q-py-sm text-h4 text-weight-bold non-selectable">出售訂單管理</div>
   <div id="container" class="flex justify-center q-px-xl q-pb-xl">
       <q-responsive id="wh" :ratio="ratioTop/ratioBottom">
-        <q-table :columns="columns" row-key="name" :rows="rows" :filter="filter" :rows-per-page-options="[10,0]">
+        <q-table :columns="columns" row-key="_id" :rows="filteredRows" :rows-per-page-options="[10,0]">
           <!-- 搜尋欄位 -->
           <template v-slot:top-right>
-            <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入訂單編號">
+            <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入訂單編號/買家名稱">
               <template v-slot:append>
                 <q-icon name="search" />
               </template>
@@ -106,7 +106,7 @@
     </div>
 </template>
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { useQuasar } from 'quasar'
 import sweetalert from 'sweetalert2'
 import 'animate.css'
@@ -171,6 +171,8 @@ const tableLoadItems = async () => {
   try {
     const { data } = await apiAuth.get('/orders/sell')
     rows.splice(0, rows.length, ...data.result)
+    filteredRows.value.splice(0, rows.length, ...data.result)
+    console.log(rows)
   } catch (error) {
     console.log(error)
     $q.notify({
@@ -232,6 +234,13 @@ const editOrder = async () => {
     })
   }
 }
+const filteredRows = computed(() => {
+  return rows.filter((order) => {
+    if (!filter.value) return true
+    return order.user.nickname.indexOf(filter.value) > -1 || order._id.indexOf(filter.value) > -1
+  })
+})
+
 const ratioTop = ref('')
 const ratioBottom = ref('')
 const rwd = () => {

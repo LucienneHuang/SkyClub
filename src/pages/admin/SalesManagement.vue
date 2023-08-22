@@ -15,7 +15,7 @@
             <q-card-section horizontal>
               <div class="text-h7 q-mt-md q-mr-lg">賣家ＩＤ
               </div>
-              <q-input type="text" readonly v-model="order.buyer" color="primary"/>
+              <q-input type="text" readonly v-model="order.seller" color="primary"/>
             </q-card-section>
             <q-card-section horizontal class="two">
               <div class="text-h7 q-mt-md q-mr-lg">買家姓名</div>
@@ -66,8 +66,7 @@
   <div id="title" class="q-ml-xl q-my-lg q-pl-lg q-py-sm text-h4 text-weight-bold non-selectable">出售訂單管理</div>
   <div id="container" class="flex justify-center q-px-xl q-pb-xl">
       <q-responsive id="wh" :ratio="ratioTop/ratioBottom">
-        <q-table :columns="columns" row-key="name" :rows="rows"  :rows-per-page-options="[10,0]">
-          <!-- :filter="filter" -->
+        <q-table :rows="filteredRows" :columns="columns" row-key="name" :rows-per-page-options="[10,0]">
           <!-- 搜尋欄位 -->
           <template v-slot:top-right>
             <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入出售訂單編號">
@@ -107,7 +106,7 @@
     </div>
 </template>
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { useQuasar } from 'quasar'
 import sweetalert from 'sweetalert2'
 import 'animate.css'
@@ -172,6 +171,7 @@ const tableLoadItems = async () => {
   try {
     const { data } = await apiAuth.get('/orders/all')
     rows.splice(0, rows.length, ...data.result)
+    console.log(rows)
   } catch (error) {
     console.log(error)
     $q.notify({
@@ -184,7 +184,7 @@ const tableLoadItems = async () => {
 tableLoadItems()
 const order = reactive({
   _id: '',
-  buyer: '',
+  seller: '',
   realName: '',
   phoneNumber: '',
   address: '',
@@ -198,7 +198,7 @@ const order = reactive({
 const orderDetail = (detail) => {
   dialog.value = true
   order._id = detail._id
-  order.buyer = detail.user.nickname + '（' + `${detail.user._id}` + '）'
+  order.seller = detail.seller.nickname + '（' + `${detail.seller._id}` + '）'
   order.realName = detail.realName
   order.phoneNumber = detail.phoneNumber
   order.address = detail.address
@@ -233,6 +233,12 @@ const editOrder = async () => {
     })
   }
 }
+const filteredRows = computed(() => {
+  return rows.filter((order) => {
+    if (!filter.value) return true
+    return order.user.nickname.indexOf(filter.value) > -1 || order._id.indexOf(filter.value) > -1
+  })
+})
 const ratioTop = ref('')
 const ratioBottom = ref('')
 const rwd = () => {
@@ -310,9 +316,6 @@ window.addEventListener('resize', () => {
         }
       }
     }
-  }
-  @media(min-width:1200px){
-
   }
 
 </style>

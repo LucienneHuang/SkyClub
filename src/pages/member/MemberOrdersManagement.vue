@@ -57,10 +57,10 @@
 <div id="title" class="q-ml-xl q-my-lg q-pl-lg q-py-sm text-h4 text-weight-bold non-selectable">購買訂單查詢</div>
 <div id="container" class="flex justify-center q-px-xl q-pb-xl">
     <q-responsive id="wh" :ratio="ratioTop/ratioBottom">
-      <q-table :columns="columns" row-key="name" :rows="rows" :filter="filter" :rows-per-page-options="[10,0]">
+      <q-table :columns="columns" row-key="_id" :rows="filteredRows" :rows-per-page-options="[10,0]">
         <!-- 搜尋欄位 -->
         <template v-slot:top-right>
-          <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入訂單編號">
+          <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入訂單編號/賣家名稱">
             <template v-slot:append>
               <q-icon name="search" />
             </template>
@@ -97,7 +97,7 @@
   </div>
 </template>
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { useQuasar } from 'quasar'
 import 'animate.css'
 import { apiAuth } from '../../boot/axios.js'
@@ -196,8 +196,16 @@ const orderDetail = (detail) => {
   order.cart = [...detail.cart]
 }
 
+const filteredRows = computed(() => {
+  return rows.filter((order) => {
+    if (!filter.value) return true
+    return order.seller.nickname.indexOf(filter.value) > -1 || order._id.indexOf(filter.value) > -1
+  })
+})
+
 const ratioTop = ref('')
 const ratioBottom = ref('')
+
 const rwd = () => {
   if (window.innerWidth > 975) {
     ratioTop.value = 12
@@ -267,9 +275,6 @@ window.addEventListener('resize', () => {
     }
     }
   }
-}
-@media(min-width:1200px){
-
 }
 
 </style>
