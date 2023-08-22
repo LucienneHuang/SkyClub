@@ -15,7 +15,7 @@
         <q-menu square class="bg-primary text-center">
           <q-list dense>
             <q-item clickable>
-              <q-item-section >USER</q-item-section>
+              <q-item-section >遊客</q-item-section>
             </q-item>
             <q-separator inset />
             <q-item v-for="navItem in navList" clickable :to="navItem.to" :key="navItem.to">
