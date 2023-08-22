@@ -66,7 +66,7 @@
                 <q-card-actions class="q-mt-md q-px-lg" vertical>
                   <q-btn label="register" type="submit" color="secondary" text-color="dark" class="text-weight-bold"></q-btn>
                   <q-card-actions align="center">
-                    <q-btn label="快速註冊" text-color="white" flat></q-btn>
+                    <!-- <q-btn label="快速註冊" text-color="white" flat></q-btn> -->
                     <q-btn label="登入會員" text-color="white" to="/login" flat></q-btn>
                   </q-card-actions>
                 </q-card-actions>
