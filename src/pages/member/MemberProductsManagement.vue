@@ -150,7 +150,7 @@
   </div>
   <div id="container" class="flex justify-center q-px-xl q-pb-xl">
     <q-responsive id="wh" :ratio="8/5">
-      <q-table :columns="columns" row-key="name" :rows="rows">
+      <q-table :columns="columns" row-key="_id" :rows="rows">
         <!-- 搜尋欄位 -->
         <template v-slot:top-right>
           <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入商品關鍵字">

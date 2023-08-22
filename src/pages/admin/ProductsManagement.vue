@@ -149,7 +149,7 @@
   <div id="title" class="q-ml-xl q-my-lg q-pl-lg q-py-sm text-h4 text-weight-bold non-selectable">全部商品管理</div>
   <div id="container" class="flex justify-center q-px-xl q-pb-xl">
     <q-responsive id="wh" :ratio="ratioTop/ratioBottom">
-      <q-table :rows-per-page-options="[10,0]" :columns="columns" row-key="name" :rows="rows">
+      <q-table :rows-per-page-options="[10,0]" :columns="columns" row-key="_id" :rows="rows" :filter="filter">
         <!-- 搜尋欄位 -->
         <template v-slot:top-right>
           <q-input color="white" filled clearable borderless dense debounce="300" v-model="filter" placeholder="請輸入商品關鍵字">
@@ -275,11 +275,7 @@ const rows = reactive([])
 // 取得自己的商品資訊
 const tableLoadItems = async () => {
   try {
-    const { data } = await apiAuth.get('/products/all', {
-      params: {
-        search: filter.value
-      }
-    })
+    const { data } = await apiAuth.get('/products/all')
     rows.splice(0, rows.length, ...data.result)
   } catch (error) {
     $q.notify({
