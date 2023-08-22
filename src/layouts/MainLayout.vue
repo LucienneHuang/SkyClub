@@ -356,10 +356,10 @@ const navbaranimation = () => {
     }
   }
     .deco{
-      height: 16rem;
-      top: -15.5rem;
+      height: 18rem;
+      top: -16.5rem;
       &::before{
-        height: 16rem;
+        height: 18rem;
       }
     }
 
