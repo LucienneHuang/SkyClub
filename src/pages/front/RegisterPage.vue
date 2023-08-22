@@ -156,17 +156,17 @@ const navList = [
   },
   {
     to: '/realms',
-    label: '區域',
+    label: '區域介紹',
     icon: 'location_on'
   },
   {
     to: '/trade',
-    label: '交易',
+    label: '交易專區',
     icon: 'local_mall'
   },
   {
     to: '/contact',
-    label: '聯絡',
+    label: '聯絡我們',
     icon: 'call'
   }
 ]
