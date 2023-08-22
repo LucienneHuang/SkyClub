@@ -42,6 +42,7 @@ export default route(function (/* { store, ssrContext } */) {
   // beforeEach 進到每一頁之前
   Router.beforeEach(async (to, from, next) => {
     const checkBlock = to.path.slice(0, 6)
+    const checkAdmin = to.path.slice(0, 7)
     // 抓使用者資料
     const user = useUserStore()
     // 剛進網頁時的第一次路由跳轉
@@ -61,7 +62,7 @@ export default route(function (/* { store, ssrContext } */) {
       // 如果要去的地方要管理員權限，且使用者不是管理員
       // 丟到首頁
       next('/')
-    } else if (user.isAdmin && ['/member'].includes(to.path)) {
+    } else if (user.isAdmin && ['/member'].includes(checkAdmin)) {
       next('/')
     } else if (!user.isLogin && ['/trade'].includes(to.path)) {
       next('/login')
