@@ -41,7 +41,7 @@ export default route(function (/* { store, ssrContext } */) {
   // next 如果 okay 導去下一頁
   // beforeEach 進到每一頁之前
   Router.beforeEach(async (to, from, next) => {
-    const checkBlock = to.path.slice(0, 6)
+    const checkBlockOrLogin = to.path.slice(0, 6)
     const checkAdmin = to.path.slice(0, 7)
     // 抓使用者資料
     const user = useUserStore()
@@ -64,9 +64,16 @@ export default route(function (/* { store, ssrContext } */) {
       next('/')
     } else if (user.isAdmin && ['/member'].includes(checkAdmin)) {
       next('/')
-    } else if (!user.isLogin && ['/trade'].includes(to.path)) {
+    } else if (!user.isLogin && ['/trade'].includes(checkBlockOrLogin)) {
+      await sweetalert.fire({
+        icon: 'error',
+        title: '請登入再操作',
+        iconColor: '#ff0000',
+        confirmButtonColor: '#ff0000',
+        width: '20rem'
+      })
       next('/login')
-    } else if (user.isBlock && ['/trade'].includes(checkBlock)) {
+    } else if (user.isBlock && ['/trade'].includes(checkBlockOrLogin)) {
       await sweetalert.fire({
         icon: 'warning',
         title: '帳號停權中',
