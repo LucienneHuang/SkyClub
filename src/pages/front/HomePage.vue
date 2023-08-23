@@ -53,7 +53,7 @@
 </template>
 <script setup>
 import { ref, onUpdated } from 'vue'
-import { useQuasar } from 'quasar'
+import { useQuasar, QSpinnerHearts } from 'quasar'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import { api } from 'src/boot/axios'
@@ -73,7 +73,12 @@ const latestNews = ref([])
 const products = ref([]);
 (async () => {
   try {
-    $q.loading.show()
+    $q.loading.show({
+      spinner: QSpinnerHearts,
+      spinnerSize: 140,
+      backgroundColor: 'primary',
+      message: '資料載入中，請耐心等候...'
+    })
     const realm = await api.get('/articles/getRealms')
     realms.value.push(...realm.data.result)
     const news = await api.get('/articles/getNews', {
