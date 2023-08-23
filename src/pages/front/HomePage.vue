@@ -126,7 +126,7 @@ onUpdated(() => {
       scrub: true,
       markers: true
     },
-    backgroundPosition: '50% -50%',
+    backgroundPosition: '50% 0%',
     ease: 'none'
   })
 })
