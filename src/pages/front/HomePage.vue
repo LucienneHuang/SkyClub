@@ -121,8 +121,8 @@ onUpdated(() => {
   gsap.to('.parallaxImg', {
     scrollTrigger: {
       trigger: '.parallaxImg',
-      start: '-10% 50%',
-      end: '90% 0%',
+      start: '0% 50%',
+      end: '100% 0%',
       scrub: true
     },
     backgroundPosition: '50% 50%',
