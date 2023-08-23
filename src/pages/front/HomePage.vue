@@ -36,7 +36,7 @@
   <!-- 視差區 -->
   <div class="parallax flex items-center q-my-xl">
     <div class="parallaxImg"></div>
-    <div class="parallaxText non-selectable">AURORA 安可場演唱會，8/25與你相見。</div>
+    <div class="parallaxText non-selectable">AURORA 安可場演唱會<br>8/25與你相見</div>
   </div>
   <!-- 商品區 -->
   <div id="products">
@@ -179,12 +179,15 @@ onUpdated(() => {
   }
   .parallaxText{
     position: absolute;
-    bottom: 3rem;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
     font-weight: bolder;
     font-size: 2rem;
     color: white;
-    background: linear-gradient(90deg,rgba(0,0,0,0.7),rgba(0,0,0,0.3),transparent);
-    padding-left: 1rem;
+    background: rgba(0,0,0,0.3);
+    padding:1rem;
   }
 }
 #products{
