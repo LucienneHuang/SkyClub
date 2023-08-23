@@ -211,7 +211,7 @@ onUpdated(() => {
     width: 30% !important;
   }
   #products{
-    margin: 0rem 4rem 0rem 4rem;
+    margin: 0rem 2rem 0rem 2rem;
   }
   .parallax{
     .parallaxText{
@@ -219,5 +219,10 @@ onUpdated(() => {
     }
   }
 }
+@media(min-width: 1700px){
 
+  #products{
+    margin: 0rem 14rem 0rem 14rem;
+  }
+}
 </style>
