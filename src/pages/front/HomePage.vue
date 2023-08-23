@@ -184,10 +184,10 @@ onUpdated(() => {
     top: 50%;
     transform: translate(-50%,-50%);
     font-weight: bolder;
-    font-size: 2rem;
+    font-size: 1rem;
     color: white;
     background: rgba(0,0,0,0.3);
-    padding:1rem;
+    padding:.7rem;
   }
 }
 #products{
@@ -202,21 +202,22 @@ onUpdated(() => {
   }
   .parallax{
     .parallaxText{
-      font-size: 3rem;
+      font-size: 2.8rem;
     }
   }
 }
-@media(min-width: 1200px){
+@media(min-width: 1300px){
   .swiper-slide{
     width: 30% !important;
   }
   #products{
-    margin: 0rem 10.5rem 0rem 10.5rem;
+    margin: 0rem 2.5rem 0rem 2.5rem;
   }
   .parallax{
     .parallaxText{
-      font-size: 4rem;
+      font-size: 3.6rem;
     }
   }
 }
+
 </style>
