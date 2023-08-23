@@ -123,7 +123,8 @@ onUpdated(() => {
       trigger: '.parallaxImg',
       start: '0% 50%',
       end: '100% 0%',
-      scrub: true
+      scrub: true,
+      markers: true
     },
     backgroundPosition: '50% -50%',
     ease: 'none'
