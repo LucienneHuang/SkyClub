@@ -125,7 +125,7 @@ onUpdated(() => {
       end: '100% 0%',
       scrub: true
     },
-    backgroundPosition: '50% 50%',
+    backgroundPosition: '50% -50%',
     ease: 'none'
   })
 })
@@ -173,7 +173,7 @@ onUpdated(() => {
     width: 100%;
     height: 90%;
     background-image: url('/src/assets/AURORA.png');
-    // background-position: 50% 20%;
+    background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
   }
