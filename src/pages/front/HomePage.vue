@@ -76,8 +76,8 @@ const products = ref([]);
     $q.loading.show({
       spinner: QSpinnerHearts,
       spinnerSize: 140,
-      backgroundColor: 'primary',
-      message: '資料載入中，請耐心等候...'
+      message: '<h6>資料載入中，請耐心等候...</h6>',
+      html: true
     })
     const realm = await api.get('/articles/getRealms')
     realms.value.push(...realm.data.result)
@@ -99,11 +99,11 @@ const products = ref([]);
     products.value.push(...product.data.result.data)
     $q.loading.hide()
   } catch (error) {
-    console.log(error)
     $q.notify({
       type: 'negative',
       message: '發生錯誤'
     })
+    $q.loading.hide()
   }
 })()
 

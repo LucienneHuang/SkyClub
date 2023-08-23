@@ -38,7 +38,7 @@ import { reactive } from 'vue'
 import validator from 'validator'
 import { useRouter } from 'vue-router'
 import sweetalert from 'sweetalert2'
-import { useQuasar } from 'quasar'
+import { useQuasar, QSpinnerHearts } from 'quasar'
 import { api } from 'src/boot/axios.js'
 import { useUserStore } from 'src/stores/user.js'
 const user = useUserStore()
@@ -62,7 +62,14 @@ const rules = {
 
 const sendContact = async () => {
   try {
+    $q.loading.show({
+      spinner: QSpinnerHearts,
+      spinnerSize: 140,
+      message: '<h6>資料送出中，請耐心等候...</h6>',
+      html: true
+    })
     await api.post('/contactUs', contactForm)
+    $q.loading.hide()
     await sweetalert.fire({
       icon: 'success',
       title: '成功送出',
@@ -70,6 +77,7 @@ const sendContact = async () => {
     })
     router.push('/')
   } catch (error) {
+    $q.loading.hide()
     $q.notify({
       type: 'negative',
       message: '發生錯誤'

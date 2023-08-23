@@ -84,7 +84,7 @@ import validator from 'validator'
 import { api } from '../../boot/axios.js'
 import { useRouter } from 'vue-router'
 import sweetalert from 'sweetalert2'
-import { useQuasar } from 'quasar'
+import { useQuasar, QSpinnerHearts } from 'quasar'
 import { useUserStore } from 'src/stores/user.js'
 import 'animate.css'
 
@@ -120,7 +120,14 @@ watch(() => registerForm.password, () => {
 
 const register = async () => {
   try {
+    $q.loading.show({
+      spinner: QSpinnerHearts,
+      spinnerSize: 140,
+      message: '<h6>註冊中，請耐心等候...</h6>',
+      html: true
+    })
     await api.post('/users', registerForm)
+    $q.loading.hide()
     await sweetalert.fire({
       icon: 'success',
       title: '註冊成功',
@@ -137,6 +144,8 @@ const register = async () => {
     // 註冊完送到 login 頁面
     router.push('/login')
   } catch (error) {
+    console.log(error)
+    $q.loading.hide()
     $q.notify({
       type: 'negative',
       message: error.response.data.message

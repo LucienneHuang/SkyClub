@@ -35,7 +35,7 @@
 </template>
 <script setup>
 import { ref, watch } from 'vue'
-import { useQuasar } from 'quasar'
+import { useQuasar, QSpinnerHearts } from 'quasar'
 import { api } from 'src/boot/axios'
 import NewsCard from 'src/components/NewsCard.vue'
 const $q = useQuasar()
@@ -52,6 +52,12 @@ const currentPage = ref(1)
 const search = ref('')
 const getNews = async () => {
   try {
+    $q.loading.show({
+      spinner: QSpinnerHearts,
+      spinnerSize: 140,
+      message: '<h6>資料載入中，請耐心等候...</h6>',
+      html: true
+    })
     const { data } = await api.get('/articles/getNews', {
       params: {
         currentPage: currentPage.value,
@@ -62,7 +68,9 @@ const getNews = async () => {
     })
     latestNews.value.splice(0, latestNews.value.length, ...data.result.data)
     pagesOfPagination.value = data.result.count
+    $q.loading.hide()
   } catch (error) {
+    $q.loading.hide()
     $q.notify({
       type: 'negative',
       message: '發生錯誤'

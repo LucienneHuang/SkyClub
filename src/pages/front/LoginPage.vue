@@ -75,7 +75,7 @@ import { reactive } from 'vue'
 import validator from 'validator'
 import { useRouter } from 'vue-router'
 import sweetalert from 'sweetalert2'
-import { useQuasar } from 'quasar'
+import { useQuasar, QSpinnerHearts } from 'quasar'
 import { useUserStore } from 'src/stores/user.js'
 import { api } from 'src/boot/axios.js'
 
@@ -96,7 +96,14 @@ const rules = {
 }
 const login = async () => {
   try {
+    $q.loading.show({
+      spinner: QSpinnerHearts,
+      spinnerSize: 140,
+      message: '<h6>登入中，請耐心等候...</h6>',
+      html: true
+    })
     const { data } = await api.post('/users/login', loginForm)
+    $q.loading.hide()
     await sweetalert.fire({
       icon: 'success',
       title: '登入成功',
@@ -134,6 +141,7 @@ const login = async () => {
     }
     router.push('/')
   } catch (error) {
+    $q.loading.hide()
     $q.notify({
       type: 'negative',
       message: error.response.data.message

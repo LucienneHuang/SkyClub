@@ -98,7 +98,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useQuasar } from 'quasar'
+import { useQuasar, QSpinnerHearts } from 'quasar'
 import sweetalert from 'sweetalert2'
 import 'animate.css'
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -134,6 +134,12 @@ const product = ref({
 });
 (async () => {
   try {
+    $q.loading.show({
+      spinner: QSpinnerHearts,
+      spinnerSize: 140,
+      message: '<h6>資料載入中，請耐心等候...</h6>',
+      html: true
+    })
     const { data } = await api.get('/products/' + route.params.id)
     product.value._id = data.result._id
     product.value.seller = data.result.user._id
@@ -147,10 +153,12 @@ const product = ref({
     product.value.description = data.result.description
     product.value.category = data.result.category
     product.value.sell = data.result.sell
+    $q.loading.hide()
     if (product.value.sell === false) {
       dialog.value = true
     }
   } catch (error) {
+    $q.loading.hide()
     $q.notify({
       type: 'negative',
       message: '發生錯誤'

@@ -16,16 +16,24 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import { useQuasar } from 'quasar'
+import { useQuasar, QSpinnerHearts } from 'quasar'
 import { api } from 'src/boot/axios'
 import RealmCard from 'src/components/RealmCard.vue'
 const $q = useQuasar()
 const realms = ref([]);
 (async () => {
   try {
+    $q.loading.show({
+      spinner: QSpinnerHearts,
+      spinnerSize: 140,
+      message: '<h6>資料載入中，請耐心等候...</h6>',
+      html: true
+    })
     const { data } = await api.get('/articles/getRealms')
     realms.value.push(...data.result)
+    $q.loading.hide()
   } catch (error) {
+    $q.loading.hide()
     $q.notify({
       type: 'negative',
       message: '發生錯誤'

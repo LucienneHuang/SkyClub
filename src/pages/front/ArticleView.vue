@@ -28,7 +28,7 @@
 <script setup>
 import { ref } from 'vue'
 import { api } from 'src/boot/axios'
-import { useQuasar } from 'quasar'
+import { useQuasar, QSpinnerHearts } from 'quasar'
 import { useRoute } from 'vue-router'
 const $q = useQuasar()
 const route = useRoute()
@@ -47,6 +47,12 @@ const article = ref({
 
 (async () => {
   try {
+    $q.loading.show({
+      spinner: QSpinnerHearts,
+      spinnerSize: 140,
+      message: '<h6>資料載入中，請耐心等候...</h6>',
+      html: true
+    })
     const { data } = await api.get('/articles/' + route.query.articleId)
     article.value._id = data.result._id
     article.value.title = data.result.title
@@ -58,8 +64,9 @@ const article = ref({
     article.value.category = data.result.category
     article.value.realms = data.result.realms
     article.value.quote = data.result.quote
+    $q.loading.hide()
   } catch (error) {
-    console.log(error)
+    $q.loading.hide()
     $q.notify({
       type: 'negative',
       message: '發生錯誤'

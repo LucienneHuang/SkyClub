@@ -63,7 +63,11 @@
           </thead>
           <tbody>
               <tr v-for="(item,index) in cart.productCart" :key="index" class="text-center">
-                <td><span v-if="!item.product.sell"><q-icon  name="mdi-alert" color="red" size="25px"/><br>已下架</span></td>
+                <td>
+                  <div v-if="!item.product.sell || (item.product.MaxNumber<item.quantity)"><q-icon  name="mdi-alert" color="red" size="25px"/></div>
+                  <div v-if="!item.product.sell">已下架</div>
+                  <div v-if="(item.product.MaxNumber<item.quantity)">數量不足<br>請修改數量</div>
+                </td>
                 <td class="image">
                     <q-img
                     :src="item.product.image"
@@ -96,7 +100,7 @@
 </template>
 <script setup>
 import { ref, computed, reactive } from 'vue'
-import { useQuasar } from 'quasar'
+import { useQuasar, QSpinnerHearts } from 'quasar'
 import { useRouter } from 'vue-router'
 import validator from 'validator'
 import sweetalert from 'sweetalert2'
@@ -199,9 +203,17 @@ const checkOut = () => {
 // 取得購物車資訊
 (async () => {
   try {
+    $q.loading.show({
+      spinner: QSpinnerHearts,
+      spinnerSize: 140,
+      message: '<h6>資料載入中，請耐心等候...</h6>',
+      html: true
+    })
     const { data } = await apiAuth.get('/users/cart')
     carts.value.push(...data.result)
+    $q.loading.hide()
   } catch (error) {
+    $q.loading.hide()
     $q.notify({
       type: 'negative',
       message: error.response.data.message

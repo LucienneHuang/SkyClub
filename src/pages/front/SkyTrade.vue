@@ -36,7 +36,7 @@
   </div>
 </template>
 <script setup>
-import { useQuasar } from 'quasar'
+import { useQuasar, QSpinnerHearts } from 'quasar'
 import { ref, watch, onMounted } from 'vue'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -56,6 +56,12 @@ const currentPage = ref(1)
 const search = ref('')
 const getProducts = async () => {
   try {
+    $q.loading.show({
+      spinner: QSpinnerHearts,
+      spinnerSize: 140,
+      message: '<h6>資料載入中，請耐心等候...</h6>',
+      html: true
+    })
     const { data } = await api.get('/products', {
       params: {
         currentPage: currentPage.value,
@@ -66,7 +72,9 @@ const getProducts = async () => {
     })
     products.value.splice(0, products.value.length, ...data.result.data)
     pagesOfPagination.value = data.result.count
+    $q.loading.hide()
   } catch (error) {
+    $q.loading.hide()
     $q.notify({
       type: 'negative',
       message: '發生錯誤'
