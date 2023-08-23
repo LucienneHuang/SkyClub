@@ -211,7 +211,7 @@ onUpdated(() => {
     width: 30% !important;
   }
   #products{
-    margin: 0rem 2.5rem 0rem 2.5rem;
+    margin: 0rem 4rem 0rem 4rem;
   }
   .parallax{
     .parallaxText{
