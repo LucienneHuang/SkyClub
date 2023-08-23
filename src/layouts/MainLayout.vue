@@ -302,7 +302,7 @@ const navbaranimation = () => {
       height: 8rem;
       display: block;
       position: relative;
-      top: -.5rem;
+      top: -.75rem;
       background: url('../assets/deco_white.png') repeat-x center/cover;
       opacity: 0.5;
     }
