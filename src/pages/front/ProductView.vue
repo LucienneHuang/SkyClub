@@ -54,7 +54,12 @@
           </q-card-section>
           <!-- 文字 -->
           <q-card-section class="right q-my-sm q-px-lg">
-            <q-chip color="primary" text-color="white" icon="mdi-tag">{{product.category}}</q-chip>            <!-- 商品名稱 -->
+            <q-chip v-if="product.category==='季票'" color="pink-3" text-color="white" icon="mdi-tag">{{product.category}}</q-chip>
+            <q-chip v-else-if="product.category==='周邊'" color="deep-purple-4
+" text-color="white" icon="mdi-tag">{{product.category}}</q-chip>
+            <q-chip v-else-if="product.category==='禮包'" color="cyan-4" text-color="white" icon="mdi-tag">{{product.category}}</q-chip>
+            <q-chip v-else color="#000000" text-color="white" icon="mdi-tag">{{product.category}}</q-chip>
+        <!-- 商品名稱 -->
             <div class="name text-weight-bold q-mb-md">{{ product.name }}</div>
             <!-- 賣家 -->
             <div class="q-mb-sm">賣家:&nbsp;{{ product.sellername }}（{{ product.seller }}）</div>
@@ -187,12 +192,12 @@ const addCart = async () => {
 <style scoped>
 :deep(.left){
   width: 100%;
-  height: 50%;
+  height: 30%;
   padding: 0;
 }
 :deep(.right){
   width: 100%;
-  height: 50%;
+  height: 70%;
 }
 :deep(.all){
   height: 100%;
@@ -218,7 +223,7 @@ const addCart = async () => {
   }
   .q-card{
       width:22rem;
-      height: 68rem;
+      height: 52rem;
       .scroll{
         height: 8rem;
         max-width: 20rem;
@@ -245,13 +250,22 @@ const addCart = async () => {
   }
 }
 @media(min-width:768px){
+  :deep(.left){
+  width: 100%;
+  height: 40%;
+  padding: 0;
+  }
+  :deep(.right){
+    width: 100%;
+    height: 60%;
+  }
   #container{
     #section{
       margin: 4rem 0 8rem 0;
     }
     .q-card{
       width: 40rem;
-      height: 70rem;
+      height: 60rem;
       .scroll{
         height: 10rem;
         max-width: 40rem;
