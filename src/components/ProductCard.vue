@@ -16,7 +16,8 @@
         <q-chip v-else-if="category==='周邊'" color="deep-purple-4
 " text-color="white" icon="mdi-tag">{{category}}</q-chip>
         <q-chip v-else-if="category==='禮包'" color="cyan-4" text-color="white" icon="mdi-tag">{{category}}</q-chip>
-        <q-chip v-else color="#000000" text-color="white" icon="mdi-tag">{{category}}</q-chip>
+        <q-chip v-else color="blue-grey-8
+" text-color="white" icon="mdi-tag">{{category}}</q-chip>
         <div class="text-center">
           <q-btn label="Add To Cart" @click="addCart" color="accent" rounded class=" text-center"/>
         </div>

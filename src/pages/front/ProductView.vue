@@ -58,7 +58,8 @@
             <q-chip v-else-if="product.category==='周邊'" color="deep-purple-4
 " text-color="white" icon="mdi-tag">{{product.category}}</q-chip>
             <q-chip v-else-if="product.category==='禮包'" color="cyan-4" text-color="white" icon="mdi-tag">{{product.category}}</q-chip>
-            <q-chip v-else color="#000000" text-color="white" icon="mdi-tag">{{product.category}}</q-chip>
+            <q-chip v-else color="blue-grey-8
+" text-color="white" icon="mdi-tag">{{product.category}}</q-chip>
         <!-- 商品名稱 -->
             <div class="name text-weight-bold q-mb-md">{{ product.name }}</div>
             <!-- 賣家 -->
