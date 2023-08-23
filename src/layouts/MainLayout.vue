@@ -357,7 +357,7 @@ const navbaranimation = () => {
   }
     .deco{
       height: 18rem;
-      top: -16.5rem;
+      top: -18rem;
       &::before{
         height: 18rem;
       }
