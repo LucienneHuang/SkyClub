@@ -73,42 +73,24 @@ const latestNews = ref([])
 const products = ref([]);
 (async () => {
   try {
-    const { data } = await api.get('/articles/getRealms')
-    realms.value.push(...data.result)
-  } catch (error) {
-    $q.notify({
-      type: 'negative',
-      message: '發生錯誤'
-    })
-  }
-})();
-(async () => {
-  try {
-    const { data } = await api.get('/articles/getNews', {
+    const realm = await api.get('/articles/getRealms')
+    realms.value.push(...realm.data.result)
+    const news = await api.get('/articles/getNews', {
       params: {
         currentPage: 1,
         articlesPerPage: 1,
         sortOrder: 'desc'
       }
     })
-    latestNews.value.push(...data.result.data)
-  } catch (error) {
-    $q.notify({
-      type: 'negative',
-      message: '發生錯誤'
-    })
-  }
-})();
-(async () => {
-  try {
-    const { data } = await api.get('/products', {
+    latestNews.value.push(...news.data.result.data)
+    const product = await api.get('/products', {
       params: {
         currentPage: 1,
         productsPerPage: 6,
         sortOrder: 'desc'
       }
     })
-    products.value.push(...data.result.data)
+    products.value.push(...product.data.result.data)
   } catch (error) {
     $q.notify({
       type: 'negative',
@@ -116,6 +98,7 @@ const products = ref([]);
     })
   }
 })()
+
 gsap.registerPlugin(ScrollTrigger)
 onUpdated(() => {
   gsap.to('.parallaxImg', {
@@ -126,7 +109,7 @@ onUpdated(() => {
       scrub: true,
       markers: true
     },
-    backgroundPosition: '50% 0%',
+    backgroundPosition: '50% -50%',
     ease: 'none'
   })
 })
