@@ -73,6 +73,7 @@ const latestNews = ref([])
 const products = ref([]);
 (async () => {
   try {
+    $q.loading.show()
     const realm = await api.get('/articles/getRealms')
     realms.value.push(...realm.data.result)
     const news = await api.get('/articles/getNews', {
@@ -91,7 +92,9 @@ const products = ref([]);
       }
     })
     products.value.push(...product.data.result.data)
+    $q.loading.hide()
   } catch (error) {
+    console.log(error)
     $q.notify({
       type: 'negative',
       message: '發生錯誤'
