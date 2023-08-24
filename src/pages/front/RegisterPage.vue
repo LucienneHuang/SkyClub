@@ -154,11 +154,6 @@ const register = async () => {
 }
 const navList = [
   {
-    to: '/',
-    label: '首頁',
-    icon: 'home'
-  },
-  {
     to: '/latestnews',
     label: '最新消息',
     icon: 'announcement'
