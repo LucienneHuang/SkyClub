@@ -1,1 +1,0 @@
-import{v as u,aF as n,aG as a}from"./index.73ae0b1c.js";function v(o,r,i){let e;function t(){e!==void 0&&(n.remove(e),e=void 0)}return u(()=>{o.value===!0&&t()}),{removeFromHistory:t,addToHistory(){e={condition:()=>i.value===!0,handler:r},n.add(e)}}}function d(){let o;return{preventBodyScroll(r){r!==o&&(o!==void 0||r===!0)&&(o=r,a(r))}}}export{d as a,v as u};
