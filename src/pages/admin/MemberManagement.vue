@@ -215,18 +215,18 @@ const tableEditItem = (item) => {
     editUserForm.block = true
   }
 }
-const editProducts = async (userId, fd2) => {
+const editProducts = async (userId) => {
   const products = await apiAuth.get('/products/user/' + userId)
-  console.log(products.data.result)
+  const fd = new FormData()
+  await fd.append('sell', false)
   for (const id of products.data.result) {
-    await apiAuth.patch('/products/' + id._id, fd2)
+    await apiAuth.patch('/products/block/' + id._id, fd)
   }
 }
 // 編輯完成送出
 const editUser = async () => {
   try {
     const fd = new FormData()
-    const fd2 = new FormData()
     fd.append('nickname', editUserForm.nickname)
     fd.append('email', editUserForm.email)
     if (editUserForm.avatar.length === 0 || typeof editUserForm.avatar === 'string') {
@@ -236,8 +236,7 @@ const editUser = async () => {
     }
     if (editUserForm.block === true) {
       fd.append('block', 1)
-      fd2.append('sell', false)
-      editProducts(editUserForm.userId, fd2)
+      editProducts(editUserForm.userId)
     } else {
       fd.append('block', 0)
     }
