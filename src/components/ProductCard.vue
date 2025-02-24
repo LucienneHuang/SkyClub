@@ -44,8 +44,8 @@ const props = defineProps({
   },
   // 賣家
   user: {
-    type: String,
-    default: () => ''
+    type: Object,
+    default: () => {}
   },
   // 商品名稱
   name: {
