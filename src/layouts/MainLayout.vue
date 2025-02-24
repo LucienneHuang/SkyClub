@@ -67,56 +67,23 @@
       <div class="deco"></div>
     </q-header>
     <!-- 手機螢幕才會有的側邊欄 -->
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered behavior="mobile" :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-white'">
-      <!-- 之後藥補的側邊攔內容 -->
-      <q-scroll-area class="fit">
-          <q-list>
-            <template v-for="(navItem, index) in navList" :key="navItem.to">
-              <q-item  clickable :active="navItem.label === 'Outbox'" v-ripple :to="navItem.to">
-                <q-item-section avatar>
-                  <q-icon :name="navItem.icon" />
-                </q-item-section>
-                <q-item-section>
-                  {{ navItem.label }}
-                </q-item-section>
-              </q-item>
-              <q-separator :key="'sep' + index"  v-if="navItem.separator" />
-            </template>
-          </q-list>
-        </q-scroll-area>
-    </q-drawer>
-    <q-page-container>
-      <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
-            <q-btn flat>
-              <q-avatar square  size="70px">
-                <img src="https://stickershop.line-scdn.net/stickershop/v1/sticker/297078240/android/sticker.png?v=1">
-              </q-avatar>
-            </q-btn>
-      </q-page-scroller>
-      <router-view />
-    </q-page-container>
-    <q-footer class="bg-accent text-white">
-      <q-toolbar>
-        <q-toolbar-title>
-          <div class="footer text-center">MANYU HUANG｜2023 泰山網頁設計青年專班專題</div>
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-footer>
+    <ScrollToTop/>
+    <MainFooter/>
   </q-layout>
 </template>
 <script setup>
 import { computed, ref } from 'vue'
-import { storeToRefs } from 'pinia'
-import sweetalert from 'sweetalert2'
 import { useQuasar } from 'quasar'
+import { storeToRefs } from 'pinia'
+import { useUserStore } from 'src/stores/user'
+import sweetalert from 'sweetalert2'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
-import { useUserStore } from 'src/stores/user'
 import { apiAuth } from 'src/boot/axios'
-
+import ScrollToTop from 'src/components/ScrollToTop.vue'
+import MainFooter from 'src/components/MainFooter.vue'
 const $q = useQuasar()
-
 const user = useUserStore()
 // btw 下面這樣寫會失去響應性
 // const { isLogin } = user
@@ -124,38 +91,10 @@ const user = useUserStore()
 const { isLogin, isAdmin } = storeToRefs(user)
 
 const leftDrawerOpen = ref(false)
-
 function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
-// navbar 的字 & 路徑 & icon
-const navList = [
-  {
-    to: '/',
-    label: '首頁',
-    icon: 'home'
-  },
-  {
-    to: '/latestnews',
-    label: '最新消息',
-    icon: 'announcement'
-  },
-  {
-    to: '/realms',
-    label: '區域介紹',
-    icon: 'location_on'
-  },
-  {
-    to: '/trade',
-    label: '交易專區',
-    icon: 'local_mall'
-  },
-  {
-    to: '/contact',
-    label: '聯絡我們',
-    icon: 'call'
-  }
-]
+
 // 最右邊頭貼 menu 的文字 & 路徑 & 是否顯示
 const menuList = computed(() => {
   return [
@@ -185,7 +124,6 @@ const menuList = computed(() => {
     }
   ]
 })
-// 輪播圖
 // 輪播圖 - module
 const modules = [Autoplay]
 // 輪播圖 - 圖片
@@ -211,7 +149,6 @@ const carouselImages = [
     text: '讓 AURORA 帶領你踏上音樂之旅。'
   }
 ]
-
 // 登出設定
 const logout = async () => {
   try {
@@ -241,7 +178,6 @@ const logout = async () => {
 
 const navbaranimation = () => {
   const navbar = document.querySelector('#navbar')
-  // console.log(window.scrollY)
   if (window.scrollY > 50) {
     navbar.classList.add('solid-nav')
   } else {
